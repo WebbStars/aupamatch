@@ -1,9 +1,9 @@
 import React from 'react'
 import {
   Box,
-  Chip,
   FormControl,
   FormLabel,
+  Grid,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -22,18 +22,6 @@ interface Props {
   ) => void
 }
 
-const languages = [
-  'Mandarin',
-  'Spanish',
-  'English',
-  'Hindi',
-  'Arabic',
-  'Portuguese',
-  'Bengali',
-  'Russian',
-  'Japanese',
-]
-
 const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
   const { t } = useTranslation()
 
@@ -44,58 +32,16 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
       justifyContent="center"
       gap={3}
       textAlign="justify"
-      mt={6}
+      mt={2}
     >
       <FormControl>
-        <FormLabel>{t('organisms.job_form.form3.idiom_label')}</FormLabel>
-        <Select
-          multiple
-          name="idioms"
-          value={form.idioms}
-          onChange={handleOnChange}
-          renderValue={(selected: string[]) => (
-            <Box
-              sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 0.5,
-              }}
-            >
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-        >
-          {languages.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form3.schooling_label')}</FormLabel>
+        <FormLabel>Nacionalidade</FormLabel>
         <TextField
-          name="escolaridade"
-          value={form.escolaridade}
-          placeholder={t('organisms.job_form.form3.schooling_placeholder')!}
+          name="nacionalidade"
+          value={form.nacionalidade}
+          placeholder="Nacionalidade"
           onChange={handleOnChange}
         />
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form3.swimming_label')}</FormLabel>
-        <Select
-          name="natacao"
-          value={form.natacao}
-          placeholder={t('organisms.job_form.form3.swimming_placeholder')!}
-          onChange={handleOnChange}
-        >
-          <MenuItem value="true">{t('global.yes')}</MenuItem>
-          <MenuItem value="false">{t('global.no')}</MenuItem>
-        </Select>
       </FormControl>
 
       <FormControl fullWidth>
@@ -112,15 +58,62 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
       </FormControl>
 
       <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form3.description_label')}</FormLabel>
+        <FormLabel>
+          {t('organisms.job_form.form3.family_resume_label')}
+        </FormLabel>
         <TextField
           multiline
-          name="descricao"
-          value={form.descricao}
-          placeholder={t('organisms.job_form.form3.description_placeholder')!}
+          name="resumo"
+          value={form.resumo}
+          placeholder={t('organisms.job_form.form3.family_resume_placeholder')!}
           onChange={handleOnChange}
         />
       </FormControl>
+
+      <FormControl fullWidth>
+        <FormLabel>Experiências profissionais</FormLabel>
+        <TextField
+          multiline
+          name="experiencia"
+          value={form.experiencia}
+          placeholder="experiencias profissionais"
+          onChange={handleOnChange}
+        />
+      </FormControl>
+
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <FormLabel>
+              {t('organisms.job_form.form3.swimming_label')}
+            </FormLabel>
+            <Select
+              name="natacao"
+              value={form.natacao}
+              placeholder={t('organisms.job_form.form3.swimming_placeholder')!}
+              onChange={handleOnChange}
+            >
+              <MenuItem value="true">{t('global.yes')}</MenuItem>
+              <MenuItem value="false">{t('global.no')}</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <FormLabel>Carro exclusivo</FormLabel>
+            <Select
+              name="carro_exclusivo"
+              value={form.carro_exclusivo}
+              placeholder="Considera necessário ter um carro exclusivo?"
+              onChange={handleOnChange}
+            >
+              <MenuItem value="true">{t('global.yes')}</MenuItem>
+              <MenuItem value="false">{t('global.no')}</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
     </Box>
   )
 }

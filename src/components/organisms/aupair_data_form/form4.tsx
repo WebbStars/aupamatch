@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import {
   Box,
   FormControl,
@@ -12,11 +12,14 @@ import {
   TextField,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 
 type Object = { [key: string]: any }
 
 interface Props {
   form: Object
+  setForm: Dispatch<SetStateAction<any>>
   handleOnChange: (
     event:
       | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -24,8 +27,22 @@ interface Props {
   ) => void
 }
 
-const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
+const NewJobForm4: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
   const { t } = useTranslation()
+
+  const handleChangeData = (name: string, newValue: any) => {
+    const newDate = new Date(newValue)
+
+    const formatedDate = newDate.toLocaleDateString('en', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+
+    console.log(formatedDate)
+
+    setForm((oldForm: Object) => ({ ...oldForm, [name]: formatedDate }))
+  }
 
   return (
     <Box
@@ -34,29 +51,34 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
       justifyContent="center"
       gap={3}
       textAlign="justify"
-      mt={6}
+      mt={2}
     >
-      <FormControl>
-        <FormLabel>{t('organisms.job_form.form4.age_range_label')}</FormLabel>
+      <FormControl fullWidth required>
+        <FormLabel>
+          {t('organisms.job_form.temporary_form.children_label')}
+        </FormLabel>
         <TextField
-          name="faixa_etaria"
-          value={form.faixa_etaria}
-          placeholder={t('organisms.job_form.form4.age_range_placeholder')!}
+          required
+          type="number"
+          name="quantidade_criancas"
+          value={form.quantidade_criancas}
+          placeholder={
+            t('organisms.job_form.temporary_form.children_placeholder')!
+          }
           onChange={handleOnChange}
         />
       </FormControl>
 
       <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form4.gender_label')}</FormLabel>
+        <FormLabel>Possui Habilitação</FormLabel>
         <Select
-          name="genero"
-          value={form.genero}
-          placeholder={t('organisms.job_form.form4.gender_placeholder')!}
+          name="habilitacao"
+          value={form.habilitacao}
+          placeholder="Possui Habilitação"
           onChange={handleOnChange}
         >
-          <MenuItem value="Masculino">{t('global.male')}</MenuItem>
-          <MenuItem value="Feminino">{t('global.female')}</MenuItem>
-          <MenuItem value="sla">sla</MenuItem>
+          <MenuItem value="true">{t('global.yes')}</MenuItem>
+          <MenuItem value="false">{t('global.no')}</MenuItem>
         </Select>
       </FormControl>
 
@@ -71,30 +93,24 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
         />
       </FormControl>
 
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form4.pid_label')}</FormLabel>
-        <Select
-          name="habilitacao_pid"
-          value={form.habilitacao_pid}
-          placeholder={t('organisms.job_form.form4.pid_placeholder')!}
-          onChange={handleOnChange}
-        >
-          <MenuItem value="true">Sim</MenuItem>
-          <MenuItem value="false">Não</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form4.passaport_label')}</FormLabel>
-        <Select
-          name="passaporte"
-          value={form.passaporte}
-          placeholder={t('organisms.job_form.form4.passaport_placeholder')!}
-          onChange={handleOnChange}
-        >
-          <MenuItem value="true">{t('global.yes')}</MenuItem>
-          <MenuItem value="false">{t('global.no')}</MenuItem>
-        </Select>
+      <FormControl>
+        <FormLabel>Data de Disponibilidade</FormLabel>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DesktopDatePicker
+            views={['year', 'month', 'day']}
+            inputFormat="DD/MM/YYYY"
+            value={form.data_disponibilidade}
+            onChange={(event) =>
+              handleChangeData('data_disponibilidade', event)
+            }
+            renderInput={(params: any) => (
+              <TextField
+                {...params}
+                placeholder="Qual é a sua data de disponibilidade para iniciar?"
+              />
+            )}
+          />
+        </LocalizationProvider>
       </FormControl>
 
       <FormControl fullWidth>

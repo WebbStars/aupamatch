@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './aupair_data_form/form_paper'
-import { postJob } from '../../services'
+import { editAupair, postJob } from '../../services'
 import { MessageModal } from '../molecules'
 
 const steps = [
@@ -73,12 +73,11 @@ const EditAupairStepper: React.FC = () => {
       carro_exclusivo: JSON.parse(form.carro_exclusivo),
       habilitacao: JSON.parse(form.habilitacao),
       natacao: JSON.parse(form.natacao),
-      passaporte: JSON.parse(form.passaporte),
       receber_newsletter: JSON.parse(form.receber_newsletter),
     }
 
     setIsLoading(true)
-    const { hasError } = await postJob(newForm as any, accessToken!)
+    const { hasError } = await editAupair(newForm as any, accessToken!)
 
     if (hasError) {
       dispatch(setErrorMessage('Erro ao cadastrar informações'))
@@ -92,6 +91,7 @@ const EditAupairStepper: React.FC = () => {
     setModalStatus('success')
     setOpenModal(true)
     setIsLoading(false)
+    localStorage.setItem('firstLogin', 'true')
   }
 
   const handleNextForm = (
