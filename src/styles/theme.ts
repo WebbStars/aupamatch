@@ -71,7 +71,7 @@ const theme = responsiveFontSizes(
         contrastText: 'rgba(0, 0, 0, 0.87)',
       },
       grey: {
-        50: '#fafafa',
+        50: '#E0E7FF',
         100: '#f6f6f6',
         200: '#eeeeee',
         300: '#e0e0e0',

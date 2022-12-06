@@ -11,11 +11,11 @@ const useStyles = makeStyles({
     display: 'flex',
     backgroundColor: '#f5f5f4',
     [theme.breakpoints.up('md')]: {
-      height: '380px'
+      height: '380px',
     },
     [theme.breakpoints.down('md')]: {
-      height: 'auto'
-    }
+      height: 'auto',
+    },
   },
   illustration: {
     backgroundImage: `url(${aboutImage})`,
@@ -26,22 +26,22 @@ const useStyles = makeStyles({
     [theme.breakpoints.up('md')]: {},
     [theme.breakpoints.down('md')]: {
       height: '380px',
-      backgroundPosition: 'center top'
+      backgroundPosition: 'center top',
     },
     [theme.breakpoints.down('sm')]: {
       height: '240px',
 
-      backgroundRepeat: 'no-repeat'
-    }
+      backgroundRepeat: 'no-repeat',
+    },
   },
   secondaryButton: {
-    backgroundColor: `${theme.palette.primary.light} !important`,
+    backgroundColor: `${theme.palette.grey[50]} !important`,
     color: `${theme.palette.primary.main} !important`,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   titleSpan: {
-    color: theme.palette.primary.main
-  }
+    color: theme.palette.primary.main,
+  },
 })
 
 const About: React.FC = () => {
