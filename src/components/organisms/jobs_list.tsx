@@ -8,7 +8,7 @@ import React, {
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { fetchAppliesService } from '../../services'
+import { fetchAppliesService, FetchAupairJobState } from '../../services'
 import { useDispatch } from '../../store'
 import { fetchAupairJobs } from '../../store/jobs'
 import { theme } from '../../styles'
@@ -52,6 +52,7 @@ interface Props {
 }
 
 interface JobsList {
+  job: FetchAupairJobState
   uuid: string
   title: string
   description: string
@@ -125,6 +126,7 @@ const JobsList: React.FC<Props> = ({
       const tagsResume = jobsTag.slice(0, 3)
 
       return {
+        job: job,
         uuid: job['_id'],
         title: job.titulo_vaga,
         description: job.descricao,

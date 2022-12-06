@@ -10,12 +10,16 @@ import {
   IconButton,
   Modal,
   Paper,
-  Typography
+  Typography,
 } from '@mui/material'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
-import { applyJob, fetchAppliesService } from '../../services'
+import {
+  applyJob,
+  fetchAppliesService,
+  FetchAupairJobState,
+} from '../../services'
 import { useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
@@ -28,8 +32,8 @@ const useStyles = makeStyles({
     justifyContent: 'center',
 
     [theme.breakpoints.down('lg')]: {
-      padding: '0px'
-    }
+      padding: '0px',
+    },
   },
   jobPaper: {
     padding: 28,
@@ -39,12 +43,12 @@ const useStyles = makeStyles({
     zIndex: 999,
 
     [theme.breakpoints.down('lg')]: {
-      margin: '0 240px'
+      margin: '0 240px',
     },
 
     [theme.breakpoints.down('sm')]: {
-      width: '400px'
-    }
+      width: '400px',
+    },
   },
   urlButton: {
     borderRadius: '3px',
@@ -56,15 +60,16 @@ const useStyles = makeStyles({
     alignItems: 'center',
     cursor: 'pointer',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
   },
   url: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
-  }
+    textOverflow: 'ellipsis',
+  },
 })
 
 interface Job {
+  job: FetchAupairJobState
   uuid: string
   title: string
   description: string
@@ -83,7 +88,7 @@ const JobDetailsModal: React.FC<Props> = ({
   open,
   setOpen,
   selectedJob,
-  isFetching
+  isFetching,
   // wasApplied = false
 }) => {
   const classes = useStyles()
@@ -101,7 +106,7 @@ const JobDetailsModal: React.FC<Props> = ({
     const payload = {
       jobId: selectedJob.uuid,
       aupairId: user?._id!,
-      accessToken: accessToken!
+      accessToken: accessToken!,
     }
 
     const { hasError } = await applyJob(payload)
@@ -128,7 +133,7 @@ const JobDetailsModal: React.FC<Props> = ({
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 500
+        timeout: 500,
       }}
       className={classes.modal}
     >
@@ -209,7 +214,7 @@ const JobDetailsModal: React.FC<Props> = ({
                         sx={{
                           borderRadius: '3px',
                           backgroundColor: theme.palette.grey[300],
-                          border: 'none'
+                          border: 'none',
                         }}
                       />
                     )
@@ -272,6 +277,20 @@ const JobDetailsModal: React.FC<Props> = ({
                 </Typography>
               </Box>
             </Box> */}
+
+            <Box width="100%">
+              <CustomButton width="100%" height="48px" onClick={submitJob}>
+                {isLoading ? (
+                  <CircularProgress size="18px" color="secondary" />
+                ) : (
+                  `Você tem ${selectedJob?.job?.score} de compatibilidade com essa vaga! Se candidate!`
+                )}
+
+                {/* {wasApplied
+              ? 'Cancelar candidatura'
+              : t('organisms.job_details.apply')} */}
+              </CustomButton>
+            </Box>
 
             <Box
               display="grid"

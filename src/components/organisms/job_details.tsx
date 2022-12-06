@@ -12,7 +12,11 @@ import {
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
-import { applyJob, fetchAppliesService } from '../../services'
+import {
+  applyJob,
+  fetchAppliesService,
+  FetchAupairJobState,
+} from '../../services'
 import { useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
@@ -44,6 +48,7 @@ const useStyles = makeStyles({
 })
 
 interface Job {
+  job: FetchAupairJobState
   uuid: string
   title: string
   description: string
@@ -232,6 +237,20 @@ const JobDetails: React.FC<Props> = ({
             </Typography>
           </Box>
         </Box> */}
+
+        <Box width="100%">
+          <CustomButton width="100%" height="48px" onClick={submitJob}>
+            {isLoading ? (
+              <CircularProgress size="18px" color="secondary" />
+            ) : (
+              `Você tem ${selectedJob?.job?.score} de compatibilidade com essa vaga! Se candidate!`
+            )}
+
+            {/* {wasApplied
+              ? 'Cancelar candidatura'
+              : t('organisms.job_details.apply')} */}
+          </CustomButton>
+        </Box>
 
         <Box display="grid" gridTemplateColumns="8fr 2fr" width="100%" mt={4}>
           <Box className={classes.urlButton}>

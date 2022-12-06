@@ -1,7 +1,7 @@
 import { responsiveFontSizes, createTheme } from '@mui/material'
 
 const custom = {
-  primaryMinus: '#E0E7FF',
+  primaryMinus: '#6366a1',
   primary: '#6366F1',
   primaryPlus: '#4D5BC9',
   primaryContrast: '#fff',
@@ -9,13 +9,13 @@ const custom = {
   secondary: '#FF5BD1',
   secondaryPlus: '#FF32C6',
   secondaryContrast: '#fff',
-  brown: '#411e20'
+  brown: '#411e20',
 }
 
 const theme = responsiveFontSizes(
   createTheme({
     typography: {
-      fontFamily: ['Montserrat'].join(',')
+      fontFamily: ['Montserrat'].join(','),
     },
     breakpoints: {
       keys: ['xs', 'sm', 'md', 'lg', 'xl'],
@@ -24,51 +24,51 @@ const theme = responsiveFontSizes(
         sm: 600,
         md: 960,
         lg: 1280,
-        xl: 1920
-      }
+        xl: 1920,
+      },
     },
     palette: {
       // custom,
       common: {
         black: '#000',
-        white: '#fff'
+        white: '#fff',
       },
       // type: 'light',
       primary: {
         light: custom.primaryMinus,
         main: custom.primary,
         dark: custom.primaryPlus,
-        contrastText: custom.primaryContrast
+        contrastText: custom.primaryContrast,
       },
       secondary: {
         light: custom.secondaryMinus,
         main: custom.secondary,
         dark: custom.secondaryPlus,
-        contrastText: custom.secondaryContrast
+        contrastText: custom.secondaryContrast,
       },
       error: {
         light: '#e57373',
         main: '#f44336',
         dark: '#d32f2f',
-        contrastText: '#fff'
+        contrastText: '#fff',
       },
       warning: {
         light: '#ffb74d',
         main: '#ff9800',
         dark: '#f57c00',
-        contrastText: 'rgba(0, 0, 0, 0.87)'
+        contrastText: 'rgba(0, 0, 0, 0.87)',
       },
       info: {
         light: '#64b5f6',
         main: '#2196f3',
         dark: '#1976d2',
-        contrastText: '#fff'
+        contrastText: '#fff',
       },
       success: {
         light: '#81c784',
         main: '#00B37E',
         dark: '#388e3c',
-        contrastText: 'rgba(0, 0, 0, 0.87)'
+        contrastText: 'rgba(0, 0, 0, 0.87)',
       },
       grey: {
         50: '#fafafa',
@@ -83,17 +83,17 @@ const theme = responsiveFontSizes(
         900: '#212121',
         A100: '#d5d5d5',
         A200: '#aaaaaa',
-        A700: '#616161'
+        A700: '#616161',
       },
       text: {
         primary: 'rgba(0, 0, 0, 0.87)',
         secondary: 'rgba(0, 0, 0, 0.54)',
-        disabled: 'rgba(0, 0, 0, 0.38)'
+        disabled: 'rgba(0, 0, 0, 0.38)',
       },
       divider: 'rgba(0, 0, 0, 0.12)',
       background: {
         paper: '#fff',
-        default: '#fafafa'
+        default: '#fafafa',
       },
       action: {
         active: 'rgba(0, 0, 0, 0.54)',
@@ -101,11 +101,11 @@ const theme = responsiveFontSizes(
         hoverOpacity: 0.04,
         selected: 'rgba(0, 0, 0, 0.08)',
         disabled: 'rgba(0, 0, 0, 0.26)',
-        disabledBackground: 'rgba(0, 0, 0, 0.12)'
-      }
+        disabledBackground: 'rgba(0, 0, 0, 0.12)',
+      },
     },
     shape: {
-      borderRadius: 4
+      borderRadius: 4,
     },
     zIndex: {
       mobileStepper: 1000,
@@ -114,8 +114,8 @@ const theme = responsiveFontSizes(
       drawer: 1200,
       modal: 1300,
       snackbar: 1400,
-      tooltip: 1500
-    }
+      tooltip: 1500,
+    },
   })
 )
 

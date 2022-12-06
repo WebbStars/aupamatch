@@ -1,0 +1,62 @@
+{
+    "workbench.colorTheme": "Dracula Soft",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "git.autofetch": true,
+    "explorer.confirmDelete": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.suggestSelection": "recentlyUsed",
+      "editor.formatOnSave": true
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.suggestSelection": "recentlyUsed",
+      "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+      "editor.formatOnSave": true
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.suggestSelection": "recentlyUsed",
+      "editor.formatOnSave": true
+    },
+    "javascript.suggest.autoImports": true,
+    "editor.tabSize": 2,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.compactFolders": false,
+    "editor.formatOnSave": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "git.enableSmartCommit": true,
+    "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)",
+    "files.associations": {
+      "*.html.erb": "html"
+    },
+    "workbench.editor.untitled.hint": "hidden",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "git.confirmSync": false,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "extensions.ignoreRecommendations": true,
+    "editor.accessibilitySupport": "off",
+    "editor.unicodeHighlight.allowedCharacters": {
+      "​": true
+    }
+  }

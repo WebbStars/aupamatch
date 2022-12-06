@@ -2,9 +2,11 @@ import { makeStyles } from '@material-ui/styles'
 import { Box, Chip, Paper, Theme, Typography } from '@mui/material'
 import React from 'react'
 import { companyDefaultImage } from '../../images'
+import { FetchAupairJobState } from '../../services'
 import { theme } from '../../styles'
 
 interface Job {
+  job: FetchAupairJobState
   uuid: string
   title: string
   description: string
