@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
-import FormPaper from './job_form/form_paper'
+import FormPaper from './aupair_data_form/form_paper'
 import { postJob } from '../../services'
 import { MessageModal } from '../molecules'
 
@@ -44,7 +44,7 @@ const INITIAL_VALUES = {
   resumo: '',
   idioma: '',
   passaporte: '',
-  quantidade_criancas: null,
+  quantidade_criancas: 0,
   carro_exclusivo: 'false',
   receber_newsletter: 'false',
   data_disponibilidade: '',

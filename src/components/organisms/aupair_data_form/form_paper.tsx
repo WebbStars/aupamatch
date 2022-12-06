@@ -9,10 +9,10 @@ import {
 import React, { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
 import { theme } from '../../../styles'
-import NewJobForm1 from './form1'
-import NewJobForm2 from './form2'
-import NewJobForm3 from './form3'
-import NewJobForm4 from './form4'
+import EditAupairForm1 from './form1'
+import EditAupairForm2 from './form2'
+import EditAupairForm3 from './form3'
+import EditAupairForm4 from './form4'
 
 const useStyles = makeStyles({
   paper: {
@@ -85,15 +85,15 @@ const AupairFormPaper: React.FC<Props> = ({
 
     switch (activeStep) {
       case 0:
-        return <NewJobForm1 {...props} />
+        return <EditAupairForm1 {...props} />
       case 1:
-        return <NewJobForm2 {...props} />
+        return <EditAupairForm2 {...props} />
       case 2:
-        return <NewJobForm3 {...props} />
+        return <EditAupairForm3 {...props} />
       case 3:
-        return <NewJobForm4 {...props} />
+        return <EditAupairForm4 {...props} />
       default:
-        return <NewJobForm1 {...props} />
+        return <EditAupairForm1 {...props} />
     }
   }
 
@@ -101,11 +101,9 @@ const AupairFormPaper: React.FC<Props> = ({
     <Paper className={classes.paper} component="form" onSubmit={handleSubmit}>
       {activeStep === 0 && (
         <Box>
-          <Typography variant="h3">
-            {t('organisms.job_form.form_paper.title')}
-          </Typography>
+          <Typography variant="h3">Se candidate a vagas</Typography>
           <Typography variant="body2" color="#6C757D">
-            {t('organisms.job_form.form_paper.subtitle')}
+            Preencha o formulário com as informações necessárias.
           </Typography>
         </Box>
       )}

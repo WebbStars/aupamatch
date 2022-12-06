@@ -11,6 +11,7 @@ import {
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useTranslation } from 'react-i18next'
+import PhoneInput from 'react-phone-input-2'
 
 type Object = { [key: string]: any }
 
@@ -24,7 +25,11 @@ interface Props {
   ) => void
 }
 
-const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
+const EditAupairForm1: React.FC<Props> = ({
+  form,
+  handleOnChange,
+  setForm,
+}) => {
   const { t } = useTranslation()
 
   const handleChangeData = (name: string, newValue: any) => {
@@ -41,73 +46,72 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
     setForm((oldForm: Object) => ({ ...oldForm, [name]: formatedDate }))
   }
 
+  const handleChangePhone = (newValue: string) => {
+    setForm((oldForm: Object) => ({ ...oldForm, telefone: newValue }))
+  }
+
   return (
     <Box display="flex" flexDirection="column" gap={3} textAlign="justify">
       <FormControl>
-        <FormLabel>{t('organisms.job_form.form1.title_label')}</FormLabel>
+        <FormLabel>Nome completo</FormLabel>
         <TextField
-          name="titulo_vaga"
+          name="nome_completo"
           variant="outlined"
-          placeholder={t('organisms.job_form.form1.title_placeholder')!}
+          placeholder="Nome completo"
           value={form.titulo_vaga}
           onChange={handleOnChange}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>{t('organisms.job_form.form1.date_label')}</FormLabel>
+        <FormLabel>Data de Nascimento</FormLabel>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
             views={['year', 'month', 'day']}
             inputFormat="DD/MM/YYYY"
-            value={form.data_disponibilidade}
-            onChange={(event) =>
-              handleChangeData('data_disponibilidade', event)
-            }
+            value={form.data_de_nascimento}
+            onChange={(event) => handleChangeData('data_de_nascimento', event)}
             renderInput={(params: any) => <TextField {...params} />}
           />
         </LocalizationProvider>
       </FormControl>
 
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form1.sponsor_label')}</FormLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={form.vaga_patrocinada}
-          name="vaga_patrocinada"
-          placeholder={t('organisms.job_form.form1.sponsor_placeholder')!}
-          onChange={handleOnChange}
-        >
-          <MenuItem value="true">{t('global.yes')}</MenuItem>
-          <MenuItem value="false">{t('global.no')}</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form1.country_label')}</FormLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={form.pais}
-          name="pais"
-          onChange={handleOnChange}
-        >
-          <MenuItem value={'br'}>BR</MenuItem>
-          <MenuItem value={'usa'}>USA</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form1.state_label')}</FormLabel>
+      <FormControl>
+        <FormLabel>Identificação</FormLabel>
         <TextField
-          name="estado_provincia"
+          name="identificacao"
           variant="outlined"
-          placeholder={t('organisms.job_form.form1.state_placeholder')!}
-          value={form.estado_provincia}
+          placeholder="Identificação"
+          value={form.titulo_vaga}
           onChange={handleOnChange}
+        />
+      </FormControl>
+
+      <FormControl fullWidth>
+        <FormLabel>Gênero</FormLabel>
+        <Select
+          name="genero"
+          value={form.genero}
+          placeholder={t('organisms.job_form.form4.gender_placeholder')!}
+          onChange={handleOnChange}
+        >
+          <MenuItem value="Masculino">{t('global.male')}</MenuItem>
+          <MenuItem value="Feminino">{t('global.female')}</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl fullWidth>
+        <FormLabel>Telefone</FormLabel>
+        <PhoneInput
+          specialLabel=""
+          country={'br'}
+          value={form.phone}
+          onChange={(e) => handleChangePhone(e)}
+          inputStyle={{
+            width: '100%',
+          }}
         />
       </FormControl>
     </Box>
   )
 }
-export default NewJobForm1
+export default EditAupairForm1

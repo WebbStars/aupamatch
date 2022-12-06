@@ -101,9 +101,11 @@ const FormPaper: React.FC<Props> = ({
     <Paper className={classes.paper} component="form" onSubmit={handleSubmit}>
       {activeStep === 0 && (
         <Box>
-          <Typography variant="h3">Se candidate a vagas</Typography>
+          <Typography variant="h3">
+            {t('organisms.job_form.form_paper.title')}
+          </Typography>
           <Typography variant="body2" color="#6C757D">
-            Preencha o formulário com as informações necessárias.
+            {t('organisms.job_form.form_paper.subtitle')}
           </Typography>
         </Box>
       )}

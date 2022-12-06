@@ -3,12 +3,11 @@ import {
   Box,
   FormControl,
   FormLabel,
-  MenuItem,
-  Select,
+  Grid,
   SelectChangeEvent,
   TextField,
 } from '@mui/material'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
 type Object = { [key: string]: any }
 
@@ -22,7 +21,7 @@ interface Props {
 }
 
 const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
   return (
     <Box
@@ -31,63 +30,89 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
       justifyContent="center"
       gap={3}
       textAlign="justify"
-      mt={6}
+      mt={2}
     >
       <FormControl>
-        <FormLabel>{t('organisms.job_form.form2.nationality_label')}</FormLabel>
+        <FormLabel>Passaporte</FormLabel>
         <TextField
-          name="nacionalidade"
+          name="passaporte"
           variant="outlined"
-          value={form.nacionalidade}
-          placeholder={t('organisms.job_form.form2.nationality_placeholder')!}
+          value={form.passaporte}
+          placeholder="Passaporte"
           onChange={handleOnChange}
         />
       </FormControl>
 
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <FormLabel>Estado</FormLabel>
+            <TextField
+              name="estado"
+              value={form.estado}
+              placeholder="Estado"
+              onChange={handleOnChange}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <FormLabel>Cidade</FormLabel>
+            <TextField
+              name="cidade"
+              value={form.cidade}
+              placeholder="Cidade"
+              onChange={handleOnChange}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
+
       <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form2.children_number')}</FormLabel>
+        <FormLabel>CEP</FormLabel>
         <TextField
-          type="number"
-          name="quantidade_criancas"
-          value={form.quantidade_criancas}
-          placeholder={
-            t('organisms.job_form.form2.children_number_placeholder')!
-          }
+          name="cep"
+          value={form.cep}
+          placeholder="CEP"
           onChange={handleOnChange}
         />
       </FormControl>
 
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <FormLabel>Logradouro</FormLabel>
+            <TextField
+              name="logradouro"
+              value={form.logradouro}
+              placeholder="Logradouro"
+              onChange={handleOnChange}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <FormLabel>Numero</FormLabel>
+            <TextField
+              name="numero"
+              value={form.numero}
+              placeholder="Número"
+              onChange={handleOnChange}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
+
       <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form2.owner_job_id')}</FormLabel>
+        <FormLabel>Complemento</FormLabel>
         <TextField
-          name="numero_identificacao_nacional"
-          value={form.numero_identificacao_nacional}
-          placeholder={t('organisms.job_form.form2.owner_job_id_placeholder')!}
+          name="complemento"
+          value={form.complemento}
+          placeholder="Complemento"
           onChange={handleOnChange}
         />
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form2.religion')}</FormLabel>
-        <TextField
-          name="religiao"
-          value={form.religiao}
-          placeholder={t('organisms.job_form.form2.religion_placeholder')!}
-          onChange={handleOnChange}
-        />
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form2.exclusive_car')}</FormLabel>
-        <Select
-          value={form.carro_exclusivo}
-          name="carro_exclusivo"
-          placeholder={t('organisms.job_form.form2.exclusive_car_placeholder')!}
-          onChange={handleOnChange}
-        >
-          <MenuItem value="true">{t('global.yes')}</MenuItem>
-          <MenuItem value="false">{t('global.no')}</MenuItem>
-        </Select>
       </FormControl>
     </Box>
   )
