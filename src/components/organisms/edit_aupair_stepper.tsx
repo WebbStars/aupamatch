@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './aupair_data_form/form_paper'
-import { editAupair, postJob } from '../../services'
+import { editAupair } from '../../services'
 import { MessageModal } from '../molecules'
 
 const steps = [
