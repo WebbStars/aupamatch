@@ -7,7 +7,7 @@ import {
   CircularProgress,
   IconButton,
   Paper,
-  Typography
+  Typography,
 } from '@mui/material'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     padding: 28,
     borderRadius: 10,
     height: 'min-content',
-    maxHeight: 'auto'
+    maxHeight: 'auto',
   },
   urlButton: {
     borderRadius: '3px',
@@ -35,12 +35,12 @@ const useStyles = makeStyles({
     alignItems: 'center',
     cursor: 'pointer',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
   },
   url: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
-  }
+    textOverflow: 'ellipsis',
+  },
 })
 
 interface Job {
@@ -58,7 +58,7 @@ interface Props {
 
 const JobDetails: React.FC<Props> = ({
   selectedJob,
-  isFetching
+  isFetching,
   // wasApplied = false
 }) => {
   const classes = useStyles()
@@ -68,8 +68,6 @@ const JobDetails: React.FC<Props> = ({
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  console.log(selectedJob)
-
   const accessToken = sessionStorage.getItem('accessToken')
 
   const submitJob = async () => {
@@ -78,7 +76,7 @@ const JobDetails: React.FC<Props> = ({
     const payload = {
       jobId: selectedJob.uuid,
       aupairId: user?._id!,
-      accessToken: accessToken!
+      accessToken: accessToken!,
     }
 
     const { hasError } = await applyJob(payload)
@@ -171,7 +169,7 @@ const JobDetails: React.FC<Props> = ({
                     sx={{
                       borderRadius: '3px',
                       backgroundColor: theme.palette.grey[300],
-                      border: 'none'
+                      border: 'none',
                     }}
                   />
                 )
