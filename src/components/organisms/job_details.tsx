@@ -239,17 +239,25 @@ const JobDetails: React.FC<Props> = ({
         </Box> */}
 
         <Box width="100%">
-          <CustomButton width="100%" height="48px" onClick={submitJob}>
-            {isLoading ? (
-              <CircularProgress size="18px" color="secondary" />
-            ) : (
-              `Você tem ${selectedJob?.job?.score} de compatibilidade com essa vaga! Se candidate!`
-            )}
+          <SkeletonHOC
+            animation="wave"
+            variant="text"
+            height={40}
+            width="100%"
+            isLoading={isFetching}
+          >
+            <CustomButton width="100%" height="48px" onClick={submitJob}>
+              {isLoading ? (
+                <CircularProgress size="18px" color="secondary" />
+              ) : (
+                `Você tem ${selectedJob?.job?.score} de compatibilidade com essa vaga! Se candidate!`
+              )}
 
-            {/* {wasApplied
+              {/* {wasApplied
               ? 'Cancelar candidatura'
               : t('organisms.job_details.apply')} */}
-          </CustomButton>
+            </CustomButton>
+          </SkeletonHOC>
         </Box>
 
         <Box display="grid" gridTemplateColumns="8fr 2fr" width="100%" mt={4}>
