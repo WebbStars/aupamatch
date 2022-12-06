@@ -11,8 +11,12 @@ import {
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useTranslation } from 'react-i18next'
-import PhoneInput from 'react-phone-input-2'
+import RPI from 'react-phone-input-2'
 import { FetchUserState } from '../../../services'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const PhoneInput = RPI.default || RPI
 
 type Object = { [key: string]: any }
 
@@ -107,7 +111,7 @@ const EditAupairForm1: React.FC<Props> = ({
           specialLabel=""
           country={'br'}
           value={form.phone}
-          onChange={(e) => handleChangePhone(e)}
+          onChange={(e: string) => handleChangePhone(e)}
           inputStyle={{
             width: '100%',
           }}

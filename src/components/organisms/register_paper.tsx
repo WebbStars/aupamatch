@@ -17,7 +17,7 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
-  FormControlLabel
+  FormControlLabel,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { CustomButton } from '../atoms'
@@ -50,26 +50,26 @@ const useStyles = makeStyles({
     [theme.breakpoints.up('md')]: {
       width: '600px',
       padding: '34px 72px',
-      height: '800px'
+      height: '800px',
     },
     [theme.breakpoints.down('md')]: {
       width: '600px',
       padding: '34px 72px',
-      height: 'auto'
+      height: 'auto',
     },
     [theme.breakpoints.down('sm')]: {
       width: '320px',
       padding: '34px 32px',
-      height: 'auto'
-    }
+      height: 'auto',
+    },
   },
   link: {
     transition: '0.4s',
     '&:hover': {
-      color: `${theme.palette.primary.main}`
+      color: `${theme.palette.primary.main}`,
     },
     fontSize: '12px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   socialButton: {
     color: `${theme.palette.common.black} !important`,
@@ -80,15 +80,15 @@ const useStyles = makeStyles({
     border: '1px solid #ebebeb !important',
 
     [theme.breakpoints.up('sm')]: {
-      width: '140px'
+      width: '140px',
     },
     [theme.breakpoints.down('sm')]: {
-      width: '80px'
-    }
+      width: '80px',
+    },
   },
   titleSpan: {
-    color: theme.palette.primary.main
-  }
+    color: theme.palette.primary.main,
+  },
 })
 
 interface State {
@@ -122,12 +122,12 @@ const RegisterPaper: React.FC = () => {
     confirmPassword: '',
     type: '',
     showPassword: false,
-    showConfirmPassword: false
+    showConfirmPassword: false,
   })
   const [emailCheck, setEmailCheck] = useState({
     error: false,
     exists: false,
-    message: ''
+    message: '',
   })
 
   const handleChange =
@@ -138,13 +138,13 @@ const RegisterPaper: React.FC = () => {
   const handleClickShowPassword = () => {
     setForm({
       ...form,
-      showPassword: !form.showPassword
+      showPassword: !form.showPassword,
     })
   }
   const handleClickShowConfirmPassword = () => {
     setForm({
       ...form,
-      showConfirmPassword: !form.showConfirmPassword
+      showConfirmPassword: !form.showConfirmPassword,
     })
   }
 
@@ -171,7 +171,7 @@ const RegisterPaper: React.FC = () => {
       setEmailCheck({
         error: !email.isValid(form.email),
         message: 'Email inválido',
-        exists: false
+        exists: false,
       })
     }
 
@@ -216,7 +216,7 @@ const RegisterPaper: React.FC = () => {
       email,
       name,
       password,
-      roles: type
+      roles: type,
     }
 
     const { response, statusCode } = await createUser(payload)
@@ -241,20 +241,20 @@ const RegisterPaper: React.FC = () => {
   const rules = [
     {
       isValid: password.validateLength(form.password),
-      text: t('organisms.register_paper.characters_number')
+      text: t('organisms.register_paper.characters_number'),
     },
     {
       isValid: !!password.validateCaseLetters(form.password),
-      text: t('organisms.register_paper.letters_case')
+      text: t('organisms.register_paper.letters_case'),
     },
     {
       isValid: !!password.validateNumber(form.password),
-      text: t('organisms.register_paper.least_one_number')
+      text: t('organisms.register_paper.least_one_number'),
     },
     {
       isValid: !!password.validateSpecialChar(form.password),
-      text: t('organisms.register_paper.least_special')
-    }
+      text: t('organisms.register_paper.least_special'),
+    },
   ]
 
   return (
@@ -326,7 +326,7 @@ const RegisterPaper: React.FC = () => {
                         message={emailCheck.message}
                         transComponents={[
                           <span key="trans-error-message-span" />,
-                          <strong key="trans-error-message-strong" />
+                          <strong key="trans-error-message-strong" />,
                         ]}
                       />
                     )}
@@ -345,7 +345,7 @@ const RegisterPaper: React.FC = () => {
                 onChange={() => handleChange('phone')}
                 inputStyle={{
                   width: '100%',
-                  backgroundColor: '#cccc'
+                  backgroundColor: '#cccc',
                 }}
               />
             </Grid>
@@ -415,7 +415,7 @@ const RegisterPaper: React.FC = () => {
                     <Visibility />
                   )}
                 </IconButton>
-              )
+              ),
             }}
             label={t('organisms.register_paper.confirm_password')}
           />
