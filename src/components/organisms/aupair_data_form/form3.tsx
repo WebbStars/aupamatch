@@ -40,8 +40,6 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       day: '2-digit',
     })
 
-    console.log(formatedDate)
-
     setForm((oldForm: Object) => ({ ...oldForm, [name]: formatedDate }))
   }
 

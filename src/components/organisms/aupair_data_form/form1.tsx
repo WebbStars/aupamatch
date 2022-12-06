@@ -44,8 +44,6 @@ const EditAupairForm1: React.FC<Props> = ({
       day: '2-digit',
     })
 
-    console.log(formatedDate)
-
     setForm((oldForm: Object) => ({ ...oldForm, [name]: formatedDate }))
   }
 
