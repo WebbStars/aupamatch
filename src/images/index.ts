@@ -1,0 +1,5 @@
+export { default as brazilFlag } from './brazil_flag.svg'
+export { default as euaFlag } from './eua_flag.svg'
+export { default as companyDefaultImage } from './company_image.svg'
+export { default as aboutImage } from './about_image.png'
+export { default as searchAupairImage } from './search_aupair_image.svg'

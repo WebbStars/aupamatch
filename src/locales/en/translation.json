@@ -1,0 +1,209 @@
+{
+  "atoms": {
+    "copy_button": {
+      "title": "Copy",
+      "copied": "Copied"
+    }
+  },
+  "molecules": {
+    "global_snackbar": {
+      "no_response": "We were unable to complete your request. Check your connection and try again."
+    },
+    "jobs_header": {
+      "best": "Best",
+      "families": "Families",
+      "agencies": "Agencies"
+    },
+    "message_modal": {
+      "continue": "Continue"
+    },
+    "profile_card_data": {
+      "availability": "Availability",
+      "network": "Network",
+      "skills": "Skills and Experiences",
+      "profile_button": "View profile"
+    },
+    "profile_card": {
+      "profile_button": "View profile"
+    }
+  },
+  "organisms": {
+    "jobs_list": {
+      "car_license": "Car License",
+      "swim": "Know to swim",
+      "car": "Exclusive car"
+    },
+    "change_language": {
+      "portuguese": "Portuguese",
+      "brazil_flag": "Brazilian glag",
+      "english": "English",
+      "en_flag": "Usa flag"
+    },
+    "job_form": {
+      "form_paper": {
+        "title": "Post a job",
+        "subtitle": "Fill in the form with the job information.",
+        "back_button": "Back"
+      },
+      "form1": {
+        "title_label": "Job Title",
+        "title_placeholder": "Enter a name for the job",
+        "date_label": "Job availability date",
+        "sponsor_label": "Sponsored Job",
+        "sponsor_placeholder": "Is the job Sponsored?",
+        "country_label": "Country",
+        "state_label": "State/Province",
+        "state_placeholder": "What state/province does the family reside in?"
+      },
+      "form2": {
+        "nationality_label": "Nationality",
+        "nationality_placeholder": "What is the nationality of the family?",
+        "children_number": "Children to take care of",
+        "children_number_placeholder": "How many children live in the house?",
+        "owner_job_id": "Identification of the person responsible for posting the job",
+        "owner_job_id_placeholder": "Identification number.",
+        "religion": "Religion",
+        "religion_placeholder": "What family religion?",
+        "exclusive_car": "Exclusive car",
+        "exclusive_car_placeholder": "Does the family own a car for the au pair?"
+      },
+      "form3": {
+        "idiom_label": "Languages ​​required by the family",
+        "schooling_label": "Level of education required by the family",
+        "schooling_placeholder": "What is the level of education required for the au pair?",
+        "swimming_label": "Know how to swim",
+        "swimming_placeholder": "Is it necessary to know how to swim?",
+        "family_resume_label": "Family profile summary",
+        "family_resume_placeholder": "Briefly describe the family.",
+        "description_label": "Job description",
+        "description_placeholder": "Tell us about the job in general."
+      },
+      "form4": {
+        "age_range_label": "Desired age group",
+        "age_range_placeholder": "What is the desired age range for the au pair?",
+        "gender_label": "Requested genre",
+        "gender_placeholder": "What is the desired gender for the au pair?",
+        "xp_label": "Required professional experiences",
+        "xp_placeholder": "Tell us what professional experiences you want the au pair to have.",
+        "pid_label": "PID Required.",
+        "pid_placeholder": "PID is required",
+        "passaport_label": "Passport Required",
+        "passaport_placeholder": "Is it necessary for the au pair to have a passport?",
+        "newsletter_label": "Does the family want to receive a newsletter?"
+      },
+      "temporary_form": {
+        "schooling_label": "Level of education required by the family",
+        "schooling_placeholder": "What is the level of education required for the au pair?",
+        "xp_label": "Required professional experiences",
+        "xp_placeholder": "Tell us what professional experiences you want the au pair to have.",
+        "children_label": "Number of children",
+        "children_placeholder": "N° of children",
+        "swimming_label": "Know how to swim",
+        "swimming_placeholder": "Is it necessary to know how to swim?",
+        "description_label": "Job description",
+        "description_placeholder": "Tell us about the job in general.",
+        "cnh_label": "Car license required?"
+      }
+    },
+    "login_paper": {
+      "sign_in": "Sign In to",
+      "email": "Email",
+      "password": "Password",
+      "btn_sign_in": "Sign in",
+      "login_problem": "Problems logging",
+      "or_sign_in_with": "Or sign in with",
+      "no_account_yet": "No account yet?",
+      "register": "Register",
+      "invalid_credentials": "Incorrect email and/or password"
+    },
+    "register_paper": {
+      "title": "Sign Up no",
+      "username": "Username",
+      "username_placeholder": "Enter your username",
+      "name": "Name",
+      "name_placeholder": "Enter your name",
+      "email": "E-mail",
+      "email_placeholder": "Enter your email",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "confirm_password": "Confirm your password",
+      "confirm_password_placeholder": "Confirm your password",
+      "type": "Type",
+      "sign_up": "Sign up",
+      "rules_title": "The password must contains:",
+      "characters_number": "8 or more characters",
+      "letters_case": "Uppercase and lowercase letters",
+      "least_one_number": "At least one number",
+      "least_special": "At least one special character",
+      "success_created": "User succesfully created",
+      "email_already_used": "Email already in use for another account",
+      "invalid_fields": "Verify the password or email"
+    },
+    "account_popover": {
+      "name": "Name",
+      "change_password": "Change the password",
+      "logout": "Logout"
+    },
+    "footer": {
+      "about": "About",
+      "help": "Help",
+      "family": "Family",
+      "accessibility": "Accessibility",
+      "contact": "Contact",
+      "partners": "Partners",
+      "copy": "All rights reserved."
+    },
+    "header": {
+      "sign_in": "Sign in",
+      "sign_up": "Sign up"
+    },
+    "home_about": {
+      "title": "Find your",
+      "subtitle": "Have you ever imagined a platform to find your ideal match. Tell us the profile you are looking for so we can help you.",
+      "family": "Family"
+    },
+    "logged_header": {
+      "my_profile": "My Profile",
+      "family": {
+        "post_job": "Post Job",
+        "my_jobs": "My Jobs"
+      },
+      "aupair": {
+        "search_job": "Search Job",
+        "my_applies": "My Applications"
+      }
+    },
+    "job_details": {
+      "overview": "Overview",
+      "job_details": "Job Details",
+      "profile_detail": "Profile Details",
+      "locale": "Locale",
+      "timeline": "Timeline",
+      "apply": "Apply for",
+      "modal_title": "Thank you for applying for this job!",
+      "modal_subtitle": "Keep an eye on your email box.",
+      "my_profile": "My Profile"
+    },
+    "post_job_stepper": {
+      "next": "Next",
+      "finish": "Send",
+      "modal_title": "Job registered successfully!",
+      "modal_subtitle": "Check all your registered jobs or register a new one",
+      "my_jobs": "My jobs"
+    }
+  },
+  "pages": {
+    "search_aupair": {
+      "title": "Want to find an Au Pair?",
+      "subtitle": "You can post a vacancy for au pairs to apply and find one with the characteristics you are looking for. It's a super simple process.",
+      "post_now": "Publish now"
+    }
+  },
+  "global": {
+    "yes": "Yes",
+    "no": "No",
+    "male": "Male",
+    "female": "Female",
+    "disabled": "Disable option for now"
+  }
+}

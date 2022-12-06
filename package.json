@@ -1,0 +1,51 @@
+{
+  "name": "aupamatch2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@date-io/dayjs": "^2.16.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@material-ui/styles": "^4.11.5",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.12",
+    "@mui/styled-engine-sc": "^5.10.6",
+    "@mui/x-date-pickers": "^5.0.8",
+    "@reduxjs/toolkit": "^1.9.0",
+    "axios": "^1.1.3",
+    "clsx": "^1.2.1",
+    "dayjs": "^1.11.6",
+    "eslint-webpack-plugin": "^3.2.0",
+    "firebase": "^9.13.0",
+    "i18next": "^22.0.4",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-loader": "^4.13.0",
+    "react-i18next": "^12.0.0",
+    "react-input-mask": "^2.0.4",
+    "react-phone-input-2": "^2.15.1",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@types/redux-logger": "^3.0.9",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react": "^2.2.0",
+    "eslint": "^8.26.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.0"
+  }
+}
