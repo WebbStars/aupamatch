@@ -99,7 +99,7 @@ const EditAupairStepper: React.FC = () => {
   ) => {
     e.preventDefault()
 
-    if (index !== 3) setActiveStep(activeStep + 1)
+    if (index !== 2) setActiveStep(activeStep + 1)
     else handleSubmitForm(e)
   }
 
