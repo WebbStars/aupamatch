@@ -5,7 +5,7 @@ import React, {
   SetStateAction,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { fetchAppliesService, FetchAupairJobState } from '../../services'
@@ -25,21 +25,21 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
-      width: '300px'
+      width: '300px',
     },
 
     '&::-webkit-scrollbar': {
       backgroundColor: '#202324',
       color: '#aba499',
-      width: '12px'
+      width: '12px',
     },
     '&::-webkit-scrollbar-corner': {
-      backgroundColor: '#181a1b'
+      backgroundColor: '#181a1b',
     },
     '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#454a4d'
-    }
-  }
+      backgroundColor: '#454a4d',
+    },
+  },
 })
 
 interface Props {
@@ -66,7 +66,7 @@ const JobsList: React.FC<Props> = ({
   isFetching,
   setIsFetching,
   setOpenJobModal,
-  setApplies
+  setApplies,
 }) => {
   const { t } = useTranslation()
 
@@ -121,7 +121,7 @@ const JobsList: React.FC<Props> = ({
         job.religiao,
         cnh,
         natacao,
-        car
+        car,
       ]
       const tagsResume = jobsTag.slice(0, 3)
 
@@ -131,11 +131,16 @@ const JobsList: React.FC<Props> = ({
         title: job.titulo_vaga,
         description: job.descricao,
         tags: jobsTag,
-        tagsResume
+        tagsResume,
       }
     })
 
-    setJobsList(formmatedList)
+    const sortedList = formmatedList.sort(
+      (a, b) =>
+        Number(b.job.score.slice(0, -1)) - Number(a.job.score.slice(0, -1))
+    )
+
+    setJobsList(sortedList)
     setIsFetching(false)
   }
 
