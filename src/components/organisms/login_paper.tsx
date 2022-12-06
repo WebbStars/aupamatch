@@ -13,7 +13,7 @@ import {
   IconButton,
   Link,
   CircularProgress,
-  Tooltip
+  Tooltip,
 } from '@mui/material'
 import { Visibility, VisibilityOff, Google } from '@mui/icons-material'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
@@ -38,26 +38,26 @@ const useStyles = makeStyles({
     [theme.breakpoints.up('md')]: {
       width: '600px',
       padding: '0 72px',
-      height: '80%'
+      height: '80%',
     },
     [theme.breakpoints.down('md')]: {
       width: '600px',
       padding: '0 72px',
-      height: '80%'
+      height: '80%',
     },
     [theme.breakpoints.down('sm')]: {
       width: '320px',
       padding: '0 32px',
-      height: 'auto'
-    }
+      height: 'auto',
+    },
   },
   link: {
     transition: '0.4s',
     '&:hover': {
-      color: `${theme.palette.primary.main}`
+      color: `${theme.palette.primary.main}`,
     },
     fontSize: '12px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   socialButton: {
     color: `${theme.palette.common.black} !important`,
@@ -68,15 +68,15 @@ const useStyles = makeStyles({
     border: '1px solid #ebebeb !important',
 
     [theme.breakpoints.up('sm')]: {
-      width: '260px'
+      width: '260px',
     },
     [theme.breakpoints.down('sm')]: {
-      width: '80px'
-    }
+      width: '80px',
+    },
   },
   titleSpan: {
-    color: theme.palette.primary.main
-  }
+    color: theme.palette.primary.main,
+  },
 })
 
 interface State {
@@ -93,7 +93,7 @@ const LoginPaper: React.FC = () => {
   const [form, setForm] = useState<State>({
     email: '',
     password: '',
-    showPassword: false
+    showPassword: false,
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -105,7 +105,7 @@ const LoginPaper: React.FC = () => {
   const handleClickShowPassword = () => {
     setForm({
       ...form,
-      showPassword: !form.showPassword
+      showPassword: !form.showPassword,
     })
   }
 
@@ -122,7 +122,7 @@ const LoginPaper: React.FC = () => {
     const { email, password } = form
     const payload = {
       email,
-      password
+      password,
     }
 
     const { response, hasError, error } = await internalLogin(payload)
@@ -133,9 +133,13 @@ const LoginPaper: React.FC = () => {
       sessionStorage.setItem('accessToken', accessToken)
       sessionStorage.setItem('role', roles[0])
       sessionStorage.setItem('userID', id)
+      const notFirstLoginStorage = localStorage.getItem('notFirstLogin')
+      const notFirstLogin =
+        notFirstLoginStorage && JSON.parse(notFirstLoginStorage)
 
       if (roles[0] === 'ROLE_FAMILY') navigate('/search_aupair')
-      else navigate('/jobs')
+      else if (notFirstLogin) navigate('/jobs')
+      else navigate('/edit_aupair')
     }
 
     if (hasError && error === 'invalid_credentials') {

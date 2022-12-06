@@ -7,7 +7,7 @@ import {
   Fade,
   Modal,
   Paper,
-  Typography
+  Typography,
 } from '@mui/material'
 import React, { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   modal: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   paper: {
     width: '100%',
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     position: 'relative',
     borderRadius: '8px',
     outline: 'none',
-    color: theme.palette.secondary.dark
+    color: theme.palette.secondary.dark,
   },
   buttons: {
     width: '100%',
@@ -44,12 +44,13 @@ const useStyles = makeStyles({
 
     '& button': {
       borderRadius: '8px',
-      padding: '8px 32px'
-    }
-  }
+      padding: '8px 32px',
+    },
+  },
 })
 
 interface Props {
+  handleSubmit?: () => void
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
   error?: boolean
@@ -61,13 +62,14 @@ interface Props {
 }
 
 const MessageModal: React.FC<Props> = ({
+  handleSubmit,
   open,
   setOpen,
   error,
   success,
   title,
   subtitle,
-  secondaryButton
+  secondaryButton,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -90,7 +92,7 @@ const MessageModal: React.FC<Props> = ({
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 500
+        timeout: 500,
       }}
       className={classes.modal}
     >
@@ -118,7 +120,7 @@ const MessageModal: React.FC<Props> = ({
             <Button
               color="primary"
               variant="contained"
-              onClick={() => setOpen(false)}
+              onClick={() => handleSubmit || setOpen(false)}
             >
               {t('molecules.message_modal.continue')}
             </Button>

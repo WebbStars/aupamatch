@@ -12,6 +12,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useTranslation } from 'react-i18next'
 import PhoneInput from 'react-phone-input-2'
+import { FetchUserState } from '../../../services'
 
 type Object = { [key: string]: any }
 
@@ -23,12 +24,14 @@ interface Props {
       | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
       | SelectChangeEvent<any>
   ) => void
+  user: FetchUserState | null
 }
 
 const EditAupairForm1: React.FC<Props> = ({
   form,
   handleOnChange,
   setForm,
+  user,
 }) => {
   const { t } = useTranslation()
 
@@ -55,6 +58,7 @@ const EditAupairForm1: React.FC<Props> = ({
       <FormControl>
         <FormLabel>Nome completo</FormLabel>
         <TextField
+          defaultValue={user?.name}
           name="nome_completo"
           variant="outlined"
           placeholder="Nome completo"

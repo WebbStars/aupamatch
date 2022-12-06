@@ -8,6 +8,7 @@ import {
 } from '@mui/material'
 import React, { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from '../../../store'
 import { theme } from '../../../styles'
 import EditAupairForm1 from './form1'
 import EditAupairForm2 from './form2'
@@ -65,6 +66,7 @@ const AupairFormPaper: React.FC<Props> = ({
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
+  const user = useSelector((state) => state.user)
 
   const handleOnChange = (
     event:
@@ -81,6 +83,7 @@ const AupairFormPaper: React.FC<Props> = ({
       form: form,
       handleOnChange: handleOnChange,
       setForm: setForm,
+      user,
     }
 
     switch (activeStep) {

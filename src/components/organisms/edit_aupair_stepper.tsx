@@ -14,6 +14,7 @@ import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './aupair_data_form/form_paper'
 import { editAupair } from '../../services'
 import { MessageModal } from '../molecules'
+import { useNavigate } from 'react-router-dom'
 
 const steps = [
   {
@@ -56,6 +57,8 @@ const INITIAL_VALUES = {
 
 const EditAupairStepper: React.FC = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+
   const [isLoading, setIsLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
@@ -91,7 +94,7 @@ const EditAupairStepper: React.FC = () => {
     setModalStatus('success')
     setOpenModal(true)
     setIsLoading(false)
-    localStorage.setItem('firstLogin', 'true')
+    localStorage.setItem('notFirstLogin', 'true')
   }
 
   const handleNextForm = (
@@ -130,12 +133,13 @@ const EditAupairStepper: React.FC = () => {
       />
 
       <MessageModal
+        handleSubmit={() => navigate('/jobs')}
         success={modalStatus === 'success'}
         error={modalStatus === 'error'}
         open={openModal}
         setOpen={setOpenModal}
-        title={t('organisms.post_job_stepper.modal_title')}
-        subtitle={t('organisms.post_job_stepper.modal_subtitle')!}
+        title="Obrigada por concluir seu cadastro!"
+        subtitle="Fique de olho na caixa do seu e-mail."
         secondaryButton={
           <Tooltip title={t('global.disabled')}>
             <Button
