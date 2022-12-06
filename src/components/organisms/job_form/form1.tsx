@@ -6,7 +6,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField
+  TextField,
 } from '@mui/material'
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -30,11 +30,13 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
   const handleChangeData = (name: string, newValue: any) => {
     const newDate = new Date(newValue)
 
-    const formatedDate = newDate.toLocaleDateString('pt', {
+    const formatedDate = newDate.toLocaleDateString('en', {
       year: 'numeric',
       month: '2-digit',
-      day: '2-digit'
+      day: '2-digit',
     })
+
+    console.log(formatedDate)
 
     setForm((oldForm: Object) => ({ ...oldForm, [name]: formatedDate }))
   }
@@ -42,13 +44,10 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
   return (
     <Box display="flex" flexDirection="column" gap={3} textAlign="justify">
       <FormControl>
-        <FormLabel required>
-          {t('organisms.job_form.form1.title_label')}
-        </FormLabel>
+        <FormLabel>{t('organisms.job_form.form1.title_label')}</FormLabel>
         <TextField
           name="titulo_vaga"
           variant="outlined"
-          required
           placeholder={t('organisms.job_form.form1.title_placeholder')!}
           value={form.titulo_vaga}
           onChange={handleOnChange}
@@ -58,6 +57,7 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
         <FormLabel>{t('organisms.job_form.form1.date_label')}</FormLabel>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
+            views={['year', 'month', 'day']}
             inputFormat="DD/MM/YYYY"
             value={form.data_disponibilidade}
             onChange={(event) =>
@@ -103,7 +103,6 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
           name="estado_provincia"
           variant="outlined"
           placeholder={t('organisms.job_form.form1.state_placeholder')!}
-          required
           value={form.estado_provincia}
           onChange={handleOnChange}
         />

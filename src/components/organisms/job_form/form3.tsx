@@ -7,7 +7,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField
+  TextField,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
@@ -31,7 +31,7 @@ const languages = [
   'Portuguese',
   'Bengali',
   'Russian',
-  'Japanese'
+  'Japanese',
 ]
 
 const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
@@ -58,7 +58,7 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
               sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: 0.5
+                gap: 0.5,
               }}
             >
               {selected.map((value) => (
@@ -115,8 +115,8 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
         <FormLabel>{t('organisms.job_form.form3.description_label')}</FormLabel>
         <TextField
           multiline
-          name="descricao_vaga"
-          value={form.descricao_vaga}
+          name="descricao"
+          value={form.descricao}
           placeholder={t('organisms.job_form.form3.description_placeholder')!}
           onChange={handleOnChange}
         />

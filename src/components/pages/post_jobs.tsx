@@ -3,16 +3,15 @@ import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch } from '../../store'
 import { fetchUser } from '../../store/user'
-// import { PostJobStepper } from '../organisms/'
-import TemporaryForm from '../organisms/job_form/temporary_form'
+import { PostJobStepper } from '../organisms/'
 import LoggedTemplate from '../templates/logged'
 
 const useStyles = makeStyles({
   main: {
     display: 'grid',
     justifyItems: 'center',
-    width: '100%'
-  }
+    width: '100%',
+  },
 })
 
 const PostJobs: React.FC = () => {
@@ -33,8 +32,7 @@ const PostJobs: React.FC = () => {
   return (
     <LoggedTemplate family>
       <Box className={classes.main} padding={{ lg: '36px 40px' }}>
-        {/* <PostJobStepper /> */}
-        <TemporaryForm />
+        <PostJobStepper />
       </Box>
     </LoggedTemplate>
   )

@@ -4,7 +4,7 @@ import {
   Button,
   Paper,
   SelectChangeEvent,
-  Typography
+  Typography,
 } from '@mui/material'
 import React, { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,13 +18,13 @@ const useStyles = makeStyles({
   paper: {
     [theme.breakpoints.up('lg')]: {
       width: '900px',
-      minHeight: '720px'
+      minHeight: '720px',
     },
     [theme.breakpoints.down('lg')]: {
-      width: '600px'
+      width: '600px',
     },
     [theme.breakpoints.down('sm')]: {
-      width: '350px'
+      width: '350px',
     },
     height: 'auto',
     display: 'flex',
@@ -33,22 +33,22 @@ const useStyles = makeStyles({
     gap: 8,
     textAlign: 'center',
     padding: 40,
-    mt: 20
+    mt: 20,
   },
   buttons: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    gap: 24
-  }
+    gap: 24,
+  },
 })
 
 type Object = { [key: string]: any }
 
 interface Props {
   submitLabel: string
-  handleSubmit: () => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   handlePrevious: () => void
   activeStep: number
   form: Object
@@ -61,7 +61,7 @@ const FormPaper: React.FC<Props> = ({
   handlePrevious,
   activeStep,
   form,
-  setForm
+  setForm,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -80,7 +80,7 @@ const FormPaper: React.FC<Props> = ({
     const props = {
       form: form,
       handleOnChange: handleOnChange,
-      setForm: setForm
+      setForm: setForm,
     }
 
     switch (activeStep) {
@@ -119,7 +119,7 @@ const FormPaper: React.FC<Props> = ({
           </Button>
         )}
 
-        <Button color="primary" variant="contained" onClick={handleSubmit}>
+        <Button color="primary" variant="contained" type="submit">
           {submitLabel}
         </Button>
       </Box>

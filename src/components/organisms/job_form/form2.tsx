@@ -6,7 +6,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField
+  TextField,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
@@ -34,13 +34,10 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
       mt={6}
     >
       <FormControl>
-        <FormLabel required>
-          {t('organisms.job_form.form2.nationality_label')}
-        </FormLabel>
+        <FormLabel>{t('organisms.job_form.form2.nationality_label')}</FormLabel>
         <TextField
           name="nacionalidade"
           variant="outlined"
-          required
           value={form.nacionalidade}
           placeholder={t('organisms.job_form.form2.nationality_placeholder')!}
           onChange={handleOnChange}
@@ -67,7 +64,6 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
           value={form.numero_identificacao_nacional}
           placeholder={t('organisms.job_form.form2.owner_job_id_placeholder')!}
           onChange={handleOnChange}
-          required
         />
       </FormControl>
 
@@ -78,7 +74,6 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
           value={form.religiao}
           placeholder={t('organisms.job_form.form2.religion_placeholder')!}
           onChange={handleOnChange}
-          required
         />
       </FormControl>
 

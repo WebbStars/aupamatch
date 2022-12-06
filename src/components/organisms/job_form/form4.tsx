@@ -9,7 +9,7 @@ import {
   RadioGroup,
   Select,
   SelectChangeEvent,
-  TextField
+  TextField,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
@@ -74,8 +74,8 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
       <FormControl fullWidth>
         <FormLabel>{t('organisms.job_form.form4.pid_label')}</FormLabel>
         <Select
-          name="pid"
-          value={form.pid}
+          name="habilitacao_pid"
+          value={form.habilitacao_pid}
           placeholder={t('organisms.job_form.form4.pid_placeholder')!}
           onChange={handleOnChange}
         >
