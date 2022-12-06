@@ -8,9 +8,10 @@ import {
   Login,
   PostJobs,
   Register,
-  SearchAupair
+  SearchAupair,
 } from '../components/pages'
 import { ProtectedRoute, UnProtectedRoute } from '../utils'
+import EditAupair from '../components/pages/edit_aupair'
 
 const Routes: React.FC = () => {
   return (
@@ -25,6 +26,9 @@ const Routes: React.FC = () => {
 
         <Route path="/jobs" element={<ProtectedRoute />}>
           <Route path="/jobs" element={<Jobs />} />
+        </Route>
+        <Route path="/edit_aupair" element={<ProtectedRoute />}>
+          <Route path="/edit_aupair" element={<EditAupair />} />
         </Route>
         <Route path="/post_job" element={<ProtectedRoute />}>
           <Route path="/post_job" element={<PostJobs />} />
