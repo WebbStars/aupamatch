@@ -5,7 +5,7 @@ import {
   IconButton,
   Link,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material'
 import React from 'react'
 import { NotificationsNone, BookmarkBorderOutlined } from '@mui/icons-material'
@@ -17,9 +17,10 @@ import { useTranslation } from 'react-i18next'
 
 interface Props {
   family?: boolean
+  hideLinks?: boolean
 }
 
-const LoggedHeader: React.FC<Props> = ({ family = false }) => {
+const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
   const currentPage = window.location.pathname
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -36,65 +37,69 @@ const LoggedHeader: React.FC<Props> = ({ family = false }) => {
       paddingX={6}
       height={100}
       alignItems="center"
-      justifyContent="space-between"
+      justifyContent={!hideLinks ? 'space-between' : 'flex-end'}
       sx={{ boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.25)', zIndex: 1 }}
     >
-      <Tooltip title="Home">
-        <Button onClick={() => navigate('/')}>
-          <Typography
-            fontWeight="bold"
-            fontSize="20px"
-            textTransform="capitalize"
-          >
-            AupaMatch
-          </Typography>
-        </Button>
-      </Tooltip>
+      {!hideLinks && (
+        <Tooltip title="Home">
+          <Button onClick={() => navigate('/')}>
+            <Typography
+              fontWeight="bold"
+              fontSize="20px"
+              textTransform="capitalize"
+            >
+              AupaMatch
+            </Typography>
+          </Button>
+        </Tooltip>
+      )}
 
-      <Box
-        component="section"
-        gap={6}
-        sx={{ display: { xs: 'none', md: 'flex' } }}
-      >
-        <Link
-          to={family ? '/search_aupair' : '/jobs'}
-          underline="none"
-          color={activeMenuLink(family ? '/search_aupair' : '/jobs')}
-          component={RouterLink}
-          fontWeight="bold"
+      {!hideLinks && (
+        <Box
+          component="section"
+          gap={6}
+          sx={{ display: { xs: 'none', md: 'flex' } }}
         >
-          {family
-            ? t('organisms.logged_header.family.post_job')
-            : t('organisms.logged_header.aupair.search_job')}
-        </Link>
-
-        <Tooltip title={t('global.disabled')}>
           <Link
-            to="#"
+            to={family ? '/search_aupair' : '/jobs'}
             underline="none"
-            color="grey"
+            color={activeMenuLink(family ? '/search_aupair' : '/jobs')}
             component={RouterLink}
             fontWeight="bold"
-            sx={{ opacity: '0.5' }}
           >
             {family
-              ? t('organisms.logged_header.family.my_jobs')
-              : t('organisms.logged_header.aupair.my_applies')}
+              ? t('organisms.logged_header.family.post_job')
+              : t('organisms.logged_header.aupair.search_job')}
           </Link>
-        </Tooltip>
-        <Tooltip title={t('global.disabled')}>
-          <Link
-            to="#"
-            underline="none"
-            color="grey"
-            component={RouterLink}
-            fontWeight="bold"
-            sx={{ opacity: '0.5' }}
-          >
-            {t('organisms.logged_header.my_profile')}
-          </Link>
-        </Tooltip>
-      </Box>
+
+          <Tooltip title={t('global.disabled')}>
+            <Link
+              to="#"
+              underline="none"
+              color="grey"
+              component={RouterLink}
+              fontWeight="bold"
+              sx={{ opacity: '0.5' }}
+            >
+              {family
+                ? t('organisms.logged_header.family.my_jobs')
+                : t('organisms.logged_header.aupair.my_applies')}
+            </Link>
+          </Tooltip>
+          <Tooltip title={t('global.disabled')}>
+            <Link
+              to="#"
+              underline="none"
+              color="grey"
+              component={RouterLink}
+              fontWeight="bold"
+              sx={{ opacity: '0.5' }}
+            >
+              {t('organisms.logged_header.my_profile')}
+            </Link>
+          </Tooltip>
+        </Box>
+      )}
 
       <Box
         component="section"
