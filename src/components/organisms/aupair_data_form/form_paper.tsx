@@ -13,7 +13,6 @@ import { theme } from '../../../styles'
 import EditAupairForm1 from './form1'
 import EditAupairForm2 from './form2'
 import EditAupairForm3 from './form3'
-import EditAupairForm4 from './form4'
 
 const useStyles = makeStyles({
   paper: {
@@ -93,8 +92,6 @@ const AupairFormPaper: React.FC<Props> = ({
         return <EditAupairForm2 {...props} />
       case 2:
         return <EditAupairForm3 {...props} />
-      case 3:
-        return <EditAupairForm4 {...props} />
       default:
         return <EditAupairForm1 {...props} />
     }

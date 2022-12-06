@@ -82,6 +82,10 @@ const MessageModal: React.FC<Props> = ({
     setOpen(false)
   }
 
+  const handleSubmitModal = () => {
+    handleSubmit ? handleSubmit() : setOpen(false)
+  }
+
   return (
     <Modal
       data-test="consent-scopes-modal"
@@ -120,7 +124,7 @@ const MessageModal: React.FC<Props> = ({
             <Button
               color="primary"
               variant="contained"
-              onClick={() => handleSubmit || setOpen(false)}
+              onClick={handleSubmitModal}
             >
               {t('molecules.message_modal.continue')}
             </Button>

@@ -26,9 +26,6 @@ const steps = [
   {
     label: '3° step',
   },
-  {
-    label: '4° step',
-  },
 ]
 
 const INITIAL_VALUES = {
@@ -85,7 +82,6 @@ const EditAupairStepper: React.FC = () => {
     if (hasError) {
       dispatch(setErrorMessage('Erro ao cadastrar informações'))
       setModalStatus('error')
-      setOpenModal(true)
       setIsLoading(false)
       return
     }
