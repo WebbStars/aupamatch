@@ -439,6 +439,11 @@ const RegisterPaper: React.FC = () => {
               control={<Radio required />}
               label="Aupair"
             />
+            <FormControlLabel
+              value="agency"
+              control={<Radio required />}
+              label="Agency"
+            />
           </RadioGroup>
         </FormControl>
       </Box>
