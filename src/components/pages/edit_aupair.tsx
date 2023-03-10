@@ -32,7 +32,6 @@ const EditAupair: React.FC = () => {
   return (
     <LoggedTemplate hideLinks>
       <Box className={classes.main} padding={{ lg: '36px 40px' }}>
-        teste
         <EditAupairStepper />
       </Box>
     </LoggedTemplate>
