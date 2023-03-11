@@ -72,6 +72,14 @@ const JobDetails: React.FC<Props> = ({
   const [openModal, setOpenModal] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [titles, setTitles] = useState({
+    title: t('organisms.job_details.modal_title'),
+    subTitle: t('organisms.job_details.modal_subtitle')
+  })
+  const [modalButton, setModalButton] = useState({
+    redirectPath: '',
+    textButton: t('organisms.job_details.my_profile')
+  })
 
   const accessToken = sessionStorage.getItem('accessToken')
 
@@ -95,6 +103,13 @@ const JobDetails: React.FC<Props> = ({
 
     await fetchAppliesService(user?._id!, accessToken!)
     setIsLoading(false)
+  }
+
+  function openModalFavorite(){
+    setTitles({title: "Vaga favoritada com sucesso!", subTitle: "Você pode verificar suas vagas favoritas"})
+    setModalStatus('success')
+    setModalButton({textButton: 'Favoritas', redirectPath: ''})
+    setOpenModal(true)
   }
 
   return (
@@ -125,7 +140,7 @@ const JobDetails: React.FC<Props> = ({
           </Box>
         </Box>
 
-        <IconButton>
+        <IconButton onClick={()=> openModalFavorite()}>
           <BookmarkBorderOutlined fontSize="large" color="disabled" />
         </IconButton>
       </Box>
@@ -297,11 +312,11 @@ const JobDetails: React.FC<Props> = ({
         error={modalStatus === 'error'}
         open={openModal}
         setOpen={setOpenModal}
-        title={t('organisms.job_details.modal_title')}
-        subtitle={t('organisms.job_details.modal_subtitle')!}
+        title={titles.title}
+        subtitle={titles.subTitle}
         secondaryButton={
           <Button onClick={() => {}} color="inherit" variant="contained">
-            {t('organisms.job_details.my_profile')}
+            {modalButton.textButton}
           </Button>
         }
       />

@@ -25,6 +25,7 @@ import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
 import { MessageModal } from '../molecules'
 
+
 const useStyles = makeStyles({
   modal: {
     display: 'flex',
@@ -97,6 +98,14 @@ const JobDetailsModal: React.FC<Props> = ({
   const [openModal, setOpenModal] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [titles, setTitles] = useState({
+    title: t('organisms.job_details.modal_title'),
+    subTitle: t('organisms.job_details.modal_subtitle')
+  })
+  const [modalButton, setModalButton] = useState({
+    redirectPath: '',
+    text: t('organisms.job_details.my_profile')
+  })
 
   const accessToken = sessionStorage.getItem('accessToken')
 
@@ -124,6 +133,13 @@ const JobDetailsModal: React.FC<Props> = ({
 
   const handleClose = (_event: Record<string, never>) => {
     setOpen && setOpen(false)
+  }
+
+  function openModalFavorite(){
+    setTitles({title: 'Vaga favoritada com sucesso!', subTitle: 'Você pode verificar suas vagas favoritas'})
+    setModalStatus('success')
+    setModalButton({text: 'Favoritas', redirectPath: ''})
+    setOpenModal(true)
   }
 
   return (
@@ -165,7 +181,7 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             </Box>
 
-            <IconButton>
+            <IconButton onClick={() => openModalFavorite()}>
               <BookmarkBorderOutlined fontSize="large" color="disabled" />
             </IconButton>
           </Box>
@@ -341,11 +357,11 @@ const JobDetailsModal: React.FC<Props> = ({
             error={modalStatus === 'error'}
             open={openModal}
             setOpen={setOpenModal}
-            title={t('organisms.job_details.modal_title')}
-            subtitle={t('organisms.job_details.modal_subtitle')!}
+            title={titles.title}
+            subtitle={titles.subTitle}
             secondaryButton={
               <Button onClick={() => {}} color="inherit" variant="contained">
-                {t('organisms.job_details.my_profile')}
+                {modalButton.text}
               </Button>
             }
           />
