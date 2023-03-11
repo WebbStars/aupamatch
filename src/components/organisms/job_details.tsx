@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 })
 
 interface Job {
-  job: FetchAupairJobState
+  job?: FetchAupairJobState
   uuid: string
   title: string
   description: string
