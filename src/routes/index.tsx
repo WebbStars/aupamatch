@@ -24,7 +24,7 @@ const Routes: React.FC = () => {
         </Route>
         <Route path="/register" element={<Register />} />
 
-        <Route path="/jobs" element={<UnProtectedRoute />}>
+        <Route path="/jobs" element={<ProtectedRoute />}>
           <Route path="/jobs" element={<Jobs />} />
         </Route>
         <Route path="/edit_aupair" element={<ProtectedRoute />}>
