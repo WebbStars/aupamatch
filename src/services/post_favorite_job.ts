@@ -20,8 +20,6 @@ export const favoriteJob = async (
       }
     )
 
-    console.log(response)
-
     return {
       response: response.data,
       hasError: false,

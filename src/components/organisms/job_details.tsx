@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
-import { BookmarkBorderOutlined } from '@mui/icons-material'
+import { BookmarkBorderOutlined, BookmarkAdded } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -9,13 +9,15 @@ import {
   Paper,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
 import {
   applyJob,
+  favoriteJob,
   fetchAppliesService,
   FetchAupairJobState,
+  getFavoriteJobs,
 } from '../../services'
 import { useSelector } from '../../store'
 import { theme } from '../../styles'
@@ -70,18 +72,35 @@ const JobDetails: React.FC<Props> = ({
   const { t } = useTranslation()
   const user = useSelector((state) => state.user)
   const [openModal, setOpenModal] = useState(false)
+  const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [titles, setTitles] = useState({
     title: t('organisms.job_details.modal_title'),
-    subTitle: t('organisms.job_details.modal_subtitle')
+    subTitle: t('organisms.job_details.modal_subtitle'),
   })
   const [modalButton, setModalButton] = useState({
     redirectPath: '',
-    textButton: t('organisms.job_details.my_profile')
+    textButton: t('organisms.job_details.my_profile'),
   })
 
   const accessToken = sessionStorage.getItem('accessToken')
+
+  useEffect(() => {
+    const assyncEffect = async () => {
+      if (!accessToken) return
+
+      const { response: jobs } = await getFavoriteJobs(accessToken)
+      let initialIds: string[] = []
+
+      if (jobs) {
+        jobs.map((job) => initialIds.push(job._id))
+        setFavoritesJobs(initialIds)
+      }
+    }
+
+    assyncEffect()
+  }, [])
 
   const submitJob = async () => {
     setIsLoading(true)
@@ -105,10 +124,38 @@ const JobDetails: React.FC<Props> = ({
     setIsLoading(false)
   }
 
-  function openModalFavorite(){
-    setTitles({title: "Vaga favoritada com sucesso!", subTitle: "Você pode verificar suas vagas favoritas"})
+  const toFavoriteJob = async () => {
+    const { hasError } = await favoriteJob(selectedJob.uuid, accessToken!)
+    let favsIds: string[] = favoritesJobs
+
+    if (hasError) {
+      setModalStatus('error')
+      setTitles({
+        title: 'Erro ao favoritar vaga!', //desfavoritar tbm
+        subTitle: 'fodase',
+      })
+
+      setOpenModal(true)
+      return
+    }
+
+    if (favsIds.includes(selectedJob.uuid)) {
+      setTitles({
+        title: 'Vaga desfavoritada com sucesso!',
+        subTitle: 'Você pode verificar suas vagas favoritas',
+      })
+      favsIds = favoritesJobs.filter((id) => id !== selectedJob.uuid)
+    } else {
+      setTitles({
+        title: 'Vaga favoritada com sucesso!',
+        subTitle: 'Você pode verificar suas vagas favoritas',
+      })
+      favsIds.push(selectedJob.uuid)
+    }
+
+    setFavoritesJobs(favsIds)
     setModalStatus('success')
-    setModalButton({textButton: 'Favoritas', redirectPath: ''})
+    setModalButton({ textButton: 'Favoritas', redirectPath: '' })
     setOpenModal(true)
   }
 
@@ -140,8 +187,12 @@ const JobDetails: React.FC<Props> = ({
           </Box>
         </Box>
 
-        <IconButton onClick={()=> openModalFavorite()}>
-          <BookmarkBorderOutlined fontSize="large" color="disabled" />
+        <IconButton onClick={() => toFavoriteJob()}>
+          {favoritesJobs.includes(selectedJob.uuid) ? (
+            <BookmarkAdded fontSize="large" color="primary" />
+          ) : (
+            <BookmarkBorderOutlined fontSize="large" color="disabled" />
+          )}
         </IconButton>
       </Box>
 
