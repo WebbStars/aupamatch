@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
-import { BookmarkBorderOutlined, BookmarkAdded } from '@mui/icons-material'
+import { FavoriteBorder, Favorite } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -7,6 +7,7 @@ import {
   CircularProgress,
   IconButton,
   Paper,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
@@ -75,6 +76,7 @@ const JobDetails: React.FC<Props> = ({
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
   const [titles, setTitles] = useState({
     title: t('organisms.job_details.modal_title'),
     subTitle: t('organisms.job_details.modal_subtitle'),
@@ -125,6 +127,7 @@ const JobDetails: React.FC<Props> = ({
   }
 
   const toFavoriteJob = async () => {
+    setIsLoadingFavorite(true)
     const { hasError } = await favoriteJob(selectedJob.uuid, accessToken!)
     let favsIds: string[] = favoritesJobs
 
@@ -136,6 +139,8 @@ const JobDetails: React.FC<Props> = ({
       })
 
       setOpenModal(true)
+      setIsLoadingFavorite(false)
+
       return
     }
 
@@ -154,10 +159,13 @@ const JobDetails: React.FC<Props> = ({
     }
 
     setFavoritesJobs(favsIds)
+    setIsLoadingFavorite(false)
     setModalStatus('success')
     setModalButton({ textButton: 'Favoritas', redirectPath: '' })
     setOpenModal(true)
   }
+
+  const isFavorite = favoritesJobs.includes(selectedJob.uuid)
 
   return (
     <Paper className={classes.jobPaper}>
@@ -187,13 +195,26 @@ const JobDetails: React.FC<Props> = ({
           </Box>
         </Box>
 
-        <IconButton onClick={() => toFavoriteJob()}>
-          {favoritesJobs.includes(selectedJob.uuid) ? (
-            <BookmarkAdded fontSize="large" color="primary" />
-          ) : (
-            <BookmarkBorderOutlined fontSize="large" color="disabled" />
-          )}
-        </IconButton>
+        {isLoadingFavorite && (
+          <Box padding="12px">
+            <CircularProgress size={32} />
+          </Box>
+        )}
+
+        {!isLoadingFavorite && (
+          <Tooltip title={isFavorite ? 'Desfavoritar' : 'Favoritar'}>
+            <IconButton
+              onClick={() => toFavoriteJob()}
+              style={{ width: 56, height: 56 }}
+            >
+              {isFavorite ? (
+                <Favorite fontSize="large" color="primary" />
+              ) : (
+                <FavoriteBorder fontSize="large" color="disabled" />
+              )}
+            </IconButton>
+          </Tooltip>
+        )}
       </Box>
 
       <Box display="flex" flexDirection="column" gap={1} mt={6}>
