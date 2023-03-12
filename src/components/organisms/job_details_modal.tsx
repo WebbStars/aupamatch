@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
-import { BookmarkBorderOutlined } from '@mui/icons-material'
+import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import {
   Backdrop,
   Box,
@@ -10,6 +10,7 @@ import {
   IconButton,
   Modal,
   Paper,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { Dispatch, SetStateAction, useState } from 'react'
@@ -17,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
 import {
   applyJob,
+  favoriteJob,
   fetchAppliesService,
   FetchAupairJobState,
 } from '../../services'
@@ -24,7 +26,6 @@ import { useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
 import { MessageModal } from '../molecules'
-
 
 const useStyles = makeStyles({
   modal: {
@@ -96,15 +97,17 @@ const JobDetailsModal: React.FC<Props> = ({
   const { t } = useTranslation()
   const user = useSelector((state) => state.user)
   const [openModal, setOpenModal] = useState(false)
+  const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
+  const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [titles, setTitles] = useState({
     title: t('organisms.job_details.modal_title'),
-    subTitle: t('organisms.job_details.modal_subtitle')
+    subTitle: t('organisms.job_details.modal_subtitle'),
   })
   const [modalButton, setModalButton] = useState({
     redirectPath: '',
-    text: t('organisms.job_details.my_profile')
+    textButton: t('organisms.job_details.my_profile'),
   })
 
   const accessToken = sessionStorage.getItem('accessToken')
@@ -135,12 +138,46 @@ const JobDetailsModal: React.FC<Props> = ({
     setOpen && setOpen(false)
   }
 
-  function openModalFavorite(){
-    setTitles({title: 'Vaga favoritada com sucesso!', subTitle: 'Você pode verificar suas vagas favoritas'})
+  const toFavoriteJob = async () => {
+    setIsLoadingFavorite(true)
+    const { hasError } = await favoriteJob(selectedJob.uuid, accessToken!)
+    let favsIds: string[] = favoritesJobs
+
+    if (hasError) {
+      setModalStatus('error')
+      setTitles({
+        title: 'Erro ao favoritar vaga!', //desfavoritar tbm
+        subTitle: 'fodase',
+      })
+
+      setOpenModal(true)
+      setIsLoadingFavorite(false)
+
+      return
+    }
+
+    if (favsIds.includes(selectedJob.uuid)) {
+      setTitles({
+        title: 'Vaga desfavoritada com sucesso!',
+        subTitle: 'Você pode verificar suas vagas favoritas',
+      })
+      favsIds = favoritesJobs.filter((id) => id !== selectedJob.uuid)
+    } else {
+      setTitles({
+        title: 'Vaga favoritada com sucesso!',
+        subTitle: 'Você pode verificar suas vagas favoritas',
+      })
+      favsIds.push(selectedJob.uuid)
+    }
+
+    setFavoritesJobs(favsIds)
+    setIsLoadingFavorite(false)
     setModalStatus('success')
-    setModalButton({text: 'Favoritas', redirectPath: ''})
+    setModalButton({ textButton: 'Favoritas', redirectPath: '' })
     setOpenModal(true)
   }
+
+  const isFavorite = favoritesJobs.includes(selectedJob.uuid)
 
   return (
     <Modal
@@ -181,9 +218,26 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             </Box>
 
-            <IconButton onClick={() => openModalFavorite()}>
-              <BookmarkBorderOutlined fontSize="large" color="disabled" />
-            </IconButton>
+            {isLoadingFavorite && (
+              <Box padding="12px">
+                <CircularProgress size={32} />
+              </Box>
+            )}
+
+            {!isLoadingFavorite && (
+              <Tooltip title={isFavorite ? 'Desfavoritar' : 'Favoritar'}>
+                <IconButton
+                  onClick={() => toFavoriteJob()}
+                  style={{ width: 56, height: 56 }}
+                >
+                  {isFavorite ? (
+                    <Favorite fontSize="large" color="primary" />
+                  ) : (
+                    <FavoriteBorder fontSize="large" color="disabled" />
+                  )}
+                </IconButton>
+              </Tooltip>
+            )}
           </Box>
 
           <Box display="flex" flexDirection="column" gap={1} mt={6}>
@@ -361,7 +415,7 @@ const JobDetailsModal: React.FC<Props> = ({
             subtitle={titles.subTitle}
             secondaryButton={
               <Button onClick={() => {}} color="inherit" variant="contained">
-                {modalButton.text}
+                {modalButton.textButton}
               </Button>
             }
           />

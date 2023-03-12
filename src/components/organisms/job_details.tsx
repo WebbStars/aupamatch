@@ -74,9 +74,9 @@ const JobDetails: React.FC<Props> = ({
   const user = useSelector((state) => state.user)
   const [openModal, setOpenModal] = useState(false)
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
+  const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
   const [titles, setTitles] = useState({
     title: t('organisms.job_details.modal_title'),
     subTitle: t('organisms.job_details.modal_subtitle'),
