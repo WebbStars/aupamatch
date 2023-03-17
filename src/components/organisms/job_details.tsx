@@ -18,7 +18,6 @@ import {
   favoriteJob,
   fetchAppliesService,
   FetchAupairJobState,
-  getFavoriteJobs,
 } from '../../services'
 import { useSelector } from '../../store'
 import { theme } from '../../styles'
@@ -72,6 +71,7 @@ const JobDetails: React.FC<Props> = ({
   const classes = useStyles()
   const { t } = useTranslation()
   const user = useSelector((state) => state.user)
+  const jobs = useSelector((state) => state.jobs)
   const [openModal, setOpenModal] = useState(false)
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
@@ -92,11 +92,12 @@ const JobDetails: React.FC<Props> = ({
     const assyncEffect = async () => {
       if (!accessToken) return
 
-      const { response: jobs } = await getFavoriteJobs(accessToken)
       let initialIds: string[] = []
 
       if (jobs) {
-        jobs.map((job) => initialIds.push(job._id))
+        jobs.map((job) => {
+          if (job.isSaved) initialIds.push(job._id)
+        })
         setFavoritesJobs(initialIds)
       }
     }
@@ -164,6 +165,8 @@ const JobDetails: React.FC<Props> = ({
     setModalButton({ textButton: 'Favoritas', redirectPath: '' })
     setOpenModal(true)
   }
+
+  console.log(selectedJob.job?.isSaved)
 
   const isFavorite = favoritesJobs.includes(selectedJob.uuid)
 
