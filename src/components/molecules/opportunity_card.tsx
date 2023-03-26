@@ -38,16 +38,28 @@ const useStyles = makeStyles<Theme, StyleProps>({
 
     backgroundColor: (props) =>
       `${props.selected ? theme.palette.grey[300] : 'white'} !important`,
-    boxShadow: 'none !important'
+    boxShadow: 'none !important',
   },
   titleBox: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
   },
   titles: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
-  }
+    textOverflow: 'ellipsis',
+  },
+  hiddenText: {
+    width: '400px',
+    height: '100%',
+    maxHeight: '98px',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 3,
+    '-webkit-box-orient': 'vertical',
+  },
+  hiddenTitle: {
+    width: '380px',
+    whiteSpace: 'nowrap',
+  },
 })
 
 const OpportunityCard: React.FC<Props> = ({ selected, job, onClick }) => {
@@ -59,10 +71,15 @@ const OpportunityCard: React.FC<Props> = ({ selected, job, onClick }) => {
           <img src={companyDefaultImage} alt="company image" width={64} />
         </Box>
         <Box className={classes.titleBox}>
-          <Typography className={classes.titles} fontWeight="bold">
+          <Typography
+            className={`${classes.titles} ${classes.hiddenTitle}`}
+            fontWeight="bold"
+          >
             {job.title}
           </Typography>
-          <Typography className={classes.titles}>{job.description}</Typography>
+          <Typography className={`${classes.titles} ${classes.hiddenText}`}>
+            {job.description}
+          </Typography>
         </Box>
       </Box>
       <Box display="flex" gap={2}>
@@ -76,7 +93,7 @@ const OpportunityCard: React.FC<Props> = ({ selected, job, onClick }) => {
                 sx={{
                   borderRadius: '3px',
                   backgroundColor: theme.palette.grey[300],
-                  border: selected ? '.25px solid #6366F1' : 'none'
+                  border: selected ? '.25px solid #6366F1' : 'none',
                 }}
               />
             )

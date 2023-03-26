@@ -9,14 +9,12 @@ export interface PostJobPayload {
   nacionalidade: string
   quantidade_criancas: number
   numero_identificacao_nacional: number
-
   religiao: string
   carro_exclusivo: boolean
   idioms: string[]
   faixa_etaria: string
   experiencia_trabalho: string
   habilitacao: boolean
-
   escolaridade: string
   natacao: boolean
   resumo: string

@@ -25,6 +25,7 @@ export interface FetchAupairJobState {
   titulo_vaga: string
   user: string[]
   vaga_patrocinada: boolean
+  isSaved: boolean
   _id: string
   __v: number
 }
@@ -44,18 +45,18 @@ export const fetchAupairJobsService = async (
       `/vagas?userID=${id}&roles=${role}`,
       {
         headers: {
-          'x-access-token': accessToken
-        }
+          'x-access-token': accessToken,
+        },
       }
     )
 
     return {
       response: response.data,
-      hasError: false
+      hasError: false,
     }
   } catch (error) {
     return {
-      hasError: true
+      hasError: true,
     }
   }
 }

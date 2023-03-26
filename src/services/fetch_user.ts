@@ -18,7 +18,7 @@ export const fetchUserService = async (
   accessToken: string
 ): Promise<FetchUserResponsePayload> => {
   try {
-    const response = await api.get(`/userprofile?userID=${id}`, {
+    const response = await api.get(`/perfil?userID=${id}`, {
       headers: {
         'x-access-token': accessToken
       }
