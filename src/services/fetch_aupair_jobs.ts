@@ -26,6 +26,7 @@ export interface FetchAupairJobState {
   user: string[]
   vaga_patrocinada: boolean
   isSaved: boolean
+  views?: number
   _id: string
   __v: number
 }

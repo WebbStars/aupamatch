@@ -72,20 +72,18 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
               : t('organisms.logged_header.aupair.search_job')}
           </Link>
 
-          <Tooltip title={t('global.disabled')}>
-            <Link
-              to="#"
-              underline="none"
-              color="grey"
-              component={RouterLink}
-              fontWeight="bold"
-              sx={{ opacity: '0.5' }}
-            >
-              {family
-                ? t('organisms.logged_header.family.my_jobs')
-                : t('organisms.logged_header.aupair.my_applies')}
-            </Link>
-          </Tooltip>
+          <Link
+            to={family ? '/my_jobs' : '/my_applies'}
+            underline="none"
+            color={activeMenuLink(family ? '/my_jobs' : '/my_applies')}
+            component={RouterLink}
+            fontWeight="bold"
+          >
+            {family
+              ? t('organisms.logged_header.family.my_jobs')
+              : t('organisms.logged_header.aupair.my_applies')}
+          </Link>
+
           <Tooltip title={t('global.disabled')}>
             <Link
               to="#"

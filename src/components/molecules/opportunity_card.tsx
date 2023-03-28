@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles'
 import { Box, Chip, Paper, Theme, Typography } from '@mui/material'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
 import { FetchAupairJobState } from '../../services'
 import { theme } from '../../styles'
@@ -18,6 +19,7 @@ interface Props {
   job: Job
   onClick: () => void
   selected: boolean
+  views?: boolean
 }
 
 export interface StyleProps {
@@ -62,8 +64,15 @@ const useStyles = makeStyles<Theme, StyleProps>({
   },
 })
 
-const OpportunityCard: React.FC<Props> = ({ selected, job, onClick }) => {
+const OpportunityCard: React.FC<Props> = ({
+  selected,
+  job,
+  onClick,
+  views,
+}) => {
   const classes = useStyles({ selected })
+  const { t } = useTranslation()
+  console.log(views)
   return (
     <Paper className={classes.paper} onClick={onClick}>
       <Box display="flex" gap={3}>
@@ -82,23 +91,36 @@ const OpportunityCard: React.FC<Props> = ({ selected, job, onClick }) => {
           </Typography>
         </Box>
       </Box>
-      <Box display="flex" gap={2}>
-        {job.tagsResume.map((tag) => {
-          return (
-            tag && (
-              <Chip
-                key={tag.toString()}
-                label={tag}
-                variant="outlined"
-                sx={{
-                  borderRadius: '3px',
-                  backgroundColor: theme.palette.grey[300],
-                  border: selected ? '.25px solid #6366F1' : 'none',
-                }}
-              />
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box display="flex" gap={2}>
+          {job.tagsResume.map((tag) => {
+            return (
+              tag && (
+                <Chip
+                  key={tag.toString()}
+                  label={tag}
+                  variant="outlined"
+                  sx={{
+                    borderRadius: '3px',
+                    backgroundColor: theme.palette.grey[300],
+                    border: selected ? '.25px solid #6366F1' : 'none',
+                  }}
+                />
+              )
             )
-          )
-        })}
+          })}
+        </Box>
+
+        {views && (
+          <Box display="flex" gap={1}>
+            <Typography fontSize="14px">
+              {t('molecules.opportunity_card.views')}:
+            </Typography>
+            <Typography fontWeight="bold" fontSize="14px">
+              {job.job.views}
+            </Typography>
+          </Box>
+        )}
       </Box>
       {/* <Box>
         <Star color="warning" />
