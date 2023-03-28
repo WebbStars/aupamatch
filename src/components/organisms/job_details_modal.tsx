@@ -98,8 +98,6 @@ const JobDetailsModal: React.FC<Props> = ({
     textButton: t('organisms.job_details.my_profile'),
   })
 
-  console.log(selectedJob)
-
   const accessToken = sessionStorage.getItem('accessToken')
 
   useEffect(() => {
