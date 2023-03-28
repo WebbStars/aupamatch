@@ -2,7 +2,7 @@ import api from './api'
 import { FetchAupairJobState } from './fetch_aupair_jobs'
 
 interface FetchUserResponsePayload {
-  response?: FetchAupairJobState[]
+  response: FetchAupairJobState[]
   hasError?: boolean
 }
 
@@ -22,6 +22,7 @@ export const getFavoriteJobs = async (
     }
   } catch (error) {
     return {
+      response: [],
       hasError: true,
     }
   }

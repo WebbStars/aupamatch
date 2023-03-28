@@ -13,15 +13,10 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
-import {
-  applyJob,
-  favoriteJob,
-  fetchAppliesService,
-  FetchAupairJobState,
-} from '../../services'
+import { applyJob, favoriteJob, fetchAppliesService, Job } from '../../services'
 import { useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
@@ -70,20 +65,12 @@ const useStyles = makeStyles({
   },
 })
 
-interface Job {
-  job?: FetchAupairJobState
-  uuid: string
-  title: string
-  description: string
-  tags: string[]
-}
-
 interface Props {
   selectedJob: Job
   isFetching: boolean
   open?: boolean
   setOpen?: Dispatch<SetStateAction<boolean>>
-  wasApplied: boolean
+  wasApplied?: boolean
 }
 
 const JobDetailsModal: React.FC<Props> = ({
@@ -96,6 +83,7 @@ const JobDetailsModal: React.FC<Props> = ({
   const classes = useStyles()
   const { t } = useTranslation()
   const user = useSelector((state) => state.user)
+  const jobs = useSelector((state) => state.jobs)
   const [openModal, setOpenModal] = useState(false)
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
@@ -110,7 +98,26 @@ const JobDetailsModal: React.FC<Props> = ({
     textButton: t('organisms.job_details.my_profile'),
   })
 
+  console.log(selectedJob)
+
   const accessToken = sessionStorage.getItem('accessToken')
+
+  useEffect(() => {
+    const assyncEffect = async () => {
+      if (!accessToken) return
+
+      let initialIds: string[] = []
+
+      if (jobs) {
+        jobs.map((job) => {
+          if (job.isSaved) initialIds.push(job._id)
+        })
+        setFavoritesJobs(initialIds)
+      }
+    }
+
+    assyncEffect()
+  }, [jobs])
 
   const submitJob = async () => {
     setIsLoading(true)

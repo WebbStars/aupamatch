@@ -103,7 +103,7 @@ const JobDetails: React.FC<Props> = ({
     }
 
     assyncEffect()
-  }, [])
+  }, [jobs])
 
   const submitJob = async () => {
     setIsLoading(true)
@@ -165,8 +165,6 @@ const JobDetails: React.FC<Props> = ({
     setModalButton({ textButton: 'Favoritas', redirectPath: '' })
     setOpenModal(true)
   }
-
-  console.log(selectedJob.job?.isSaved)
 
   const isFavorite = favoritesJobs.includes(selectedJob.uuid)
 
