@@ -25,6 +25,9 @@
     },
     "profile_card": {
       "profile_button": "Ver perfil"
+    },
+    "opportunity_card": {
+      "views": "Número de visitas"
     }
   },
   "organisms": {
