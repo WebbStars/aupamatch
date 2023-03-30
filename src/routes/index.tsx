@@ -3,6 +3,7 @@ import { Routes as Switch, Route } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { theme } from '../styles'
 import {
+  FavoriteJobs,
   Home,
   Jobs,
   Login,
@@ -35,6 +36,9 @@ const Routes: React.FC = () => {
         </Route>
         <Route path="/search_aupair" element={<ProtectedRoute />}>
           <Route path="/search_aupair" element={<SearchAupair />} />
+        </Route>
+        <Route path="/favorite_jobs" element={<ProtectedRoute />}>
+          <Route path="/favorite_jobs" element={<FavoriteJobs />} />
         </Route>
         <Route path="*" element={<div>NOT FOUND</div>} />
       </Switch>

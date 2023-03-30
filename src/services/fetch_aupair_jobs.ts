@@ -30,6 +30,14 @@ export interface FetchAupairJobState {
   __v: number
 }
 
+export interface Job {
+  job?: FetchAupairJobState
+  uuid: string
+  title: string
+  description: string
+  tags: string[]
+}
+
 interface FetchAupairJobResponsePayload {
   response?: FetchAupairJobState[]
   hasError?: boolean

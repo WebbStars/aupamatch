@@ -115,7 +115,7 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
         </IconButton>
 
         {!family && (
-          <IconButton>
+          <IconButton onClick={() => navigate('/favorite_jobs')}>
             <BookmarkBorderOutlined />
           </IconButton>
         )}
