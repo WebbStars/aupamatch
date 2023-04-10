@@ -72,7 +72,7 @@ const OpportunityCard: React.FC<Props> = ({
 }) => {
   const classes = useStyles({ selected })
   const { t } = useTranslation()
-  console.log(views)
+
   return (
     <Paper className={classes.paper} onClick={onClick}>
       <Box display="flex" gap={3}>
