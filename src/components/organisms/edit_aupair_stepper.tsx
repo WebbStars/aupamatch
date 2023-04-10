@@ -15,6 +15,7 @@ import FormPaper from './aupair_data_form/form_paper'
 import { editAupair } from '../../services'
 import { MessageModal } from '../molecules'
 import { useNavigate } from 'react-router-dom'
+import { logout } from '../../utils'
 
 const steps = [
   {
@@ -35,7 +36,11 @@ const INITIAL_VALUES = {
   numero: '',
   cidade: '',
   estado: '',
-  data_de_nascimento: new Date(),
+  data_de_nascimento: new Date().toLocaleDateString('en', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }),
   genero: '',
   cpf: '',
   nacionalidade: '',
@@ -78,6 +83,18 @@ const EditAupairStepper: React.FC = () => {
 
     setIsLoading(true)
     const { hasError } = await editAupair(newForm as any, accessToken!)
+    const { data_de_nascimento } = form
+    const [month, day, year] = data_de_nascimento.split('/')
+
+    if (!isDate18orMoreYearsOld(Number(day), Number(month), Number(year))) {
+      dispatch(
+        setErrorMessage(
+          'É necessário ter 18 anos ou mais para finalizar o cadastro!'
+        )
+      )
+      logout()
+      return navigate('/')
+    }
 
     if (hasError) {
       dispatch(setErrorMessage('Erro ao cadastrar informações'))
@@ -101,6 +118,10 @@ const EditAupairStepper: React.FC = () => {
 
     if (index !== 2) setActiveStep(activeStep + 1)
     else handleSubmitForm(e)
+  }
+
+  function isDate18orMoreYearsOld(day: number, month: number, year: number) {
+    return new Date(year + 18, month - 1, day) <= new Date()
   }
 
   return (
