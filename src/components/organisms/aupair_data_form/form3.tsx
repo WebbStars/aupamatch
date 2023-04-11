@@ -11,10 +11,17 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  Tooltip,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import {
+  HelpCenterRounded,
+  HelpOutline,
+  HelpOutlineTwoTone,
+} from '@mui/icons-material'
+import { theme } from '../../../styles'
 
 type Object = { [key: string]: any }
 
@@ -91,7 +98,12 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
 
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <FormLabel>Carro exclusivo</FormLabel>
+            <Box display="flex" gap={1} color={theme.palette.primary.main}>
+              <FormLabel>Carro exclusivo</FormLabel>
+              <Tooltip title="Tem interesse de ter um carro exclusivo cedido pela família?">
+                <HelpOutlineTwoTone />
+              </Tooltip>
+            </Box>
             <Select
               name="carro_exclusivo"
               value={form.carro_exclusivo}

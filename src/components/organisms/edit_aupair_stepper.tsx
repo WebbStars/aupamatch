@@ -124,6 +124,8 @@ const EditAupairStepper: React.FC = () => {
     return new Date(year + 18, month - 1, day) <= new Date()
   }
 
+  console.log(form)
+
   return (
     <Box display="flex" flexDirection="column" gap={4}>
       <Stepper
