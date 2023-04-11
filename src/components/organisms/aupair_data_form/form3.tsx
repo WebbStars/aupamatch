@@ -153,7 +153,13 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       </Grid>
 
       <FormControl>
-        <FormLabel>Data de Disponibilidade</FormLabel>
+        <Box display="flex" gap={1} color={theme.palette.primary.main}>
+          <FormLabel>Data de Disponibilidade</FormLabel>
+          <Tooltip title="A data de disponibilidade é a data prevista de embarque">
+            <HelpOutlineTwoTone />
+          </Tooltip>
+        </Box>
+
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
             views={['year', 'month', 'day']}
