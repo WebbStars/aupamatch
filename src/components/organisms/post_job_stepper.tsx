@@ -32,7 +32,11 @@ const steps = [
 
 const INITIAL_VALUES = {
   titulo_vaga: '',
-  data_disponibilidade: '',
+  data_disponibilidade: new Date().toLocaleDateString('en', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }),
   vaga_patrocinada: 'false',
   pais: '',
   estado_provincia: '',

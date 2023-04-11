@@ -51,7 +51,8 @@
       "form1": {
         "title_label": "Título da vaga",
         "title_placeholder": "Insira um nome para a vaga",
-        "date_label": "Data de disponibilidade da vaga",
+        "date_label": "Data de disponibilidade",
+        "date_helper": "A data de disponibilidade é a data prevista que deseja receber au pair",
         "sponsor_label": "Vaga Patrocinada",
         "sponsor_placeholder": "Vaga é Patrocinada?",
         "country_label": "País",

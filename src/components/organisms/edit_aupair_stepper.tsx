@@ -50,7 +50,11 @@ const INITIAL_VALUES = {
   quantidade_criancas: 0,
   carro_exclusivo: 'false',
   receber_newsletter: 'false',
-  data_disponibilidade: new Date(),
+  data_disponibilidade: new Date().toLocaleDateString('en', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }),
   escolaridade: '',
   experiencia: '',
   natacao: 'false',

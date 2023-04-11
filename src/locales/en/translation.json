@@ -51,7 +51,8 @@
       "form1": {
         "title_label": "Job Title",
         "title_placeholder": "Enter a name for the job",
-        "date_label": "Job availability date",
+        "date_label": "Availability date",
+        "date_helper": "The availability date is the expected date you want to receive au pair",
         "sponsor_label": "Sponsored Job",
         "sponsor_placeholder": "Is the job Sponsored?",
         "country_label": "Country",

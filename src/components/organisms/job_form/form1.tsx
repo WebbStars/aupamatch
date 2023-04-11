@@ -7,10 +7,13 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  Tooltip,
 } from '@mui/material'
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useTranslation } from 'react-i18next'
+import { HelpOutlineTwoTone } from '@mui/icons-material'
+import { theme } from '../../../styles'
 
 type Object = { [key: string]: any }
 
@@ -41,10 +44,11 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
 
   return (
     <Box display="flex" flexDirection="column" gap={3} textAlign="justify">
-      <FormControl>
+      <FormControl required>
         <FormLabel>{t('organisms.job_form.form1.title_label')}</FormLabel>
         <TextField
           name="titulo_vaga"
+          required
           variant="outlined"
           placeholder={t('organisms.job_form.form1.title_placeholder')!}
           value={form.titulo_vaga}
@@ -52,7 +56,12 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel>{t('organisms.job_form.form1.date_label')}</FormLabel>
+        <Box display="flex" gap={1} color={theme.palette.primary.main}>
+          <FormLabel>{t('organisms.job_form.form1.date_label')}</FormLabel>
+          <Tooltip title={t('organisms.job_form.form1.date_helper')}>
+            <HelpOutlineTwoTone />
+          </Tooltip>
+        </Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
             views={['year', 'month', 'day']}
