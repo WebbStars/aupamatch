@@ -16,11 +16,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import {
-  HelpCenterRounded,
-  HelpOutline,
-  HelpOutlineTwoTone,
-} from '@mui/icons-material'
+import { HelpOutlineTwoTone } from '@mui/icons-material'
 import { theme } from '../../../styles'
 
 type Object = { [key: string]: any }
