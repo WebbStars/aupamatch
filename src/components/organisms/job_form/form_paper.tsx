@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/styles'
 import {
   Box,
   Button,
+  CircularProgress,
   Paper,
   SelectChangeEvent,
   Typography,
@@ -47,6 +48,7 @@ const useStyles = makeStyles({
 type Object = { [key: string]: any }
 
 interface Props {
+  isLoading: boolean
   submitLabel: string
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   handlePrevious: () => void
@@ -62,6 +64,7 @@ const FormPaper: React.FC<Props> = ({
   activeStep,
   form,
   setForm,
+  isLoading,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -120,7 +123,11 @@ const FormPaper: React.FC<Props> = ({
         )}
 
         <Button color="primary" variant="contained" type="submit">
-          {submitLabel}
+          {isLoading ? (
+            <CircularProgress size="22px" color="secondary" />
+          ) : (
+            submitLabel
+          )}
         </Button>
       </Box>
     </Paper>

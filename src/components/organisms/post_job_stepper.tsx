@@ -14,6 +14,7 @@ import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './job_form/form_paper'
 import { postJob } from '../../services'
 import { MessageModal } from '../molecules'
+import { useNavigate } from 'react-router-dom'
 
 const steps = [
   {
@@ -41,8 +42,8 @@ const INITIAL_VALUES = {
   pais: '',
   estado_provincia: '',
   nacionalidade: '',
-  quantidade_criancas: null,
-  numero_identificacao_nacional: null,
+  quantidade_criancas: 0,
+  numero_identificacao_nacional: '',
 
   religiao: '',
   carro_exclusivo: 'false',
@@ -55,8 +56,8 @@ const INITIAL_VALUES = {
   natacao: 'false',
   resumo: '',
   descricao: '',
-  genero: '',
-  habilitacao_pid: '',
+  genero: 'No Preference',
+  habilitacao_pid: 'false',
   passaporte: 'false',
   receber_newsletter: 'false',
 }
@@ -68,12 +69,14 @@ const PostJobStepper: React.FC = () => {
   const [modalStatus, setModalStatus] = useState('')
   const [activeStep, setActiveStep] = React.useState(0)
   const [form, setForm] = useState(INITIAL_VALUES)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const accessToken = sessionStorage.getItem('accessToken')
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
 
     const newForm = {
       ...form,
@@ -85,7 +88,6 @@ const PostJobStepper: React.FC = () => {
       receber_newsletter: JSON.parse(form.receber_newsletter),
     }
 
-    setIsLoading(true)
     const { hasError } = await postJob(newForm as any, accessToken!)
 
     if (hasError) {
@@ -125,6 +127,7 @@ const PostJobStepper: React.FC = () => {
         ))}
       </Stepper>
       <FormPaper
+        isLoading={isLoading}
         submitLabel={
           activeStep === steps.length - 1
             ? t('organisms.post_job_stepper.finish')
@@ -144,6 +147,7 @@ const PostJobStepper: React.FC = () => {
         setOpen={setOpenModal}
         title={t('organisms.post_job_stepper.modal_title')}
         subtitle={t('organisms.post_job_stepper.modal_subtitle')!}
+        handleSubmit={() => navigate('/search_aupair')}
         secondaryButton={
           <Tooltip title={t('global.disabled')}>
             <Button
@@ -152,11 +156,7 @@ const PostJobStepper: React.FC = () => {
               variant="contained"
               disabled
             >
-              {isLoading ? (
-                <CircularProgress size="22px" color="secondary" />
-              ) : (
-                t('organisms.post_job_stepper.my_jobs')
-              )}
+              {t('organisms.post_job_stepper.my_jobs')}
             </Button>
           </Tooltip>
         }

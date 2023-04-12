@@ -98,12 +98,13 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
         </Select>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>
           {t('organisms.job_form.form3.family_resume_label')}
         </FormLabel>
         <TextField
           multiline
+          required
           name="resumo"
           value={form.resumo}
           placeholder={t('organisms.job_form.form3.family_resume_placeholder')!}
@@ -111,10 +112,11 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
         />
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>{t('organisms.job_form.form3.description_label')}</FormLabel>
         <TextField
           multiline
+          required
           name="descricao"
           value={form.descricao}
           placeholder={t('organisms.job_form.form3.description_placeholder')!}

@@ -56,7 +56,7 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
         >
           <MenuItem value="Masculino">{t('global.male')}</MenuItem>
           <MenuItem value="Feminino">{t('global.female')}</MenuItem>
-          <MenuItem value="sla">sla</MenuItem>
+          <MenuItem value="No Preference">{t('global.no_preference')}</MenuItem>
         </Select>
       </FormControl>
 

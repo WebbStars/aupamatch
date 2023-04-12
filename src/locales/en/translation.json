@@ -90,7 +90,7 @@
         "gender_placeholder": "What is the desired gender for the au pair?",
         "xp_label": "Required professional experiences",
         "xp_placeholder": "Tell us what professional experiences you want the au pair to have.",
-        "pid_label": "PID Required.",
+        "pid_label": "Do you want the au pair to have a driver's license?",
         "pid_placeholder": "PID is required",
         "passaport_label": "Passport Required",
         "passaport_placeholder": "Is it necessary for the au pair to have a passport?",
@@ -209,6 +209,7 @@
     "no": "No",
     "male": "Male",
     "female": "Female",
+    "no_preference": "I have no preference",
     "disabled": "Disable option for now"
   }
 }
