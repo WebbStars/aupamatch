@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
-import { Favorite, FavoriteBorder } from '@mui/icons-material'
+import { Close, Favorite, FavoriteBorder } from '@mui/icons-material'
 import {
   Backdrop,
   Box,
@@ -99,6 +99,7 @@ const JobDetailsModal: React.FC<Props> = ({
   })
 
   const accessToken = sessionStorage.getItem('accessToken')
+  const role = sessionStorage.getItem('role')
 
   useEffect(() => {
     const assyncEffect = async () => {
@@ -229,8 +230,10 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             )}
 
-            {!isLoadingFavorite && (
-              <Tooltip title={isFavorite ? 'Desfavoritar' : 'Favoritar'}>
+            {!isLoadingFavorite && role === 'ROLE_AUPAIR' ? (
+              <Tooltip
+                title={isFavorite ? t('global.favorite') : t('global.disfavor')}
+              >
                 <IconButton
                   onClick={() => toFavoriteJob()}
                   style={{ width: 56, height: 56 }}
@@ -240,6 +243,15 @@ const JobDetailsModal: React.FC<Props> = ({
                   ) : (
                     <FavoriteBorder fontSize="large" color="disabled" />
                   )}
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title={t('global.close')}>
+                <IconButton
+                  onClick={() => setOpen && setOpen(false)}
+                  style={{ width: 56, height: 56 }}
+                >
+                  <Close fontSize="large" color="primary" />
                 </IconButton>
               </Tooltip>
             )}

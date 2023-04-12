@@ -210,6 +210,9 @@
     "male": "Male",
     "female": "Female",
     "no_preference": "I have no preference",
-    "disabled": "Disable option for now"
+    "disabled": "Disable option for now",
+    "close": "Close",
+    "favorite": "Favorite",
+    "disfavor": "Disfavor"
   }
 }

@@ -25,8 +25,12 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const activeMenuLink = (path: string) => {
-    return currentPage === path ? 'primary' : theme.palette.text.primary
+  const activeMenuLink = (path: string | string[]) => {
+    const isPrimary = Array.isArray(path)
+      ? path.includes(currentPage)
+      : currentPage === path
+
+    return isPrimary ? 'primary' : theme.palette.text.primary
   }
 
   return (
@@ -63,7 +67,9 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
           <Link
             to={family ? '/search_aupair' : '/jobs'}
             underline="none"
-            color={activeMenuLink(family ? '/search_aupair' : '/jobs')}
+            color={activeMenuLink(
+              family ? ['/search_aupair', '/post_job'] : '/jobs'
+            )}
             component={RouterLink}
             fontWeight="bold"
           >

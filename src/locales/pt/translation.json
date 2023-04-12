@@ -210,6 +210,9 @@
     "male": "Masculino",
     "female": "Feminino",
     "no_preference": "Não tenho preferência",
-    "disabled": "Opção desabilitada por ora"
+    "disabled": "Opção desabilitada por ora",
+    "close": "Fechar",
+    "favorite": "Favoritar",
+    "disfavor": "Desfavoritar"
   }
 }
