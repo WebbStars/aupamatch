@@ -62,13 +62,14 @@
       "form2": {
         "nationality_label": "Nationality",
         "nationality_placeholder": "What is the nationality of the family?",
-        "children_number": "Children to take care of",
+        "children_number": "Number of children",
         "children_number_placeholder": "How many children live in the house?",
         "owner_job_id": "Identification of the person responsible for posting the job",
         "owner_job_id_placeholder": "Identification number.",
         "religion": "Religion",
         "religion_placeholder": "What family religion?",
         "exclusive_car": "Exclusive car",
+        "exclusive_car_help": "Are you interested in lending an exclusive car to an au pair?",
         "exclusive_car_placeholder": "Does the family own a car for the au pair?"
       },
       "form3": {

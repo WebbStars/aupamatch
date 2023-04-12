@@ -7,8 +7,11 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  Tooltip,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import { HelpOutlineTwoTone } from '@mui/icons-material'
+import { theme } from '../../../styles'
 
 type Object = { [key: string]: any }
 
@@ -44,9 +47,10 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
         />
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>{t('organisms.job_form.form2.children_number')}</FormLabel>
         <TextField
+          required
           type="number"
           name="quantidade_criancas"
           value={form.quantidade_criancas}
@@ -78,7 +82,12 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
       </FormControl>
 
       <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form2.exclusive_car')}</FormLabel>
+        <Box display="flex" gap={1} color={theme.palette.primary.main}>
+          <FormLabel>{t('organisms.job_form.form2.exclusive_car')}</FormLabel>
+          <Tooltip title={t('organisms.job_form.form2.exclusive_car_help')}>
+            <HelpOutlineTwoTone />
+          </Tooltip>
+        </Box>
         <Select
           value={form.carro_exclusivo}
           name="carro_exclusivo"

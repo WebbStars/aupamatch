@@ -62,13 +62,14 @@
       "form2": {
         "nationality_label": "Nacionalidade",
         "nationality_placeholder": "Qual a nacionalidade da família?",
-        "children_number": "Crianças a cuidar",
+        "children_number": "Quantidade de filhos",
         "children_number_placeholder": "Quantas crianças residem na casa",
         "owner_job_id": "Identificação do responsável pela postagem da vaga",
         "owner_job_id_placeholder": "Número de identificação.",
         "religion": "Religião",
         "religion_placeholder": "Qual religião da família?",
         "exclusive_car": "Carro exclusivo",
+        "exclusive_car_help": "Tem interesse de ceder um carro exclusivo para au pair?",
         "exclusive_car_placeholder": "A família possuí um carro para a au pair?"
       },
       "form3": {
