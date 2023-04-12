@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Step,
-  StepLabel,
-  Stepper,
-  Tooltip,
-} from '@mui/material'
+import { Box, Button, Step, StepLabel, Stepper, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from '../../store'
