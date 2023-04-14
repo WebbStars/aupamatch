@@ -1,19 +1,20 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import { useSelector } from '../store'
 
 const ProtectedRoute: React.FC = () => {
   const hasUser = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
-  const notFirstLoginStorage = localStorage.getItem('notFirstLogin')
-  const notFirstLogin = notFirstLoginStorage && JSON.parse(notFirstLoginStorage)
+  const user = useSelector((state) => state.user)
+
   const path = location.pathname
 
   if (hasUser) {
     if (role === 'ROLE_AUPAIR') {
       if (path !== '/edit_aupair') {
-        if (!notFirstLogin) return <Navigate to="/edit_aupair" />
+        if (!user) return <Navigate to="/edit_aupair" />
         else return <Outlet />
-      } else if (notFirstLogin) return <Navigate to="/jobs" />
+      } else if (user && !user?.firstLogin) return <Navigate to="/jobs" />
     }
     return <Outlet />
   }

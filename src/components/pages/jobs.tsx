@@ -16,12 +16,12 @@ const useStyles = makeStyles({
     width: '100%',
 
     [theme.breakpoints.up('lg')]: {
-      gridTemplateColumns: '1.4fr 2fr'
+      gridTemplateColumns: '1.4fr 2fr',
     },
     [theme.breakpoints.down('lg')]: {
-      gridTemplateColumns: '1fr'
-    }
-  }
+      gridTemplateColumns: '1fr',
+    },
+  },
 })
 
 interface Job {
@@ -35,7 +35,7 @@ const initialValue = {
   uuid: '',
   title: '',
   description: '',
-  tags: []
+  tags: [],
 }
 
 const Jobs: React.FC = () => {
@@ -53,7 +53,8 @@ const Jobs: React.FC = () => {
       const userID = sessionStorage.getItem('userID')
       const accessToken = sessionStorage.getItem('accessToken')
 
-      dispatch(await fetchUser(userID!, accessToken!))
+      const a = dispatch(await fetchUser(userID!, accessToken!))
+      console.log(a)
     }
 
     fetchUserData()

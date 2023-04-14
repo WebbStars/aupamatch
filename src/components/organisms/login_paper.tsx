@@ -133,13 +133,9 @@ const LoginPaper: React.FC = () => {
       sessionStorage.setItem('accessToken', accessToken)
       sessionStorage.setItem('role', roles[0])
       sessionStorage.setItem('userID', id)
-      const notFirstLoginStorage = localStorage.getItem('notFirstLogin')
-      const notFirstLogin =
-        notFirstLoginStorage && JSON.parse(notFirstLoginStorage)
 
       if (roles[0] === 'ROLE_FAMILY') navigate('/search_aupair')
-      else if (notFirstLogin) navigate('/jobs')
-      else navigate('/edit_aupair')
+      else navigate('/jobs')
     }
 
     if (hasError && error === 'invalid_credentials') {

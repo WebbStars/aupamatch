@@ -111,7 +111,6 @@ const EditAupairStepper: React.FC = () => {
     setModalStatus('success')
     setOpenModal(true)
     setIsLoading(false)
-    localStorage.setItem('notFirstLogin', 'true')
   }
 
   const handleNextForm = (
