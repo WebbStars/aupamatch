@@ -135,7 +135,7 @@ const OpportunityCard: React.FC<Props> = ({
         {views && (
           <Box>
             <Stack direction="row" gap={2}>
-              <IconButton onClick={handleOpenDeleteModal}>
+              <IconButton onClick={handleOpenDeleteModal} title="Excluir">
                 <Delete />
               </IconButton>
               <IconButton disabled>
