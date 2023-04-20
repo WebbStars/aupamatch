@@ -1,7 +1,7 @@
 import { responsiveFontSizes, createTheme } from '@mui/material'
 
 const custom = {
-  primaryMinus: '#6366a1',
+  primaryMinus: '#818CF8',
   primary: '#6366F1',
   primaryPlus: '#4D5BC9',
   primaryContrast: '#fff',
@@ -78,7 +78,7 @@ const theme = responsiveFontSizes(
         400: '#bdbdbd',
         500: '#9e9e9e',
         600: '#757575',
-        700: '#616161',
+        700: '#656565',
         800: '#424242',
         900: '#212121',
         A100: '#d5d5d5',

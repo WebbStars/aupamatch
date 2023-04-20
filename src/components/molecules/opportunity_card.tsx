@@ -11,18 +11,20 @@ import {
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
-import { FetchAupairJobState } from '../../services'
+import { FetchApplies, FetchAupairJobState } from '../../services'
 import { theme } from '../../styles'
 import { Delete, Edit, Lock } from '@mui/icons-material'
 import MessageModal from './message_modal'
 
 interface Job {
-  job: FetchAupairJobState
+  job: FetchAupairJobState | FetchApplies
   uuid: string
   title: string
   description: string
   tags: (string | false)[]
   tagsResume: (string | false)[]
+  status?: string
+  dataCandidatura?: string
 }
 
 interface Props {
@@ -31,6 +33,7 @@ interface Props {
   onDelete?: () => void
   selected: boolean
   views?: boolean
+  applies?: boolean
 }
 
 export interface StyleProps {
@@ -73,6 +76,9 @@ const useStyles = makeStyles<Theme, StyleProps>({
     width: '380px',
     whiteSpace: 'nowrap',
   },
+  status: {
+    color: 'primary.light',
+  },
 })
 
 const OpportunityCard: React.FC<Props> = ({
@@ -81,6 +87,7 @@ const OpportunityCard: React.FC<Props> = ({
   onClick,
   onDelete,
   views,
+  applies,
 }) => {
   const classes = useStyles({ selected })
   const { t } = useTranslation()
@@ -153,6 +160,32 @@ const OpportunityCard: React.FC<Props> = ({
                 {job.job.views}
               </Typography>
             </Box>
+          </Box>
+        )}
+        {applies && (
+          <Box display="flex" flexDirection="column" gap="8px">
+            <Stack direction="row" gap={0.4}>
+              <Typography fontSize="11px" fontWeight="700" color="grey.600">
+                Status:
+              </Typography>{' '}
+              <Typography
+                color="primary.light"
+                fontSize="11px"
+                fontWeight="700"
+                textTransform="capitalize"
+              >
+                {job.status}
+              </Typography>
+            </Stack>
+            <Stack direction="row" gap={0.4}>
+              <Typography fontSize="11px" fontWeight="700" color="grey.600">
+                Data de candidatura:
+              </Typography>{' '}
+              <Typography fontSize="11px" fontWeight="700" color="grey.900">
+                {job.dataCandidatura &&
+                  new Date(job.dataCandidatura).toLocaleDateString()}
+              </Typography>
+            </Stack>
           </Box>
         )}
       </Box>

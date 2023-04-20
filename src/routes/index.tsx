@@ -14,6 +14,7 @@ import {
 import { ProtectedRoute, UnProtectedRoute } from '../utils'
 import EditAupair from '../components/pages/edit_aupair'
 import MyJobs from '../components/pages/my_jobs'
+import MyApplies from '../components/pages/my_applies'
 
 const Routes: React.FC = () => {
   return (
@@ -43,6 +44,10 @@ const Routes: React.FC = () => {
         </Route>
         <Route path="/my_jobs" element={<ProtectedRoute />}>
           <Route path="/my_jobs" element={<MyJobs />} />
+        </Route>
+
+        <Route path="/my_applies" element={<ProtectedRoute />}>
+          <Route path="/my_applies" element={<MyApplies />} />
         </Route>
         <Route path="*" element={<div>NOT FOUND</div>} />
       </Switch>
