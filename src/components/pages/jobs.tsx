@@ -53,8 +53,7 @@ const Jobs: React.FC = () => {
       const userID = sessionStorage.getItem('userID')
       const accessToken = sessionStorage.getItem('accessToken')
 
-      const a = dispatch(await fetchUser(userID!, accessToken!))
-      console.log(a)
+      dispatch(await fetchUser(userID!, accessToken!))
     }
 
     fetchUserData()

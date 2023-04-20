@@ -66,6 +66,8 @@ const FavoriteJobs: React.FC = () => {
         perPage={10}
         isFetching={isFetching}
         views
+        setJobsList={setJobsList}
+        setIsFetching={setIsFetching}
       />
     </LoggedTemplate>
   )

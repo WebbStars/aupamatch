@@ -82,8 +82,16 @@ const MessageModal: React.FC<Props> = ({
     setOpen(false)
   }
 
-  const handleSubmitModal = () => {
+  const handleSubmitModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+
     handleSubmit ? handleSubmit() : setOpen(false)
+  }
+
+  const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+
+    setOpen(false)
   }
 
   return (
@@ -120,7 +128,15 @@ const MessageModal: React.FC<Props> = ({
           </Box>
 
           <Box className={classes.buttons}>
-            {secondaryButton && secondaryButton}
+            {secondaryButton || (
+              <Button
+                variant="contained"
+                onClick={handleCancel}
+                sx={{ background: 'grey' }}
+              >
+                Cancelar
+              </Button>
+            )}
             <Button
               color="primary"
               variant="contained"

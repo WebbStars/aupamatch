@@ -1,10 +1,20 @@
 import { makeStyles } from '@material-ui/styles'
-import { Box, Chip, Paper, Theme, Typography } from '@mui/material'
-import React from 'react'
+import {
+  Box,
+  Chip,
+  IconButton,
+  Paper,
+  Stack,
+  Theme,
+  Typography,
+} from '@mui/material'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
 import { FetchAupairJobState } from '../../services'
 import { theme } from '../../styles'
+import { Delete, Edit, Lock } from '@mui/icons-material'
+import MessageModal from './message_modal'
 
 interface Job {
   job: FetchAupairJobState
@@ -18,6 +28,7 @@ interface Job {
 interface Props {
   job: Job
   onClick: () => void
+  onDelete?: () => void
   selected: boolean
   views?: boolean
 }
@@ -68,10 +79,20 @@ const OpportunityCard: React.FC<Props> = ({
   selected,
   job,
   onClick,
+  onDelete,
   views,
 }) => {
   const classes = useStyles({ selected })
   const { t } = useTranslation()
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+
+  const handleOpenDeleteModal = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation()
+
+    setOpenDeleteModal(true)
+  }
 
   return (
     <Paper className={classes.paper} onClick={onClick}>
@@ -112,16 +133,39 @@ const OpportunityCard: React.FC<Props> = ({
         </Box>
 
         {views && (
-          <Box display="flex" gap={1}>
-            <Typography fontSize="14px">
-              {t('molecules.opportunity_card.views')}:
-            </Typography>
-            <Typography fontWeight="bold" fontSize="14px">
-              {job.job.views}
-            </Typography>
+          <Box>
+            <Stack direction="row" gap={2}>
+              <IconButton onClick={handleOpenDeleteModal}>
+                <Delete />
+              </IconButton>
+              <IconButton disabled>
+                <Edit />
+              </IconButton>
+              <IconButton disabled>
+                <Lock />
+              </IconButton>
+            </Stack>
+            <Box display="flex" gap={1}>
+              <Typography fontSize="14px">
+                {t('molecules.opportunity_card.views')}:
+              </Typography>
+              <Typography fontWeight="bold" fontSize="14px">
+                {job.job.views}
+              </Typography>
+            </Box>
           </Box>
         )}
       </Box>
+      <MessageModal
+        title="Tem certeza que deseja excluir essa vaga?"
+        open={openDeleteModal}
+        setOpen={setOpenDeleteModal}
+        error
+        handleSubmit={() => {
+          onDelete && onDelete()
+          setOpenDeleteModal(false)
+        }}
+      />
       {/* <Box>
         <Star color="warning" />
         <Star color="warning" />

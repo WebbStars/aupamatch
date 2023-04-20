@@ -4,6 +4,9 @@ import { Box, Pagination } from '@mui/material'
 import { SkeletonHOC } from '../atoms'
 import { JobDetailsModal, JobsList } from '../organisms'
 import OpportunityCard from './opportunity_card'
+import { deleteJob } from '../../services'
+import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
+import { useDispatch } from '../../store'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -33,7 +36,9 @@ interface Props {
   jobsList: JobsList[]
   perPage: number
   isFetching: boolean
+  setIsFetching: React.Dispatch<React.SetStateAction<boolean>>
   views?: boolean
+  setJobsList: React.Dispatch<React.SetStateAction<JobsList[]>>
 }
 
 const initialValueSelectedJob = {
@@ -47,12 +52,16 @@ const MyJobsList: React.FC<Props> = ({
   jobsList,
   perPage,
   isFetching,
+  setIsFetching,
   views,
+  setJobsList,
 }) => {
+  const dispatch = useDispatch()
   const classes = useStyles()
   const [currentPage, setCurrentPage] = useState(1)
   const [openJobModal, setOpenJobModal] = useState(false)
   const [selectedJob, setSelectedJob] = useState<any>(initialValueSelectedJob)
+  const accessToken = sessionStorage.getItem('accessToken')
 
   const jobsListRef = useRef<null | HTMLDivElement>(null)
 
@@ -74,6 +83,25 @@ const MyJobsList: React.FC<Props> = ({
     setSelectedJob(selectedJob)
 
     setOpenJobModal(true)
+  }
+
+  const handleDelete = async (jobId: string) => {
+    if (!accessToken) return
+
+    setIsFetching(true)
+
+    const { hasError } = await deleteJob(accessToken, jobId)
+
+    if (!hasError) {
+      setJobsList((jobs) => jobs.filter((job) => job.uuid !== jobId))
+      dispatch(setSuccessMessage('Vaga deletada com sucesso'))
+      setIsFetching(false)
+
+      return
+    }
+
+    setIsFetching(false)
+    dispatch(setErrorMessage('Erro ao tentar deletar vaga'))
   }
 
   return (
@@ -99,15 +127,18 @@ const MyJobsList: React.FC<Props> = ({
                   onClick={() => fetchSelectedJob(job.uuid)}
                   selected={selectedJob?.uuid === job.uuid}
                   views={views}
+                  onDelete={() => handleDelete(job.uuid)}
                 />
               ))}
         </>
       </SkeletonHOC>
-      <Pagination
-        count={numberOfPages}
-        color="primary"
-        onChange={handleCurrentPage}
-      />
+      {jobsList.length > 0 && (
+        <Pagination
+          count={numberOfPages}
+          color="primary"
+          onChange={handleCurrentPage}
+        />
+      )}
 
       <JobDetailsModal
         open={openJobModal}
