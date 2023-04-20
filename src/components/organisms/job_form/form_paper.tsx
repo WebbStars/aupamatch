@@ -122,7 +122,12 @@ const FormPaper: React.FC<Props> = ({
           </Button>
         )}
 
-        <Button color="primary" variant="contained" type="submit">
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          disabled={isLoading}
+        >
           {isLoading ? (
             <CircularProgress size="22px" color="secondary" />
           ) : (

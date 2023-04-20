@@ -141,16 +141,13 @@ const PostJobStepper: React.FC = () => {
         subtitle={t('organisms.post_job_stepper.modal_subtitle')!}
         handleSubmit={() => navigate('/search_aupair')}
         secondaryButton={
-          <Tooltip title={t('global.disabled')}>
-            <Button
-              onClick={() => {}}
-              color="inherit"
-              variant="contained"
-              disabled
-            >
-              {t('organisms.post_job_stepper.my_jobs')}
-            </Button>
-          </Tooltip>
+          <Button
+            onClick={() => navigate('/my_jobs')}
+            color="inherit"
+            variant="contained"
+          >
+            {t('organisms.post_job_stepper.my_jobs')}
+          </Button>
         }
       />
     </Box>
