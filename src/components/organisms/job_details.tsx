@@ -23,6 +23,7 @@ import { useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
 import { MessageModal } from '../molecules'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles({
   jobPaper: {
@@ -70,6 +71,7 @@ const JobDetails: React.FC<Props> = ({
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const user = useSelector((state) => state.user)
   const jobs = useSelector((state) => state.jobs)
   const [openModal, setOpenModal] = useState(false)
@@ -136,7 +138,7 @@ const JobDetails: React.FC<Props> = ({
       setModalStatus('error')
       setTitles({
         title: 'Erro ao favoritar vaga!', //desfavoritar tbm
-        subTitle: 'fodase',
+        subTitle: '',
       })
 
       setOpenModal(true)
@@ -162,7 +164,7 @@ const JobDetails: React.FC<Props> = ({
     setFavoritesJobs(favsIds)
     setIsLoadingFavorite(false)
     setModalStatus('success')
-    setModalButton({ textButton: 'Favoritas', redirectPath: '' })
+    setModalButton({ textButton: 'Favoritas', redirectPath: '/favorite_jobs' })
     setOpenModal(true)
   }
 
@@ -388,7 +390,11 @@ const JobDetails: React.FC<Props> = ({
         title={titles.title}
         subtitle={titles.subTitle}
         secondaryButton={
-          <Button onClick={() => {}} color="inherit" variant="contained">
+          <Button
+            onClick={() => navigate(modalButton.redirectPath)}
+            variant="contained"
+            color="secondary"
+          >
             {modalButton.textButton}
           </Button>
         }

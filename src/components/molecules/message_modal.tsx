@@ -121,7 +121,7 @@ const MessageModal: React.FC<Props> = ({
               {title}
             </Typography>
             {subtitle && (
-              <Typography color="6C757D" fontSize={16}>
+              <Typography color="#4D5E77" fontSize={16}>
                 {subtitle}
               </Typography>
             )}
