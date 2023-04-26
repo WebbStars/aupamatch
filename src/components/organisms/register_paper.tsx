@@ -92,7 +92,6 @@ const useStyles = makeStyles({
 })
 
 interface State {
-  username: string
   name: string
   email: string
   phone: string
@@ -114,7 +113,6 @@ const RegisterPaper: React.FC = () => {
   const [passwordNotEqual, setPasswordNotEqual] = useState<boolean>(false)
   const [invalidRules, setInvalidRules] = useState<boolean>(false)
   const [form, setForm] = useState<State>({
-    username: '',
     name: '',
     email: '',
     phone: '',
@@ -276,22 +274,6 @@ const RegisterPaper: React.FC = () => {
         </Typography>
       </Box>
       <Box display="flex" flexDirection="column" width={1}>
-        <Tooltip title="Campo desabilitado por ora">
-          <FormControl sx={{ my: 1, width: 1 }} variant="outlined" disabled>
-            <InputLabel htmlFor="email-input">
-              {t('organisms.register_paper.username')}
-            </InputLabel>
-            <OutlinedInput
-              id="username-input"
-              type="text"
-              placeholder={t('organisms.register_paper.username_placeholder')!}
-              value={form.username}
-              onChange={handleChange('username')}
-              label={t('organisms.register_paper.username')}
-              sx={{ bgcolor: '#eeeef0' }}
-            />
-          </FormControl>
-        </Tooltip>
         <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
           <InputLabel htmlFor="email-input">
             {t('organisms.register_paper.name')}
