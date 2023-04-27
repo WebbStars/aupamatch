@@ -55,9 +55,10 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       textAlign="justify"
       mt={2}
     >
-      <FormControl>
+      <FormControl required>
         <FormLabel>Nacionalidade</FormLabel>
         <TextField
+          required
           name="nacionalidade"
           value={form.nacionalidade}
           placeholder="Nacionalidade"
@@ -65,9 +66,10 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
         />
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>Experiências profissionais</FormLabel>
         <TextField
+          required
           multiline
           name="experiencia"
           value={form.experiencia}
@@ -77,10 +79,11 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       </FormControl>
 
       <Grid container spacing={1}>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <FormLabel>Sabe nadar?</FormLabel>
             <Select
+              required
               name="natacao"
               value={form.natacao}
               placeholder={t('organisms.job_form.form3.swimming_placeholder')!}
@@ -92,8 +95,8 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <Box display="flex" gap={1} color={theme.palette.primary.main}>
               <FormLabel>Carro exclusivo</FormLabel>
               <Tooltip title="Tem interesse de ter um carro exclusivo cedido pela família?">
@@ -101,6 +104,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
               </Tooltip>
             </Box>
             <Select
+              required
               name="carro_exclusivo"
               value={form.carro_exclusivo}
               placeholder="Considera necessário ter um carro exclusivo?"
@@ -114,11 +118,19 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       </Grid>
 
       <Grid container spacing={1}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <FormControl fullWidth required>
-            <FormLabel>
-              {t('organisms.job_form.temporary_form.children_label')}
-            </FormLabel>
+            <Box display="flex" gap={1} color={theme.palette.primary.main}>
+              <FormLabel>
+                {t('organisms.job_form.temporary_form.children_label')}
+              </FormLabel>
+              <Tooltip
+                title={t('organisms.job_form.temporary_form.children_helper')}
+              >
+                <HelpOutlineTwoTone />
+              </Tooltip>
+            </Box>
+
             <TextField
               required
               type="number"
@@ -132,10 +144,11 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <FormLabel>Possui Habilitação</FormLabel>
             <Select
+              required
               name="habilitacao"
               value={form.habilitacao}
               placeholder="Possui Habilitação"
@@ -148,7 +161,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
         </Grid>
       </Grid>
 
-      <FormControl>
+      <FormControl required>
         <Box display="flex" gap={1} color={theme.palette.primary.main}>
           <FormLabel>Data de Disponibilidade</FormLabel>
           <Tooltip title="A data de disponibilidade é a data prevista de embarque">

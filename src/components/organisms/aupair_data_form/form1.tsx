@@ -106,7 +106,7 @@ const EditAupairForm1: React.FC<Props> = ({
         </Select>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>Telefone</FormLabel>
         <PhoneInput
           specialLabel=""
@@ -114,6 +114,7 @@ const EditAupairForm1: React.FC<Props> = ({
           onChange={(e: string) => handleChangePhone(e)}
           inputProps={{
             name: 'phone',
+            required: true,
             autoFocus: true,
           }}
           inputStyle={{

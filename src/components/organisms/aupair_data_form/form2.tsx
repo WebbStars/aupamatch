@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react'
+import React, { useRef } from 'react'
 import {
   Box,
   FormControl,
@@ -19,10 +19,9 @@ interface Props {
       | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
       | SelectChangeEvent<any>
   ) => void
-  setForm: Dispatch<SetStateAction<any>>
 }
 
-const NewJobForm2: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
+const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
   // const { t } = useTranslation()
   const numberInputRef = useRef<HTMLDivElement | null>(null)
 
@@ -62,14 +61,14 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
   //   setForm((oldForm: Object) => ({ ...oldForm, cep: event.target.value }))
   // }
 
-  const handleChangeNoSpecial = (
-    name: string,
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    const result = event.target.value.replace(/[^a-zA-Z0-9]/gi, '')
+  // const handleChangeNoSpecial = (
+  //   name: string,
+  //   event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  // ) => {
+  //   const result = event.target.value.replace(/[^a-zA-Z0-9]/gi, '')
 
-    setForm((oldForm: Object) => ({ ...oldForm, [name]: result }))
-  }
+  //   setForm((oldForm: Object) => ({ ...oldForm, [name]: result }))
+  // }
 
   return (
     <Box
@@ -90,12 +89,12 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
           value={form.passaporte}
           fullWidth
           placeholder="Passaporte"
-          onChange={(event) => handleChangeNoSpecial('passaporte', event)}
+          onChange={handleOnChange}
           data-test="textfield-post-code"
         />
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>CEP</FormLabel>
         <MaskedInput
           id="textfield-post-code"
@@ -107,41 +106,45 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
           inputProps={{ pattern: '([0-9]{5}-[0-9]{3})' }}
           onChange={handleOnChange}
           data-test="textfield-post-code"
+          required
         />
       </FormControl>
 
       <Grid container spacing={1}>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <FormLabel>Estado</FormLabel>
             <TextField
+              required
               type="text"
               name="estado"
               value={form.estado}
               placeholder="Estado"
-              onChange={(event) => handleChangeNoSpecial('estado', event)}
+              onChange={handleOnChange}
             />
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <FormLabel>Cidade</FormLabel>
             <TextField
+              required
               name="cidade"
               value={form.cidade}
               placeholder="Cidade"
-              onChange={(event) => handleChangeNoSpecial('cidade', event)}
+              onChange={handleOnChange}
             />
           </FormControl>
         </Grid>
       </Grid>
 
       <Grid container spacing={1}>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <FormLabel>Logradouro</FormLabel>
             <TextField
+              required
               name="logradouro"
               value={form.logradouro}
               placeholder="Logradouro"
@@ -150,10 +153,11 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
             <FormLabel>Numero</FormLabel>
             <TextField
+              required
               name="numero"
               type="number"
               value={form.numero}
