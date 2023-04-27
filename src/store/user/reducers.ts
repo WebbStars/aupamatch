@@ -1,5 +1,5 @@
-import { UserActionTypes, FETCH_USER } from './types'
-import { FetchUserState } from '../../services'
+import { UserActionTypes, FETCH_USER, FETCH_USER_PROFILE } from './types'
+import { FetchUserProfileState, FetchUserState } from '../../services'
 
 const initialState = null
 
@@ -10,9 +10,22 @@ const userReducer = (
   switch (action.type) {
     case FETCH_USER:
       return action.payload
+
     default:
       return state
   }
 }
 
-export default userReducer
+const userProfileReducer = (
+  state: FetchUserProfileState | null = initialState,
+  action: UserActionTypes
+): FetchUserProfileState | null => {
+  switch (action.type) {
+    case FETCH_USER_PROFILE:
+      return action.payload
+    default:
+      return state
+  }
+}
+
+export { userReducer, userProfileReducer }

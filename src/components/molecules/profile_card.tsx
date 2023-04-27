@@ -16,20 +16,20 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   photo: {
     backgroundImage: `url(${companyDefaultImage})`,
     backgroundSize: 'cover',
     height: '80px',
     width: '80px',
-    borderRadius: '50%'
+    borderRadius: '50%',
   },
   btn: {
     backgroundColor: `${theme.palette.grey[200]} !important`,
     color: '#000 !important',
-    width: '100% !important'
-  }
+    width: '100% !important',
+  },
 })
 
 interface Props {
@@ -39,7 +39,7 @@ interface Props {
 const ProfileCard: React.FC<Props> = ({ isFetching }) => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.userProfile)
 
   return (
     <Paper className={classes.paper}>

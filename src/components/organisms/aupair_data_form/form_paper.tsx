@@ -65,7 +65,7 @@ const AupairFormPaper: React.FC<Props> = ({
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.userProfile)
 
   const handleOnChange = (
     event:
@@ -112,7 +112,7 @@ const AupairFormPaper: React.FC<Props> = ({
 
       <Box className={classes.buttons}>
         {activeStep !== 0 && (
-          <Button color="secondary" variant="outlined" onClick={handlePrevious}>
+          <Button color="primary" variant="outlined" onClick={handlePrevious}>
             {t('organisms.job_form.form_paper.back_button')}
           </Button>
         )}

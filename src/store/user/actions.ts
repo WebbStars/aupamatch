@@ -1,5 +1,10 @@
-import { FetchUserAction, FETCH_USER } from './types'
-import { fetchUserService } from '../../services'
+import {
+  FetchUserAction,
+  FETCH_USER,
+  FETCH_USER_PROFILE,
+  FetchUserProfileAction,
+} from './types'
+import { fetchUserProfileService, fetchUserService } from '../../services'
 
 const fetchUser = async (
   id: string,
@@ -10,15 +15,34 @@ const fetchUser = async (
   if (response) {
     return {
       type: FETCH_USER,
-      payload: response
+      payload: response,
     }
   } else {
     return {
       type: FETCH_USER,
       payload: null,
-      error: true
+      error: true,
     }
   }
 }
 
-export { fetchUser }
+const fetchUserProfile = async (
+  accessToken: string
+): Promise<FetchUserProfileAction> => {
+  const { response } = await fetchUserProfileService(accessToken)
+
+  if (response) {
+    return {
+      type: FETCH_USER_PROFILE,
+      payload: response,
+    }
+  } else {
+    return {
+      type: FETCH_USER_PROFILE,
+      payload: null,
+      error: true,
+    }
+  }
+}
+
+export { fetchUser, fetchUserProfile }

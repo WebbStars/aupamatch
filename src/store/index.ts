@@ -2,23 +2,24 @@ import { combineReducers, CombinedState } from 'redux'
 import {
   useDispatch as useReduxDispatch,
   useSelector as useReduxSelector,
-  TypedUseSelectorHook
+  TypedUseSelectorHook,
 } from 'react-redux'
 import exampleReducer from './example/reducers'
-import userReducer from './user/reducers'
+import { userReducer, userProfileReducer } from './user/reducers'
 import globalNotificationReducer from './notifications/reducers'
 import jobsReducer from './jobs/reducers'
 
 const appReducer = combineReducers({
   example: exampleReducer,
   user: userReducer,
+  userProfile: userProfileReducer,
   notification: globalNotificationReducer,
-  jobs: jobsReducer
+  jobs: jobsReducer,
 })
 
 export const rootReducer: typeof appReducer = (state, action) => {
   const newState = {
-    ...state
+    ...state,
   } as CombinedState<RootState> | undefined
 
   return appReducer(newState, action)

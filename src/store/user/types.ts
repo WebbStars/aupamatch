@@ -1,6 +1,7 @@
-import { FetchUserState } from '../../services'
+import { FetchUserProfileState, FetchUserState } from '../../services'
 
 export const FETCH_USER = 'FETCH_USER'
+export const FETCH_USER_PROFILE = 'FETCH_USER_PROFILE'
 
 export interface FetchUserAction {
   type: typeof FETCH_USER
@@ -8,4 +9,10 @@ export interface FetchUserAction {
   error?: boolean
 }
 
-export type UserActionTypes = FetchUserAction
+export interface FetchUserProfileAction {
+  type: typeof FETCH_USER_PROFILE
+  payload: FetchUserProfileState | null
+  error?: boolean
+}
+
+export type UserActionTypes = FetchUserAction | FetchUserProfileAction

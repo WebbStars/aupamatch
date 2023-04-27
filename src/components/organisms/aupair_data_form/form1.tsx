@@ -12,7 +12,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useTranslation } from 'react-i18next'
 import RPI from 'react-phone-input-2'
-import { FetchUserState } from '../../../services'
+import { FetchUserProfileState } from '../../../services'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -28,7 +28,7 @@ interface Props {
       | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
       | SelectChangeEvent<any>
   ) => void
-  user: FetchUserState | null
+  user: FetchUserProfileState | null
 }
 
 const EditAupairForm1: React.FC<Props> = ({
@@ -50,25 +50,25 @@ const EditAupairForm1: React.FC<Props> = ({
 
     setForm((oldForm: Object) => ({ ...oldForm, [name]: formatedDate }))
   }
-
   const handleChangePhone = (newValue: string) => {
     setForm((oldForm: Object) => ({ ...oldForm, telefone: newValue }))
   }
 
   return (
     <Box display="flex" flexDirection="column" gap={3} textAlign="justify">
-      <FormControl>
+      <FormControl required>
         <FormLabel>Nome completo</FormLabel>
         <TextField
+          required
           defaultValue={user?.name}
           name="nome_completo"
           variant="outlined"
           placeholder="Nome completo"
-          value={form.titulo_vaga}
+          value={form.name}
           onChange={handleOnChange}
         />
       </FormControl>
-      <FormControl>
+      <FormControl required>
         <FormLabel>Data de Nascimento</FormLabel>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
@@ -81,9 +81,10 @@ const EditAupairForm1: React.FC<Props> = ({
         </LocalizationProvider>
       </FormControl>
 
-      <FormControl>
+      <FormControl required>
         <FormLabel>Identificação</FormLabel>
         <TextField
+          required
           name="identificacao"
           variant="outlined"
           placeholder="Identificação"
@@ -92,7 +93,7 @@ const EditAupairForm1: React.FC<Props> = ({
         />
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl fullWidth required>
         <FormLabel>Gênero</FormLabel>
         <Select
           name="genero"
@@ -110,8 +111,11 @@ const EditAupairForm1: React.FC<Props> = ({
         <PhoneInput
           specialLabel=""
           country={'br'}
-          value={form.phone}
           onChange={(e: string) => handleChangePhone(e)}
+          inputProps={{
+            name: 'phone',
+            autoFocus: true,
+          }}
           inputStyle={{
             width: '100%',
           }}
