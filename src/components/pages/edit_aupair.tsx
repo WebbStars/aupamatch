@@ -2,7 +2,7 @@ import makeStyles from '@material-ui/styles/makeStyles'
 import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch } from '../../store'
-import { fetchUser, fetchUserProfile } from '../../store/user'
+import { fetchUserProfile } from '../../store/user'
 import { EditAupairStepper } from '../organisms'
 import LoggedTemplate from '../templates/logged'
 
