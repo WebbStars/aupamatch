@@ -47,8 +47,7 @@ const INITIAL_VALUES = {
   resumo: '',
   descricao: '',
   genero: 'No Preference',
-  habilitacao_pid: 'false',
-  passaporte: 'false',
+  passaporte: '',
   receber_newsletter: 'false',
 }
 
@@ -91,7 +90,6 @@ const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
         : JSON.parse(form.carro_exclusivo),
       habilitacao: isEdit ? form.habilitacao : JSON.parse(form.habilitacao),
       natacao: isEdit ? form.natacao : JSON.parse(form.natacao),
-      passaporte: isEdit ? form.passaporte : JSON.parse(form.passaporte),
       receber_newsletter: isEdit
         ? form.receber_newsletter
         : JSON.parse(form.receber_newsletter),

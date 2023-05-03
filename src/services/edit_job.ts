@@ -10,7 +10,7 @@ export const editJob = async (
   accessToken: string
 ): Promise<FetchUserResponsePayload> => {
   try {
-    const response = await api.put(`/vagas/${job._id}`, job, {
+    const response = await api.put(`/vaga/${job._id}`, job, {
       headers: {
         'x-access-token': accessToken,
       },

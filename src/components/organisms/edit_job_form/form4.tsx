@@ -74,22 +74,9 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
       <FormControl fullWidth>
         <FormLabel>{t('organisms.job_form.form4.pid_label')}</FormLabel>
         <Select
-          name="habilitacao_pid"
-          value={form.habilitacao_pid}
+          name="habilitacao"
+          value={form.habilitacao}
           placeholder={t('organisms.job_form.form4.pid_placeholder')!}
-          onChange={handleOnChange}
-        >
-          <MenuItem value="true">Sim</MenuItem>
-          <MenuItem value="false">Não</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form4.passaport_label')}</FormLabel>
-        <Select
-          name="passaporte"
-          value={form.passaporte}
-          placeholder={t('organisms.job_form.form4.passaport_placeholder')!}
           onChange={handleOnChange}
         >
           <MenuItem value="true">{t('global.yes')}</MenuItem>
@@ -98,15 +85,25 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
       </FormControl>
 
       <FormControl fullWidth>
+        <FormLabel>{t('organisms.job_form.form4.passaport_label')}</FormLabel>
+        <TextField
+          name="passaporte"
+          value={form.passaporte}
+          placeholder={t('organisms.job_form.form4.passaport_placeholder')!}
+          onChange={handleOnChange}
+        />
+      </FormControl>
+
+      <FormControl fullWidth>
         <FormLabel>{t('organisms.job_form.form4.newsletter_label')}</FormLabel>
         <RadioGroup row name="receber_newsletter">
           <FormControlLabel
-            value={true}
+            value={form.receber_newsletter}
             control={<Radio />}
             label={t('global.yes')}
           />
           <FormControlLabel
-            value={false}
+            value={!form.receber_newsletter}
             control={<Radio />}
             label={t('global.no')}
           />
