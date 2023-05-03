@@ -59,6 +59,7 @@ interface Props {
 
 const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
   const { t } = useTranslation()
+  const [isFetchingEdit, setIsFetchingEdit] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
@@ -70,6 +71,7 @@ const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
     if (!jobToEdit) return
 
     setForm(jobToEdit)
+    if (form !== INITIAL_VALUES) setIsFetchingEdit(false)
   }, [jobToEdit])
 
   const dispatch = useDispatch()
@@ -140,6 +142,7 @@ const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
         ))}
       </Stepper>
       <FormPaper
+        isFetchingEdit={isFetchingEdit}
         isEdit={isEdit}
         isLoading={isLoading}
         submitLabel={

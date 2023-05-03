@@ -48,6 +48,7 @@ const useStyles = makeStyles({
 type Object = { [key: string]: any }
 
 interface Props {
+  isFetchingEdit?: boolean
   isEdit?: boolean
   isLoading: boolean
   submitLabel: string
@@ -59,6 +60,7 @@ interface Props {
 }
 
 const FormPaper: React.FC<Props> = ({
+  isFetchingEdit,
   isEdit,
   submitLabel,
   handleSubmit,
@@ -115,28 +117,40 @@ const FormPaper: React.FC<Props> = ({
         </Box>
       )}
 
-      {formToRender()}
+      {isEdit && isFetchingEdit ? (
+        <Box width="100%">
+          <CircularProgress size="60px" color="secondary" />
+        </Box>
+      ) : (
+        <>
+          {formToRender()}
 
-      <Box className={classes.buttons}>
-        {activeStep !== 0 && (
-          <Button color="secondary" variant="outlined" onClick={handlePrevious}>
-            {t('organisms.job_form.form_paper.back_button')}
-          </Button>
-        )}
+          <Box className={classes.buttons}>
+            {activeStep !== 0 && (
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={handlePrevious}
+              >
+                {t('organisms.job_form.form_paper.back_button')}
+              </Button>
+            )}
 
-        <Button
-          color="primary"
-          variant="contained"
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <CircularProgress size="22px" color="secondary" />
-          ) : (
-            submitLabel
-          )}
-        </Button>
-      </Box>
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <CircularProgress size="22px" color="secondary" />
+              ) : (
+                submitLabel
+              )}
+            </Button>
+          </Box>
+        </>
+      )}
     </Paper>
   )
 }
