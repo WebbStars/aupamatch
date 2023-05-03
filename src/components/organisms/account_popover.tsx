@@ -6,7 +6,7 @@ import {
   Typography,
   Link,
   IconButton,
-  Tooltip
+  Tooltip,
 } from '@mui/material'
 import { AccountCircle, Logout } from '@mui/icons-material'
 import { theme } from '../../styles'
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     borderTop: `2px solid ${theme.palette.grey[300]}`,
     marginBottom: '16px',
     marginLeft: '-50px',
-    width: 'calc(100% + 200px)'
+    width: 'calc(100% + 200px)',
   },
 
   account: {
@@ -31,16 +31,16 @@ const useStyles = makeStyles({
     alignItems: 'center',
     cursor: 'pointer',
     marginTop: '8px',
-    padding: '16px 32px 0px 32px'
+    padding: '16px 32px 0px 32px',
   },
   email: {
     fontSize: '14px',
-    marginBottom: '8px'
+    marginBottom: '8px',
   },
   name: {
     marginBottom: '8px',
     fontWeight: 500,
-    fontSize: '14px'
+    fontSize: '14px',
   },
   exit: {
     borderTop: `2px solid ${theme.palette.grey[300]}`,
@@ -50,12 +50,12 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     color: theme.palette.grey[700],
-    borderRadius: 0
+    borderRadius: 0,
   },
   alterpassword: {
     marginBottom: '8px',
-    fontSize: '12px'
-  }
+    fontSize: '12px',
+  },
 })
 
 const UserAccountsPopover: React.FC = () => {
@@ -63,7 +63,7 @@ const UserAccountsPopover: React.FC = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.userProfile)
 
   const logout = () => {
     sessionStorage.clear()

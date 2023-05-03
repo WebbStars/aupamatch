@@ -204,7 +204,7 @@ const LoginPaper: React.FC = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Senha"
+            label={t('organisms.login_paper.password')}
           />
         </FormControl>
         <Link
