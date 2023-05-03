@@ -14,6 +14,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useTranslation } from 'react-i18next'
 import { HelpOutlineTwoTone } from '@mui/icons-material'
 import { theme } from '../../../styles'
+import { FetchAupairJobState } from '../../../services'
 
 type Object = { [key: string]: any }
 
@@ -29,6 +30,10 @@ interface Props {
 
 const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
   const { t } = useTranslation()
+
+  const jobToEdit = window.history.state?.usr?.currentJob as FetchAupairJobState
+
+  console.log('freefas', jobToEdit)
 
   const handleChangeData = (name: string, newValue: any) => {
     const newDate = new Date(newValue)
@@ -49,9 +54,10 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
         <TextField
           name="titulo_vaga"
           required
+          defaultValue={jobToEdit?.titulo_vaga || form.titulo_vaga}
           variant="outlined"
           placeholder={t('organisms.job_form.form1.title_placeholder')!}
-          value={form.titulo_vaga}
+          // value={form.titulo_vaga}
           onChange={handleOnChange}
         />
       </FormControl>
@@ -64,6 +70,7 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
         </Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
+            InputProps={{ defaultValue: '02/02/2002' }}
             views={['year', 'month', 'day']}
             inputFormat="DD/MM/YYYY"
             value={form.data_disponibilidade}
@@ -99,8 +106,8 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
           name="pais"
           onChange={handleOnChange}
         >
-          <MenuItem value={'Brasil'}>BR</MenuItem>
-          <MenuItem value={'USA'}>USA</MenuItem>
+          <MenuItem value={'br'}>BR</MenuItem>
+          <MenuItem value={'usa'}>USA</MenuItem>
         </Select>
       </FormControl>
 

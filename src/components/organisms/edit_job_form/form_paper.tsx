@@ -48,7 +48,6 @@ const useStyles = makeStyles({
 type Object = { [key: string]: any }
 
 interface Props {
-  isEdit?: boolean
   isLoading: boolean
   submitLabel: string
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
@@ -59,7 +58,6 @@ interface Props {
 }
 
 const FormPaper: React.FC<Props> = ({
-  isEdit,
   submitLabel,
   handleSubmit,
   handlePrevious,
@@ -107,7 +105,7 @@ const FormPaper: React.FC<Props> = ({
       {activeStep === 0 && (
         <Box>
           <Typography variant="h3">
-            {isEdit ? 'Editar vaga' : t('organisms.job_form.form_paper.title')}
+            {t('organisms.job_form.form_paper.title')}
           </Typography>
           <Typography variant="body2" color="#6C757D">
             {t('organisms.job_form.form_paper.subtitle')}

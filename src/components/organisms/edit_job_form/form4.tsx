@@ -75,7 +75,7 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
         <FormLabel>{t('organisms.job_form.form4.pid_label')}</FormLabel>
         <Select
           name="habilitacao_pid"
-          value={form.habilitacao}
+          value={form.habilitacao_pid}
           placeholder={t('organisms.job_form.form4.pid_placeholder')!}
           onChange={handleOnChange}
         >
@@ -99,11 +99,7 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
 
       <FormControl fullWidth>
         <FormLabel>{t('organisms.job_form.form4.newsletter_label')}</FormLabel>
-        <RadioGroup
-          row
-          name="receber_newsletter"
-          defaultValue={form.receber_newsletter}
-        >
+        <RadioGroup row name="receber_newsletter">
           <FormControlLabel
             value={true}
             control={<Radio />}

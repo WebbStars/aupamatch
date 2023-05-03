@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import { useSelector } from '../store'
+import { useDispatch, useSelector } from '../store'
+import { fetchUserProfile } from '../store/user'
 
 const ProtectedRoute: React.FC = () => {
+  const dispatch = useDispatch()
   const hasUser = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
   const user = useSelector((state) => state.user)
+
+  useEffect(() => {
+    const asyncEffect = async () => {
+      dispatch(await fetchUserProfile(hasUser!))
+    }
+
+    asyncEffect()
+  }, [])
 
   const path = location.pathname
 

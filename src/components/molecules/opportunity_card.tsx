@@ -15,6 +15,7 @@ import { FetchApplies, FetchAupairJobState } from '../../services'
 import { theme } from '../../styles'
 import { Delete, Edit, Lock } from '@mui/icons-material'
 import MessageModal from './message_modal'
+import { useNavigate } from 'react-router-dom'
 
 interface Job {
   job: FetchAupairJobState | FetchApplies
@@ -90,8 +91,10 @@ const OpportunityCard: React.FC<Props> = ({
   applies,
 }) => {
   const classes = useStyles({ selected })
-  const { t } = useTranslation()
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const handleOpenDeleteModal = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -99,6 +102,12 @@ const OpportunityCard: React.FC<Props> = ({
     event.stopPropagation()
 
     setOpenDeleteModal(true)
+  }
+
+  const handleEditJob = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+
+    navigate(`/edit_job/${job.job._id}`)
   }
 
   return (
@@ -145,7 +154,7 @@ const OpportunityCard: React.FC<Props> = ({
               <IconButton onClick={handleOpenDeleteModal} title="Excluir">
                 <Delete />
               </IconButton>
-              <IconButton disabled>
+              <IconButton onClick={handleEditJob} title="Editar">
                 <Edit />
               </IconButton>
               <IconButton disabled>

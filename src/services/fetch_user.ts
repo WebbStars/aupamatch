@@ -37,11 +37,10 @@ interface FetchUserResponsePayload {
 }
 
 export const fetchUserService = async (
-  id: string,
   accessToken: string
 ): Promise<FetchUserResponsePayload> => {
   try {
-    const response = await api.get(`/perfil?userID=${id}`, {
+    const response = await api.get('/perfil', {
       headers: {
         'x-access-token': accessToken,
       },

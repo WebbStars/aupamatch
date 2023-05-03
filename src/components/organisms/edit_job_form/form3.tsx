@@ -50,8 +50,8 @@ const NewJobForm3: React.FC<Props> = ({ form, handleOnChange }) => {
         <FormLabel>{t('organisms.job_form.form3.idiom_label')}</FormLabel>
         <Select
           multiple
-          name="idiomas"
-          value={form.idiomas}
+          name="idioms"
+          value={form.idioms}
           onChange={handleOnChange}
           renderValue={(selected: string[]) => (
             <Box

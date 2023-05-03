@@ -6,11 +6,8 @@ import {
 } from './types'
 import { fetchUserProfileService, fetchUserService } from '../../services'
 
-const fetchUser = async (
-  id: string,
-  accessToken: string
-): Promise<FetchUserAction> => {
-  const { response } = await fetchUserService(id, accessToken)
+const fetchUser = async (accessToken: string): Promise<FetchUserAction> => {
+  const { response } = await fetchUserService(accessToken)
 
   if (response) {
     return {

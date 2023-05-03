@@ -6,7 +6,7 @@ import {
   IconButton,
   InputBase,
   Paper,
-  Typography
+  Typography,
 } from '@mui/material'
 import LoggedTemplate from '../templates/logged'
 import { searchAupairImage } from '../../images'
@@ -23,21 +23,21 @@ const useStyles = makeStyles({
     backgroundColor: '#f9fafb',
     display: 'flex',
     alignItems: 'center',
-    padding: 50
+    padding: 50,
   },
   searchInput: {
     width: '100%',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   root: {
     display: 'flex',
     backgroundColor: '#ffff',
     [theme.breakpoints.up('md')]: {
-      height: '560px'
+      height: '560px',
     },
     [theme.breakpoints.down('md')]: {
-      height: 'auto'
-    }
+      height: 'auto',
+    },
   },
   illustration: {
     backgroundImage: `url(${searchAupairImage})`,
@@ -47,22 +47,22 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('md')]: {
       height: '380px',
-      backgroundPosition: 'center top'
+      backgroundPosition: 'center top',
     },
     [theme.breakpoints.down('sm')]: {
       height: '240px',
 
-      backgroundRepeat: 'no-repeat'
-    }
+      backgroundRepeat: 'no-repeat',
+    },
   },
   secondaryButton: {
     backgroundColor: `${theme.palette.primary.light} !important`,
     color: `${theme.palette.primary.main} !important`,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   titleSpan: {
-    color: theme.palette.primary.main
-  }
+    color: theme.palette.primary.main,
+  },
 })
 
 const SearchAupair: React.FC = () => {
@@ -81,10 +81,9 @@ const SearchAupair: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userID = sessionStorage.getItem('userID')
       const accessToken = sessionStorage.getItem('accessToken')
 
-      dispatch(await fetchUser(userID!, accessToken!))
+      dispatch(await fetchUser(accessToken!))
     }
 
     fetchUserData()

@@ -20,10 +20,9 @@ const PostJobs: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userID = sessionStorage.getItem('userID')
       const accessToken = sessionStorage.getItem('accessToken')
 
-      dispatch(await fetchUser(userID!, accessToken!))
+      dispatch(await fetchUser(accessToken!))
     }
 
     fetchUserData()

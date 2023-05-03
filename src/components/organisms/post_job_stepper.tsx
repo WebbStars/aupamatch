@@ -1,10 +1,10 @@
 import { Box, Button, Step, StepLabel, Stepper } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './job_form/form_paper'
-import { postJob } from '../../services'
+import { editJob, postJob } from '../../services'
 import { MessageModal } from '../molecules'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,14 +36,12 @@ const INITIAL_VALUES = {
   nacionalidade: '',
   quantidade_criancas: 0,
   numero_identificacao_nacional: '',
-
   religiao: '',
   carro_exclusivo: 'false',
-  idioms: [],
+  idiomas: [],
   faixa_etaria: '',
   experiencia_trabalho: '',
   habilitacao: 'false',
-
   escolaridade: '',
   natacao: 'false',
   resumo: '',
@@ -54,7 +52,12 @@ const INITIAL_VALUES = {
   receber_newsletter: 'false',
 }
 
-const PostJobStepper: React.FC = () => {
+interface Props {
+  jobToEdit?: any
+  isEdit?: boolean
+}
+
+const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
@@ -62,6 +65,12 @@ const PostJobStepper: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState(0)
   const [form, setForm] = useState(INITIAL_VALUES)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!jobToEdit) return
+
+    setForm(jobToEdit)
+  }, [jobToEdit])
 
   const dispatch = useDispatch()
   const accessToken = sessionStorage.getItem('accessToken')
@@ -72,18 +81,30 @@ const PostJobStepper: React.FC = () => {
 
     const newForm = {
       ...form,
-      vaga_patrocinada: JSON.parse(form.vaga_patrocinada),
-      carro_exclusivo: JSON.parse(form.carro_exclusivo),
-      habilitacao: JSON.parse(form.habilitacao),
-      natacao: JSON.parse(form.natacao),
-      passaporte: JSON.parse(form.passaporte),
-      receber_newsletter: JSON.parse(form.receber_newsletter),
+      vaga_patrocinada: isEdit
+        ? form?.vaga_patrocinada
+        : JSON.parse(form.vaga_patrocinada),
+      carro_exclusivo: isEdit
+        ? form?.carro_exclusivo
+        : JSON.parse(form.carro_exclusivo),
+      habilitacao: isEdit ? form.habilitacao : JSON.parse(form.habilitacao),
+      natacao: isEdit ? form.natacao : JSON.parse(form.natacao),
+      passaporte: isEdit ? form.passaporte : JSON.parse(form.passaporte),
+      receber_newsletter: isEdit
+        ? form.receber_newsletter
+        : JSON.parse(form.receber_newsletter),
     }
 
-    const { hasError } = await postJob(newForm as any, accessToken!)
+    const { hasError } = isEdit
+      ? await editJob(newForm as any, accessToken!)
+      : await postJob(newForm as any, accessToken!)
 
     if (hasError) {
-      dispatch(setErrorMessage('Erro ao tentar cadastrar vaga'))
+      dispatch(
+        setErrorMessage(
+          `Erro ao tentar ${isEdit ? 'editar' : 'cadastrar'} vaga`
+        )
+      )
       setModalStatus('error')
       setOpenModal(true)
       setIsLoading(false)
@@ -107,7 +128,7 @@ const PostJobStepper: React.FC = () => {
   }
 
   return (
-    <Box display="flex" flexDirection="column" gap={4}>
+    <Box display="flex" flexDirection="column" gap={4} mt={4}>
       <Stepper
         activeStep={activeStep}
         sx={{ height: { xs: '100px', md: 'auto' } }}
@@ -119,6 +140,7 @@ const PostJobStepper: React.FC = () => {
         ))}
       </Stepper>
       <FormPaper
+        isEdit={isEdit}
         isLoading={isLoading}
         submitLabel={
           activeStep === steps.length - 1
