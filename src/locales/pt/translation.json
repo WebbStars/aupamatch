@@ -27,7 +27,17 @@
       "profile_button": "Ver perfil"
     },
     "opportunity_card": {
-      "views": "Número de visitas"
+      "date_label": "Data de candidatura:",
+      "delete_title": "Tem certeza que deseja excluir essa vaga?",
+      "delete": "Excluir",
+      "edit": "Editar",
+      "views": "Número de visitas",
+      "disable": "Desabilitar",
+      "disabled": "desabilitada",
+      "enable": "Habilitar",
+      "enabled": "habilitada",
+      "disable_error": "Erro ao tentar {{enableText}} vaga",
+      "disable_success": "Vaga {{enabledText}} com sucesso"
     }
   },
   "organisms": {

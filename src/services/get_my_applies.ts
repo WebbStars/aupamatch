@@ -7,6 +7,7 @@ export interface FetchApplies {
     status: string
     _id: string
   }
+  ativo: boolean
   carro_exclusivo: boolean
   data_disponibilidade: string
   data_finalizacao_vaga: string

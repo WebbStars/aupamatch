@@ -11,11 +11,13 @@ import {
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
-import { FetchApplies, FetchAupairJobState } from '../../services'
+import { FetchApplies, FetchAupairJobState, disableJob } from '../../services'
 import { theme } from '../../styles'
-import { Delete, Edit, Lock } from '@mui/icons-material'
+import { Delete, Edit, Lock, LockOpen } from '@mui/icons-material'
 import MessageModal from './message_modal'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from '../../store'
+import { setErrorMessage } from '../../store/notifications'
 
 interface Job {
   job: FetchAupairJobState | FetchApplies
@@ -92,9 +94,19 @@ const OpportunityCard: React.FC<Props> = ({
 }) => {
   const classes = useStyles({ selected })
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [enabled, setEnabled] = useState(job.job.ativo)
+  const accessToken = sessionStorage.getItem('accessToken')
 
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const enableText = enabled
+    ? t('molecules.opportunity_card.disable')
+    : t('molecules.opportunity_card.enable')
+  const enabledText = enabled
+    ? t('molecules.opportunity_card.disabled')
+    : t('molecules.opportunity_card.enabled')
 
   const handleOpenDeleteModal = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -108,6 +120,35 @@ const OpportunityCard: React.FC<Props> = ({
     event.stopPropagation()
 
     navigate(`/edit_job/${job.job._id}`)
+  }
+
+  const handleDisableJob = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation()
+
+    const { hasError, response } = await disableJob(accessToken!, job.job._id)
+
+    if (hasError) {
+      dispatch(
+        setErrorMessage(
+          t('molecules.opportunity_card.disable_error', {
+            enableText,
+          })!
+        )
+      )
+      return
+    }
+
+    dispatch(
+      setErrorMessage(
+        t('molecules.opportunity_card.disable_success', {
+          enabledText,
+        })!
+      )
+    )
+
+    setEnabled(response.ativo)
   }
 
   return (
@@ -151,14 +192,20 @@ const OpportunityCard: React.FC<Props> = ({
         {views && (
           <Box>
             <Stack direction="row" gap={2}>
-              <IconButton onClick={handleOpenDeleteModal} title="Excluir">
+              <IconButton
+                onClick={handleOpenDeleteModal}
+                title={t('molecules.opportunity_card.delete')!}
+              >
                 <Delete />
               </IconButton>
-              <IconButton onClick={handleEditJob} title="Editar">
+              <IconButton
+                onClick={handleEditJob}
+                title={t('molecules.opportunity_card.edit')!}
+              >
                 <Edit />
               </IconButton>
-              <IconButton disabled>
-                <Lock />
+              <IconButton onClick={handleDisableJob} title={enableText}>
+                {enabled ? <Lock /> : <LockOpen />}
               </IconButton>
             </Stack>
             <Box display="flex" gap={1}>
@@ -188,7 +235,7 @@ const OpportunityCard: React.FC<Props> = ({
             </Stack>
             <Stack direction="row" gap={0.4}>
               <Typography fontSize="11px" fontWeight="700" color="grey.600">
-                Data de candidatura:
+                {t('molecules.opportunity_card.date_label')!}
               </Typography>{' '}
               <Typography fontSize="11px" fontWeight="700" color="grey.900">
                 {job.dataCandidatura &&
@@ -199,7 +246,7 @@ const OpportunityCard: React.FC<Props> = ({
         )}
       </Box>
       <MessageModal
-        title="Tem certeza que deseja excluir essa vaga?"
+        title={t('molecules.opportunity_card.delete_title')!}
         open={openDeleteModal}
         setOpen={setOpenDeleteModal}
         error
