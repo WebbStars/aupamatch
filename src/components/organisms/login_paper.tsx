@@ -138,7 +138,10 @@ const LoginPaper: React.FC = () => {
       dispatch(await fetchUserProfile(accessToken))
 
       if (roles[0] === 'ROLE_FAMILY') navigate('/search_aupair')
-      else navigate('/jobs')
+      else {
+        if (response.firstLogin) navigate('/edit_aupair')
+        else navigate('/jobs')
+      }
     }
 
     if (hasError && error === 'invalid_credentials') {

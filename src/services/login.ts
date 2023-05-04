@@ -11,6 +11,7 @@ export interface LoginResponse {
   email: string
   id: string
   name: string
+  firstLogin: boolean
   roles: string[]
   message?: string
 }
@@ -29,7 +30,7 @@ export const internalLogin = async (
 
     return {
       response: response.data,
-      hasError: false
+      hasError: false,
     }
   } catch (err) {
     const error = err as AxiosError
@@ -38,11 +39,11 @@ export const internalLogin = async (
     if (statusCode === 401 || statusCode == 404) {
       return {
         hasError: true,
-        error: 'invalid_credentials'
+        error: 'invalid_credentials',
       }
     }
     return {
-      hasError: true
+      hasError: true,
     }
   }
 }
