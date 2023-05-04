@@ -48,6 +48,8 @@ const Jobs: React.FC = () => {
   const matchesMd = useMediaQuery(theme.breakpoints.up('md'))
   const dispatch = useDispatch()
 
+  sessionStorage.setItem('logged', 'true')
+
   useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = sessionStorage.getItem('accessToken')

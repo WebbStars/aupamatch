@@ -5,6 +5,7 @@ import { useSelector } from '../store'
 const ProtectedRoute: React.FC = () => {
   const hasUser = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
+  const logged = JSON.parse(sessionStorage.getItem('logged') || 'true')
   const user = useSelector((state) => state.user)
 
   const path = location.pathname
@@ -12,7 +13,7 @@ const ProtectedRoute: React.FC = () => {
   if (hasUser) {
     if (role === 'ROLE_AUPAIR') {
       if (path !== '/edit_aupair') {
-        if (!user) return <Navigate to="/edit_aupair" />
+        if (!logged) return <Navigate to="/edit_aupair" />
         else return <Outlet />
       } else if (user && !user?.firstLogin) return <Navigate to="/jobs" />
     }
