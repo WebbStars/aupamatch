@@ -22,6 +22,7 @@ import { Button } from '@mui/material'
 import { internalLogin } from '../../services'
 import { useDispatch } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
+import { fetchUserProfile } from '../../store/user'
 
 const useStyles = makeStyles({
   paper: {
@@ -133,6 +134,8 @@ const LoginPaper: React.FC = () => {
       sessionStorage.setItem('accessToken', accessToken)
       sessionStorage.setItem('role', roles[0])
       sessionStorage.setItem('userID', id)
+
+      dispatch(await fetchUserProfile(accessToken))
 
       if (roles[0] === 'ROLE_FAMILY') navigate('/search_aupair')
       else navigate('/jobs')

@@ -44,6 +44,8 @@ const INITIAL_VALUES = {
   genero: '',
   cpf: '',
   nacionalidade: '',
+  numero_identificacao_nacional: '',
+  tipo_documento: '',
   resumo: '',
   idioma: '',
   passaporte: '',

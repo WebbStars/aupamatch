@@ -81,14 +81,29 @@ const EditAupairForm1: React.FC<Props> = ({
         </LocalizationProvider>
       </FormControl>
 
+      <FormControl fullWidth required>
+        <FormLabel>Tipo de documento</FormLabel>
+        <Select
+          name="tipo_documento"
+          value={form.tipo_documento}
+          placeholder="Tipo de documento"
+          onChange={handleOnChange}
+        >
+          <MenuItem value="CNH">CNH</MenuItem>
+          <MenuItem value="RG">RG</MenuItem>
+          <MenuItem value="CPF">CPF</MenuItem>
+          <MenuItem value="SSN">SSN</MenuItem>
+        </Select>
+      </FormControl>
+
       <FormControl required>
-        <FormLabel>Identificação</FormLabel>
+        <FormLabel>Número do documento</FormLabel>
         <TextField
           required
-          name="identificacao"
+          name="numero_identificacao_nacional"
           variant="outlined"
-          placeholder="Identificação"
-          value={form.titulo_vaga}
+          placeholder="Número do documento"
+          value={form.numero_identificacao_nacional}
           onChange={handleOnChange}
         />
       </FormControl>
