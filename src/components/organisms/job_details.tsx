@@ -84,7 +84,7 @@ const JobDetails: React.FC<Props> = ({
     subTitle: t('organisms.job_details.modal_subtitle'),
   })
   const [modalButton, setModalButton] = useState({
-    redirectPath: '',
+    redirectPath: '/my_profile',
     textButton: t('organisms.job_details.my_profile'),
   })
 

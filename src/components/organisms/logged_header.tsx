@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { theme } from '../../styles'
 import { useTranslation } from 'react-i18next'
 import { fetchUserProfile } from '../../store/user'
-import { useDispatch } from '../../store'
+import { useDispatch, useSelector } from '../../store'
 
 interface Props {
   family?: boolean
@@ -27,6 +27,7 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const profile = useSelector((state) => state.userProfile)
 
   const accessToken = sessionStorage.getItem('accessToken')
 
@@ -43,7 +44,7 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
       dispatch(await fetchUserProfile(accessToken!))
     }
 
-    asyncEffect()
+    if (!profile) asyncEffect()
   }, [])
 
   return (
@@ -103,18 +104,15 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
               : t('organisms.logged_header.aupair.my_applies')}
           </Link>
 
-          <Tooltip title={t('global.disabled')}>
-            <Link
-              to="#"
-              underline="none"
-              color="grey"
-              component={RouterLink}
-              fontWeight="bold"
-              sx={{ opacity: '0.5' }}
-            >
-              {t('organisms.logged_header.my_profile')}
-            </Link>
-          </Tooltip>
+          <Link
+            to="/my_profile"
+            underline="none"
+            color={activeMenuLink('/my_profile')}
+            component={RouterLink}
+            fontWeight="bold"
+          >
+            {t('organisms.logged_header.my_profile')}
+          </Link>
         </Box>
       )}
 

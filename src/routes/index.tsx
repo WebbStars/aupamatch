@@ -16,6 +16,7 @@ import EditAupair from '../components/pages/edit_aupair'
 import MyJobs from '../components/pages/my_jobs'
 import MyApplies from '../components/pages/my_applies'
 import EditJob from '../components/pages/edit_jobs'
+import MyProfile from '../components/pages/my_profile'
 
 const Routes: React.FC = () => {
   return (
@@ -27,7 +28,9 @@ const Routes: React.FC = () => {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route path="/register" element={<Register />} />
-
+        <Route path="/my_profile" element={<ProtectedRoute />}>
+          <Route path="/my_profile" element={<MyProfile />} />
+        </Route>
         <Route path="/jobs" element={<ProtectedRoute />}>
           <Route path="/jobs" element={<Jobs />} />
         </Route>

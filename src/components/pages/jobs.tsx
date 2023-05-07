@@ -5,7 +5,7 @@ import { Box, useMediaQuery } from '@mui/material'
 import { JobDetails, JobDetailsModal, JobsList } from '../organisms'
 import LoggedTemplate from '../templates/logged'
 import { theme } from '../../styles'
-import { fetchUser } from '../../store/user'
+import { fetchUser, fetchUserProfile } from '../../store/user'
 import { useDispatch } from '../../store'
 
 const useStyles = makeStyles({
@@ -54,7 +54,10 @@ const Jobs: React.FC = () => {
     const fetchUserData = async () => {
       const accessToken = sessionStorage.getItem('accessToken')
 
-      dispatch(await fetchUser(accessToken!))
+      await Promise.all([
+        dispatch(await fetchUser(accessToken!)),
+        dispatch(await fetchUserProfile(accessToken!)),
+      ])
     }
 
     fetchUserData()
