@@ -3,6 +3,8 @@ import LoggedTemplate from '../templates/logged'
 import { Box } from '@mui/material'
 import MyAccessForm from '../organisms/profile_menus/my_access_form'
 import ProfileSidebar from '../organisms/profile_sidebar'
+import ChangePwd from '../organisms/profile_menus/change_pwd'
+import LoginHistory from '../organisms/profile_menus/login_history'
 
 interface MenuItems {
   [key: string]: JSX.Element
@@ -12,7 +14,9 @@ const MyProfile: React.FC = () => {
   const [menu, setMenu] = useState('accesses')
 
   const menuToShow: MenuItems = {
-    accesses: <MyAccessForm />,
+    accesses: <MyAccessForm setMenu={setMenu} />,
+    changePwd: <ChangePwd />,
+    loginHistory: <LoginHistory />,
   }
 
   return (

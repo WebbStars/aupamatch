@@ -33,8 +33,6 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
 
   const jobToEdit = window.history.state?.usr?.currentJob as FetchAupairJobState
 
-  console.log('freefas', jobToEdit)
-
   const handleChangeData = (name: string, newValue: any) => {
     const newDate = new Date(newValue)
 
