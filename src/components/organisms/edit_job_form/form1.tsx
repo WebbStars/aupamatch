@@ -81,7 +81,16 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
       </FormControl>
 
       <FormControl fullWidth>
-        <FormLabel>{t('organisms.job_form.form1.sponsor_label')}</FormLabel>
+        <Box display="flex" gap={1} color={theme.palette.primary.main}>
+          <FormLabel>{t('organisms.job_form.form1.sponsor_label')}</FormLabel>
+          <Tooltip
+            title={
+              'Se habilitar esse plano, iremos cobrar um valor de $5.00 para sua vaga ficar no topo no site'
+            }
+          >
+            <HelpOutlineTwoTone />
+          </Tooltip>
+        </Box>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
