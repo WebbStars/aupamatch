@@ -86,7 +86,6 @@ const JobsList: React.FC<Props> = ({
 
   const fetchApplies = async () => {
     const { response: appliesResponse } = await fetchAppliesService(
-      userID!,
       accessToken!
     )
 
@@ -94,7 +93,7 @@ const JobsList: React.FC<Props> = ({
 
     if (appliesResponse) {
       appliesResponse.map((job) => {
-        appliesJobsIds.push(job.vaga[0])
+        appliesJobsIds.push(job._id)
       })
 
       setApplies(appliesJobsIds)

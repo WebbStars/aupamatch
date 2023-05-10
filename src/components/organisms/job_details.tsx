@@ -125,7 +125,7 @@ const JobDetails: React.FC<Props> = ({
     setOpenModal(true)
     setModalStatus('success')
 
-    await fetchAppliesService(user?._id!, accessToken!)
+    await fetchAppliesService(accessToken!)
     setIsLoading(false)
   }
 

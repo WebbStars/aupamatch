@@ -7,6 +7,8 @@ import LoggedTemplate from '../templates/logged'
 import { theme } from '../../styles'
 import { fetchUser, fetchUserProfile } from '../../store/user'
 import { useDispatch } from '../../store'
+import { FetchApplies, fetchAppliesService } from '../../services'
+import NeedContract from './contract'
 
 const useStyles = makeStyles({
   main: {
@@ -42,8 +44,9 @@ const Jobs: React.FC = () => {
   const classes = useStyles()
   const [selectedJob, setSelectedJob] = useState<Job>(initialValue)
   const [isFetching, setIsFetching] = useState(true)
+  const [applies, setApplies] = useState<FetchApplies[]>([])
   const [openJobModal, setOpenJobModal] = useState(false)
-  const [applies, setApplies] = useState<string[]>([])
+  const [appliesIds, setAppliesIds] = useState<string[]>([])
 
   const matchesMd = useMediaQuery(theme.breakpoints.up('md'))
   const dispatch = useDispatch()
@@ -54,14 +57,26 @@ const Jobs: React.FC = () => {
     const fetchUserData = async () => {
       const accessToken = sessionStorage.getItem('accessToken')
 
-      await Promise.all([
+      const [_user, _userProfile, userApplies] = await Promise.all([
         dispatch(await fetchUser(accessToken!)),
         dispatch(await fetchUserProfile(accessToken!)),
+        await fetchAppliesService(accessToken!),
       ])
+
+      const { response } = userApplies
+      if (response) setApplies(response)
     }
 
     fetchUserData()
   }, [])
+
+  if (applies.length > 4) {
+    return (
+      <LoggedTemplate>
+        <NeedContract />
+      </LoggedTemplate>
+    )
+  }
 
   return (
     <LoggedTemplate>
@@ -72,13 +87,13 @@ const Jobs: React.FC = () => {
           setSelectedJob={setSelectedJob}
           isFetching={isFetching}
           setIsFetching={setIsFetching}
-          setApplies={setApplies}
+          setApplies={setAppliesIds}
         />
         {matchesMd ? (
           <JobDetails
             selectedJob={selectedJob}
             isFetching={isFetching}
-            wasApplied={applies.includes(selectedJob.uuid)}
+            wasApplied={appliesIds.includes(selectedJob.uuid)}
           />
         ) : (
           <JobDetailsModal
@@ -86,7 +101,7 @@ const Jobs: React.FC = () => {
             setOpen={setOpenJobModal}
             selectedJob={selectedJob}
             isFetching={isFetching}
-            wasApplied={applies.includes(selectedJob.uuid)}
+            wasApplied={appliesIds.includes(selectedJob.uuid)}
           />
         )}
 
