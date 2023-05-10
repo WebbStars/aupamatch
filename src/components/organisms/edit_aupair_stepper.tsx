@@ -5,12 +5,11 @@ import {
   Step,
   StepLabel,
   Stepper,
-  Tooltip,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from '../../store'
-import { setErrorMessage } from '../../store/notifications'
+import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 import FormPaper from './aupair_data_form/form_paper'
 import { editAupair } from '../../services'
 import { MessageModal } from '../molecules'
@@ -109,7 +108,7 @@ const EditAupairStepper: React.FC = () => {
     }
 
     setForm(newUser as any)
-  }, [])
+  }, [user])
 
   function isDate18orMoreYearsOld(day: number, month: number, year: number) {
     return new Date(year + 18, month - 1, day) <= new Date()
@@ -149,6 +148,11 @@ const EditAupairStepper: React.FC = () => {
       dispatch(setErrorMessage('Erro ao cadastrar informações'))
       setModalStatus('error')
       setIsLoading(false)
+      return
+    }
+
+    if (logged) {
+      dispatch(setSuccessMessage('Informações registradas com sucesso'))
       return
     }
 
@@ -202,20 +206,17 @@ const EditAupairStepper: React.FC = () => {
         title="Obrigada por concluir seu cadastro!"
         subtitle="Fique de olho na caixa do seu e-mail."
         secondaryButton={
-          <Tooltip title={t('global.disabled')}>
-            <Button
-              onClick={() => {}}
-              color="inherit"
-              variant="contained"
-              disabled
-            >
-              {isLoading ? (
-                <CircularProgress size="22px" color="secondary" />
-              ) : (
-                t('organisms.post_job_stepper.my_jobs')
-              )}
-            </Button>
-          </Tooltip>
+          <Button
+            onClick={() => navigate('/jobs')}
+            color="inherit"
+            variant="contained"
+          >
+            {isLoading ? (
+              <CircularProgress size="22px" color="secondary" />
+            ) : (
+              t('organisms.post_job_stepper.my_jobs')
+            )}
+          </Button>
         }
       />
     </Box>

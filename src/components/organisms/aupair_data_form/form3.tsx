@@ -189,7 +189,11 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
 
       <FormControl fullWidth>
         <FormLabel>A au pair deseja receber newsletter?</FormLabel>
-        <RadioGroup row name="receber_newsletter" defaultValue={true}>
+        <RadioGroup
+          row
+          name="receber_newsletter"
+          defaultValue={form.receber_newsletter}
+        >
           <FormControlLabel
             value={true}
             control={<Radio />}
