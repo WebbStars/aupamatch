@@ -72,7 +72,15 @@ const LoginHistory: React.FC = () => {
         </Typography>
       </Box>
 
-      <TableContainer component={Paper} sx={{ marginTop: 4 }}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          marginTop: 4,
+          maxHeight: '640px',
+          overflow: 'hidden',
+          overflowY: 'scroll',
+        }}
+      >
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
