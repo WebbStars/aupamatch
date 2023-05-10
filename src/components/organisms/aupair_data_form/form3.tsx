@@ -72,7 +72,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
           required
           multiline
           name="experiencia"
-          value={form.experiencia}
+          value={form.experiencia_trabalho}
           placeholder="experiencias profissionais"
           onChange={handleOnChange}
         />
@@ -189,7 +189,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
 
       <FormControl fullWidth>
         <FormLabel>A au pair deseja receber newsletter?</FormLabel>
-        <RadioGroup row name="receber_newsletter">
+        <RadioGroup row name="receber_newsletter" defaultValue={true}>
           <FormControlLabel
             value={true}
             control={<Radio />}

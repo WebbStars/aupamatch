@@ -7,15 +7,16 @@ import {
   Stepper,
   Tooltip,
 } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from '../../store'
+import { useDispatch, useSelector } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './aupair_data_form/form_paper'
 import { editAupair } from '../../services'
 import { MessageModal } from '../molecules'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../utils'
+import { editAupairProfile } from '../../services/edit_aupair_profile'
 
 const steps = [
   {
@@ -58,7 +59,7 @@ const INITIAL_VALUES = {
     day: '2-digit',
   }),
   escolaridade: '',
-  experiencia: '',
+  experiencia_trabalho: '',
   natacao: 'false',
   habilitacao: 'false',
 }
@@ -70,11 +71,49 @@ const EditAupairStepper: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
-  const [activeStep, setActiveStep] = React.useState(0)
+  const [activeStep, setActiveStep] = useState(0)
   const [form, setForm] = useState(INITIAL_VALUES)
 
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
   const accessToken = sessionStorage.getItem('accessToken')
+
+  const logged = JSON.parse(sessionStorage.getItem('logged') || 'false')
+
+  useEffect(() => {
+    if (!user) return
+
+    const { data_de_nascimento, data_disponibilidade } = user
+
+    const formattedBirthDay = new Date(data_de_nascimento).toLocaleDateString(
+      'en',
+      {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }
+    )
+    const formattedAvaiable = new Date(data_disponibilidade).toLocaleDateString(
+      'en',
+      {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }
+    )
+
+    const newUser = {
+      ...user,
+      data_de_nascimento: formattedBirthDay,
+      data_disponibilidade: formattedAvaiable,
+    }
+
+    setForm(newUser as any)
+  }, [])
+
+  function isDate18orMoreYearsOld(day: number, month: number, year: number) {
+    return new Date(year + 18, month - 1, day) <= new Date()
+  }
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -88,7 +127,11 @@ const EditAupairStepper: React.FC = () => {
     }
 
     setIsLoading(true)
-    const { hasError } = await editAupair(newForm as any, accessToken!)
+
+    const { hasError } = logged
+      ? await editAupairProfile(newForm as any, accessToken!)
+      : await editAupair(newForm as any, accessToken!)
+
     const { data_de_nascimento } = form
     const [month, day, year] = data_de_nascimento.split('/')
 
@@ -123,10 +166,6 @@ const EditAupairStepper: React.FC = () => {
 
     if (index !== 2) setActiveStep(activeStep + 1)
     else handleSubmitForm(e)
-  }
-
-  function isDate18orMoreYearsOld(day: number, month: number, year: number) {
-    return new Date(year + 18, month - 1, day) <= new Date()
   }
 
   return (

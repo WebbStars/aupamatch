@@ -12,7 +12,6 @@ import {
   IconButton,
   Grid,
   CircularProgress,
-  Tooltip,
   TextField,
   FormLabel,
   RadioGroup,
@@ -94,7 +93,6 @@ const useStyles = makeStyles({
 interface State {
   name: string
   email: string
-  phone: string
   password: string
   confirmPassword: string
   type: string
@@ -115,7 +113,6 @@ const RegisterPaper: React.FC = () => {
   const [form, setForm] = useState<State>({
     name: '',
     email: '',
-    phone: '',
     password: '',
     confirmPassword: '',
     type: '',
@@ -290,7 +287,7 @@ const RegisterPaper: React.FC = () => {
         </FormControl>
 
         <Grid container spacing={1} display="flex" alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
               <TextField
                 id="email-input"
@@ -317,21 +314,6 @@ const RegisterPaper: React.FC = () => {
               />
             </FormControl>
           </Grid>
-
-          <Tooltip title="Campo desabilitado por ora">
-            <Grid item xs={6}>
-              <PhoneInput
-                disabled
-                country={'br'}
-                value={form.phone}
-                onChange={() => handleChange('phone')}
-                inputStyle={{
-                  width: '100%',
-                  backgroundColor: '#cccc',
-                }}
-              />
-            </Grid>
-          </Tooltip>
         </Grid>
 
         <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>

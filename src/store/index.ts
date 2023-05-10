@@ -4,10 +4,11 @@ import {
   useSelector as useReduxSelector,
   TypedUseSelectorHook,
 } from 'react-redux'
-import exampleReducer from './example/reducers'
+import exampleReducer from './logout/reducers'
 import { userReducer, userProfileReducer } from './user/reducers'
 import globalNotificationReducer from './notifications/reducers'
 import jobsReducer from './jobs/reducers'
+import logoutReducer from './logout/reducers'
 
 const appReducer = combineReducers({
   example: exampleReducer,
@@ -15,12 +16,17 @@ const appReducer = combineReducers({
   userProfile: userProfileReducer,
   notification: globalNotificationReducer,
   jobs: jobsReducer,
+  logout: logoutReducer,
 })
 
 export const rootReducer: typeof appReducer = (state, action) => {
   const newState = {
     ...state,
   } as CombinedState<RootState> | undefined
+
+  if (action.type === 'USER_LOGOUT') {
+    return appReducer(undefined, action)
+  }
 
   return appReducer(newState, action)
 }

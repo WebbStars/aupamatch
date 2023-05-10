@@ -14,7 +14,8 @@ import { makeStyles } from '@material-ui/styles'
 import { useNavigate } from 'react-router-dom'
 import ChangeLanguage from './change_language'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from '../../store'
+import { useDispatch, useSelector } from '../../store'
+import { userLogout } from '../../store/logout'
 
 const useStyles = makeStyles({
   divider: {
@@ -62,10 +63,12 @@ const UserAccountsPopover: React.FC = () => {
   const classes = useStyles()
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const user = useSelector((state) => state.userProfile)
 
-  const logout = () => {
+  const logoutUser = async () => {
+    dispatch(userLogout())
     sessionStorage.clear()
     window.dispatchEvent(new CustomEvent('logout'))
     navigate('/')
@@ -104,7 +107,7 @@ const UserAccountsPopover: React.FC = () => {
 
       <Button
         className={classes.exit}
-        onClick={logout}
+        onClick={logoutUser}
         id="button-logout-user"
         sx={{ mt: 2 }}
       >

@@ -17,6 +17,7 @@ const useStyles = makeStyles({
 const EditAupair: React.FC = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const logged = JSON.parse(sessionStorage.getItem('logged') || 'null')
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,7 +30,7 @@ const EditAupair: React.FC = () => {
   }, [])
 
   return (
-    <LoggedTemplate hideLinks>
+    <LoggedTemplate hideLinks={!logged}>
       <Box className={classes.main} padding={{ lg: '36px 40px' }}>
         <EditAupairStepper />
       </Box>

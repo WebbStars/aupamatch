@@ -15,7 +15,7 @@ const ProtectedRoute: React.FC = () => {
       if (path !== '/edit_aupair') {
         if (!logged) return <Navigate to="/edit_aupair" />
         else return <Outlet />
-      } else if (user && !user?.firstLogin) return <Navigate to="/jobs" />
+      } else if (user && !user?.firstLogin) return <Outlet />
     }
     return <Outlet />
   }

@@ -124,6 +124,7 @@ const EditAupairForm1: React.FC<Props> = ({
       <FormControl fullWidth required>
         <FormLabel>Telefone</FormLabel>
         <PhoneInput
+          value={form.telefone}
           specialLabel=""
           country={'br'}
           onChange={(e: string) => handleChangePhone(e)}

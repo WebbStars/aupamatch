@@ -1,17 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import {
-  Box,
-  Button,
-  IconButton,
-  InputBase,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import LoggedTemplate from '../templates/logged'
 import { searchAupairImage } from '../../images'
 import { theme } from '../../styles'
-import { Close, Search } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { fetchUser } from '../../store/user'
@@ -71,14 +63,6 @@ const SearchAupair: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const [aupair, setAupair] = useState('')
-
-  const submitSearchAupair = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    console.log(aupair)
-  }
-
   useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = sessionStorage.getItem('accessToken')
@@ -91,39 +75,6 @@ const SearchAupair: React.FC = () => {
 
   return (
     <LoggedTemplate family footer>
-      <Paper
-        component="form"
-        onSubmit={submitSearchAupair}
-        className={classes.searchSection}
-      >
-        <Box
-          display="flex"
-          width="100%"
-          border="0.25px solid #D4D4D8"
-          borderRadius="4px"
-        >
-          <IconButton sx={{ p: '10px' }} aria-label="menu">
-            <Search />
-          </IconButton>
-          <InputBase
-            autoFocus
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Procure Au Pair"
-            inputProps={{ 'aria-label': 'Procure Au Pair' }}
-            onChange={(e) => setAupair(e.target.value)}
-            value={aupair}
-            className={classes.searchInput}
-          />
-          <IconButton
-            type="button"
-            sx={{ p: '10px' }}
-            aria-label="search"
-            onClick={() => setAupair('')}
-          >
-            <Close />
-          </IconButton>
-        </Box>
-      </Paper>
       <Box
         width="100%"
         id="about-section"
