@@ -11,19 +11,29 @@ import {
   Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
+import { updateUserProfileService } from '../../../services'
+import { useDispatch } from '../../../store'
+import {
+  setErrorMessage,
+  setSuccessMessage,
+} from '../../../store/notifications'
 
 interface State {
   currentPassword: string
   newPassword: string
-  showPassword: boolean
+}
+
+const initialFormState = {
+  currentPassword: '',
+  newPassword: '',
 }
 
 const ChangePwd: React.FC = () => {
-  const [form, setForm] = useState<State>({
-    currentPassword: '',
-    newPassword: '',
-    showPassword: false,
-  })
+  const [form, setForm] = useState<State>(initialFormState)
+  const [showPassword, setShowPassword] = useState(false)
+
+  const dispatch = useDispatch()
+  const accessToken = sessionStorage.getItem('accessToken')
 
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +41,7 @@ const ChangePwd: React.FC = () => {
     }
 
   const handleClickShowPassword = () => {
-    setForm({
-      ...form,
-      showPassword: !form.showPassword,
-    })
+    setShowPassword(!showPassword)
   }
 
   const handleMouseDownPassword = (
@@ -43,7 +50,21 @@ const ChangePwd: React.FC = () => {
     event.preventDefault()
   }
 
-  const changePassword = async () => {}
+  const changePassword = async () => {
+    const payload = {
+      currentPassword: form.currentPassword,
+      password: form.newPassword,
+    }
+
+    const { hasError } = await updateUserProfileService(accessToken!, payload)
+
+    if (hasError) {
+      dispatch(setErrorMessage('Erro ao tentar mudar sua senha'))
+      return
+    }
+    dispatch(setSuccessMessage('Senha atualizada com sucesso'))
+    setForm(initialFormState)
+  }
 
   return (
     <Paper
@@ -82,7 +103,7 @@ const ChangePwd: React.FC = () => {
             <OutlinedInput
               autoComplete="new-password"
               id="new-password-input"
-              type={form.showPassword ? 'text' : 'password'}
+              type={showPassword ? 'text' : 'password'}
               value={form.newPassword}
               onChange={handleChange('newPassword')}
               placeholder="Insira sua senha"
@@ -95,7 +116,7 @@ const ChangePwd: React.FC = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {form.showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }

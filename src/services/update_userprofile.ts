@@ -12,8 +12,9 @@ interface FetchUserResponsePayload {
 }
 
 type Payload = {
-  nome?: string
+  currentPassword?: string
   password?: string
+  nome?: string
 }
 
 export const updateUserProfileService = async (
