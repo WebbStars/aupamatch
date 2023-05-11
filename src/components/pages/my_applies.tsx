@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LoggedTemplate from '../templates/logged'
-import { FetchApplies, getMyApplies } from '../../services'
+import { FetchApplies, fetchAppliesService } from '../../services'
 import MyAppliesList from '../molecules/my_applies_list'
 import { useTranslation } from 'react-i18next'
 
@@ -25,7 +25,7 @@ const MyApplies: React.FC = () => {
     const fetchFavoriteJobs = async () => {
       if (!accessToken) return
 
-      const { response: jobs } = await getMyApplies(accessToken)
+      const { response: jobs } = await fetchAppliesService(accessToken)
 
       const formmatedList = jobs.map((job) => {
         const cnh = job['habilitacao'] && t('organisms.jobs_list.car_license')

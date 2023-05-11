@@ -10,9 +10,10 @@ import { useMediaQuery } from '@mui/material'
 interface Props {
   menu: string
   setMenu: Dispatch<SetStateAction<string>>
+  role: string
 }
 
-const ProfileSidebar: React.FC<Props> = ({ menu, setMenu }) => {
+const ProfileSidebar: React.FC<Props> = ({ menu, setMenu, role }) => {
   const navigate = useNavigate()
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'))
 
@@ -43,6 +44,8 @@ const ProfileSidebar: React.FC<Props> = ({ menu, setMenu }) => {
       link: () => setMenu('buysHistory'),
     },
   ]
+
+  if (role === 'ROLE_FAMILY') delete menuList[2]
 
   return (
     <Paper

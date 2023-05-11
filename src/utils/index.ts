@@ -1,6 +1,7 @@
 export { default as ScrollToTop } from './scroll_to_top'
 export { default as startI18n } from './i18n'
 export { default as isCnpjValid } from './cnpj_validator'
+export { formatTableDate } from './date_format_table'
 export * from './i18n'
 export * from './firebase_api'
 export * from './routes'

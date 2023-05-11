@@ -1,22 +1,22 @@
 import api from './api'
 
-export interface FetchLoginHistoryState {
+export interface FetchBuysHistoryState {
   _id: string
   date: string
-  ipAddress: string
-  location: string
+  product: string
+  value: 25
 }
 
-interface FetchLoginHistoryResponse {
-  response?: FetchLoginHistoryState[]
+interface FetchBuysHistoryResponse {
+  response?: FetchBuysHistoryState[]
   hasError?: boolean
 }
 
-export const getLoginHistory = async (
+export const getBuysHistory = async (
   accessToken: string
-): Promise<FetchLoginHistoryResponse> => {
+): Promise<FetchBuysHistoryResponse> => {
   try {
-    const response = await api.get('/login-history', {
+    const response = await api.get('/compra-history', {
       headers: {
         'x-access-token': accessToken,
       },

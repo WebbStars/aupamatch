@@ -39,7 +39,7 @@ const MyAccessForm: React.FC<Props> = ({ setMenu }) => {
         <Box component="div">
           <InputLabel>E-mail de cadastro</InputLabel>
           <FormControl fullWidth>
-            <TextField defaultValue={profile && profile.email} />
+            <TextField defaultValue={profile?.email} />
           </FormControl>
         </Box>
 
