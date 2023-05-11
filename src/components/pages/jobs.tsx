@@ -70,14 +70,6 @@ const Jobs: React.FC = () => {
     fetchUserData()
   }, [])
 
-  if (applies.length > 4) {
-    return (
-      <LoggedTemplate>
-        <NeedContract />
-      </LoggedTemplate>
-    )
-  }
-
   return (
     <LoggedTemplate>
       <Box className={classes.main}>

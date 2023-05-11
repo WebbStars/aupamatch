@@ -4,6 +4,8 @@ export interface FetchUserProfileState {
   email: string
   id: string
   name: string
+  roles: string
+  pagamentoPublicador: boolean
 }
 
 interface FetchUserResponsePayload {

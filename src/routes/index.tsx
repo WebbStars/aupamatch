@@ -52,7 +52,6 @@ const Routes: React.FC = () => {
         <Route path="/my_jobs" element={<ProtectedRoute />}>
           <Route path="/my_jobs" element={<MyJobs />} />
         </Route>
-
         <Route path="/my_applies" element={<ProtectedRoute />}>
           <Route path="/my_applies" element={<MyApplies />} />
         </Route>

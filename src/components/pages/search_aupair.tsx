@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Box, Button, Typography } from '@mui/material'
 import LoggedTemplate from '../templates/logged'
@@ -6,8 +6,12 @@ import { searchAupairImage } from '../../images'
 import { theme } from '../../styles'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { fetchUser } from '../../store/user'
+import { fetchUserProfile } from '../../store/user'
 import { useDispatch } from '../../store'
+import { FetchUserProfileState } from '../../services'
+import NeedContract from './contract'
+import { publishPayment } from '../../services/publish_payment'
+import { setErrorMessage } from '../../store/notifications'
 
 const useStyles = makeStyles({
   searchSection: {
@@ -62,16 +66,77 @@ const SearchAupair: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const accessToken = sessionStorage.getItem('accessToken')
+
+  const [needPayment, setNeedPayment] = useState(false)
+  const [isPaying, setIsPaying] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentUser, setCurrentUser] = useState<FetchUserProfileState>(
+    {} as any
+  )
+
+  const fetchUserData = async () => {
+    const accessToken = sessionStorage.getItem('accessToken')
+
+    const response = dispatch(await fetchUserProfile(accessToken!))
+
+    if (response) setCurrentUser(response.payload as FetchUserProfileState)
+  }
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const accessToken = sessionStorage.getItem('accessToken')
-
-      dispatch(await fetchUser(accessToken!))
-    }
-
     fetchUserData()
   }, [])
+
+  const postJob = () => {
+    if (currentUser.pagamentoPublicador) {
+      navigate('/post_job')
+      return
+    } else {
+      setNeedPayment(true)
+    }
+  }
+
+  const payPublishService = async () => {
+    setIsLoading(true)
+    const { response } = await publishPayment(accessToken!)
+
+    setIsLoading(false)
+    if (response) {
+      setIsPaying(true)
+      window.open(response.approvalUrl, '_blank')!.focus()
+      return
+    }
+
+    dispatch(
+      setErrorMessage(
+        'Erro ao tentar realizar o pagamento, tente novamente mais tarde!'
+      )
+    )
+  }
+
+  useEffect(() => {
+    if (currentUser.pagamentoPublicador) return
+
+    const refreshIntervalId = setInterval(async () => {
+      await fetchUserData()
+    }, 5000)
+
+    return () => {
+      window.clearInterval(refreshIntervalId)
+    }
+  }, [currentUser.pagamentoPublicador])
+
+  if (needPayment) {
+    return (
+      <NeedContract
+        handleSubmit={payPublishService}
+        family
+        detail="Publicar vagas - $20.00"
+        isLoading={isLoading}
+        isPaying={isPaying}
+      />
+    )
+  }
 
   return (
     <LoggedTemplate family footer>
@@ -121,7 +186,7 @@ const SearchAupair: React.FC = () => {
               color="primary"
               variant="contained"
               size="large"
-              onClick={() => navigate('/post_job')}
+              onClick={postJob}
             >
               {t('pages.search_aupair.post_now')}
             </Button>
