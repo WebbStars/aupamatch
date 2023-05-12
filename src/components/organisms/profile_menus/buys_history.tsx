@@ -15,6 +15,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FetchBuysHistoryState, getBuysHistory } from '../../../services'
 import { formatTableDate } from '../../../utils'
 import useOverflow from '../../../hooks/use_overflow'
+import { notFound } from '../../../images'
 
 const BuysHistory: React.FC = () => {
   const accessToken = sessionStorage.getItem('accessToken')
@@ -49,88 +50,106 @@ const BuysHistory: React.FC = () => {
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h5" fontWeight="bold">
-          Histórico de login
+          Histórico de compras
         </Typography>
       </Box>
-
-      <TableContainer
-        component={Paper}
-        sx={{
-          marginTop: 4,
-          maxHeight: '640px',
-          overflowX: 'hidden',
-          overflowY: 'auto',
-        }}
-      >
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Data de compra</TableCell>
-              <TableCell align="center" sx={{ fontWeight: 'bold' }}>
-                Produto
-              </TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>
-                Valor
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {isFetching ? (
-              <>
+      <Box display="flex" justifyContent="center">
+        {history.length <= 0 ? (
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <img
+              src={notFound}
+              alt={'nada encontrado'}
+              height={280}
+              width={280}
+              style={{ alignSelf: 'center' }}
+            />
+            <Typography variant="h5" fontWeight="bold">
+              Nenhuma informação encontrada
+            </Typography>
+          </Box>
+        ) : (
+          <TableContainer
+            component={Paper}
+            sx={{
+              marginTop: 4,
+              maxHeight: '640px',
+              overflowX: 'hidden',
+              overflowY: 'auto',
+            }}
+          >
+            <Table aria-label="simple table">
+              <TableHead>
                 <TableRow>
-                  <TableCell align="left" scope="row">
-                    <Skeleton animation="wave" />
+                  <TableCell sx={{ fontWeight: 'bold' }}>
+                    Data de compra
                   </TableCell>
-                  <TableCell align="left" scope="row">
-                    <Skeleton animation="wave" />
+                  <TableCell align="center" sx={{ fontWeight: 'bold' }}>
+                    Produto
                   </TableCell>
-                  <TableCell align="left" scope="row">
-                    <Skeleton animation="wave" />
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                    Valor
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell align="left" scope="row">
-                    <Skeleton animation="wave" />
-                  </TableCell>
-                  <TableCell align="left" scope="row">
-                    <Skeleton animation="wave" />
-                  </TableCell>
-                  <TableCell align="left" scope="row">
-                    <Skeleton animation="wave" />
-                  </TableCell>
-                </TableRow>
-              </>
-            ) : (
-              history.map((row) => (
-                <TableRow
-                  key={row._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="left" scope="row">
-                    {formatTableDate(row.date)}
-                  </TableCell>
-                  <Tooltip title={activeOverflow ? row.product : ''}>
-                    <TableCell
-                      align="center"
-                      sx={{
-                        maxWidth: '250px',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}
-                      ref={overflowingRef}
+              </TableHead>
+
+              <TableBody>
+                {isFetching ? (
+                  <>
+                    <TableRow>
+                      <TableCell align="left" scope="row">
+                        <Skeleton animation="wave" />
+                      </TableCell>
+                      <TableCell align="left" scope="row">
+                        <Skeleton animation="wave" />
+                      </TableCell>
+                      <TableCell align="left" scope="row">
+                        <Skeleton animation="wave" />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell align="left" scope="row">
+                        <Skeleton animation="wave" />
+                      </TableCell>
+                      <TableCell align="left" scope="row">
+                        <Skeleton animation="wave" />
+                      </TableCell>
+                      <TableCell align="left" scope="row">
+                        <Skeleton animation="wave" />
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ) : (
+                  history.map((row) => (
+                    <TableRow
+                      key={row._id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      {row.product}
-                    </TableCell>
-                  </Tooltip>
-                  <TableCell align="right">R${row.value},00</TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                      <TableCell align="left" scope="row">
+                        {formatTableDate(row.date)}
+                      </TableCell>
+                      <Tooltip title={activeOverflow ? row.product : ''}>
+                        <TableCell
+                          align="center"
+                          sx={{
+                            maxWidth: '250px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                          ref={overflowingRef}
+                        >
+                          {row.product}
+                        </TableCell>
+                      </Tooltip>
+                      <TableCell align="right">R${row.value},00</TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </Box>
     </Paper>
   )
 }
