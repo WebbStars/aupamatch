@@ -67,11 +67,11 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       </FormControl>
 
       <FormControl fullWidth required>
-        <FormLabel>Experiências profissionais</FormLabel>
+        <FormLabel>Experiências profissionais ssss</FormLabel>
         <TextField
           required
           multiline
-          name="experiencia"
+          name="experiencia_trabalho"
           value={form.experiencia_trabalho}
           placeholder="experiencias profissionais"
           onChange={handleOnChange}
