@@ -4,11 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Box } from '@mui/material'
 import type { SelectChangeEvent } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
-
 import classes from './styles'
 import { changePassword } from '../../services/change_password'
 import { System, validateToken } from '../../services/validate_token'
-
 import SystemSelect from '../system_select'
 import useValidate from '../../../../../hooks/use_validate'
 import { useDispatch } from '../../../../../store'

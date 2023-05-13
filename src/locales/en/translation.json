@@ -127,7 +127,7 @@
       "email": "Email",
       "password": "Password",
       "btn_sign_in": "Sign in",
-      "login_problem": "Problems logging",
+      "login_problem": "Forgot password?",
       "or_sign_in_with": "Or sign in with",
       "no_account_yet": "No account yet?",
       "register": "Register",

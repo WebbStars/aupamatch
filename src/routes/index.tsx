@@ -27,6 +27,15 @@ const Routes: React.FC = () => {
         <Route path="/login" element={<UnProtectedRoute />}>
           <Route path="/login" element={<Login />} />
         </Route>
+        <Route path="/verify_email" element={<UnProtectedRoute />}>
+          <Route path="/verify_email" element={<Login />} />
+        </Route>
+        <Route path="/send_token" element={<UnProtectedRoute />}>
+          <Route path="/send_token" element={<Login />} />
+        </Route>
+        <Route path="/change_password" element={<UnProtectedRoute />}>
+          <Route path="/change_password" element={<Login />} />
+        </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/my_profile" element={<ProtectedRoute />}>
           <Route path="/my_profile" element={<MyProfile />} />
