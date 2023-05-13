@@ -7,15 +7,13 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NotificationsNone, BookmarkBorderOutlined } from '@mui/icons-material'
 import UserAccounts from './user_account'
 import { Link as RouterLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { theme } from '../../styles'
 import { useTranslation } from 'react-i18next'
-import { fetchUserProfile } from '../../store/user'
-import { useDispatch, useSelector } from '../../store'
 
 interface Props {
   family?: boolean
@@ -26,10 +24,6 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
   const currentPage = window.location.pathname
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const profile = useSelector((state) => state.userProfile)
-
-  const accessToken = sessionStorage.getItem('accessToken')
 
   const activeMenuLink = (path: string | string[]) => {
     const isPrimary = Array.isArray(path)
@@ -38,14 +32,6 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
 
     return isPrimary ? 'primary' : theme.palette.text.primary
   }
-
-  // useEffect(() => {
-  //   const asyncEffect = async () => {
-  //     dispatch(await fetchUserProfile(accessToken!))
-  //   }
-
-  //   if (!profile) asyncEffect()
-  // }, [])
 
   return (
     <Box
