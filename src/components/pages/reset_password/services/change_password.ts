@@ -12,17 +12,15 @@ interface LoginResponse {
 }
 
 interface ChangePasswordPayload {
-  token: string
+  email: string
   password: string
-  confirmation: string
-  authenticator_id: string
 }
 
 export const changePassword = async (
   payload: ChangePasswordPayload
 ): Promise<LoginResponse> => {
   try {
-    const response = await api.post('auths/reset_password', payload)
+    const response = await api.patch('reset-password', payload)
 
     return {
       response: response.data,

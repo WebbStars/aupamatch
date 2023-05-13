@@ -20,15 +20,10 @@ const VerifyEmailForm: React.FC = () => {
     event.preventDefault()
 
     setIsLoading(true)
-    const { hasError, error } = await verifyEmail(userEmail)
+    const { hasError } = await verifyEmail(userEmail)
     setIsLoading(false)
 
     if (hasError) {
-      if (error == 'MissingAuthenticatorsError') {
-        dispatch(setErrorMessage(t('pages.reset_password.error')!))
-        navigate('/login')
-        return
-      }
       dispatch(
         setErrorMessage(
           t('pages.reset_password.components.verify_email_form.server_error')!

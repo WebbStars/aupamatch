@@ -74,7 +74,7 @@ const SnackbarNotification: React.FC = () => {
       onClose={handleClose}
       anchorOrigin={{ vertical, horizontal }}
     >
-      <SnackAlert onClose={handleClose} severity={status}>
+      <SnackAlert onClose={handleClose} severity={status} color="error">
         {showedMessages()}
       </SnackAlert>
     </Snackbar>

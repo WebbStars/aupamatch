@@ -10,7 +10,7 @@ interface LoginResponse {
 
 export const verifyEmail = async (email: string): Promise<LoginResponse> => {
   try {
-    const response = await api.post(`auths/forgot_password?email=${email}`)
+    const response = await api.post('send-token', { email })
 
     return {
       response: response.data,

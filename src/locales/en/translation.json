@@ -237,7 +237,7 @@
         },
         "token_form": {
           "title": "Reset password",
-          "subtitle": "Enter the received token",
+          "subtitle": "Enter the received token (check your spam box)",
           "resend_disabled": "Resend in {{counter}} seconds",
           "resend_token": "Resend token"
         },
@@ -262,12 +262,19 @@
             "special": "At least one special character"
           },
           "responses": {
-            "sucess_reset": "Password reset request submitted! You will receive an email when your request is approved",
+            "sucess_reset": "Password changed successfully",
             "already_requisition": "There is already a password reset request in progress",
             "system_error": "There was an unexpected error, please try again",
             "not_found": "Token is not associated with any identity",
             "token_expired": "Token has expired"
           }
+        }
+      },
+      "pages": {
+        "send_token": {
+          "expired": "Expired token",
+          "invalid_token": "Invalid or expired token!",
+          "success_sent": "Token resent to your email"
         }
       }
     }

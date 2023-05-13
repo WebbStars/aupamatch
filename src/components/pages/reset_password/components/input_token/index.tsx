@@ -32,7 +32,6 @@ const InputToken: React.FC<Props> = ({ setToken }) => {
     'field-4',
     'field-5',
     'field-6',
-    'field-7',
   ]
 
   const setNewToken = () => {
@@ -81,17 +80,17 @@ const InputToken: React.FC<Props> = ({ setToken }) => {
 
     // Corta o token colado do valor inicial ate a quantidade de casas disponiveis
     const finalSubstring =
-      finalPosition > 7 ? 7 - initialPosition : value.length
+      finalPosition > 6 ? 6 - initialPosition : value.length
 
     value = value.substring(0, finalSubstring)
 
-    const lastPasteInput = finalPosition > 7 ? 7 : finalPosition
+    const lastPasteInput = finalPosition > 6 ? 6 : finalPosition
 
     for (let index = initialPosition; index < lastPasteInput; index += 1) {
       refs.current[index].value = value[index - initialPosition]
     }
 
-    setInputFocus(lastPasteInput === 7 ? lastPasteInput - 1 : lastPasteInput)
+    setInputFocus(lastPasteInput === 6 ? lastPasteInput - 1 : lastPasteInput)
 
     setNewToken()
   }

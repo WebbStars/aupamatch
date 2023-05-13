@@ -1,17 +1,9 @@
 import { AxiosError } from 'axios'
 import { api } from '../../../../services'
 
-export type System = {
-  id: string
-  name: string
-  sid: string
-  type: string
-}
-
 interface SuccessResponse {
   available: boolean
-  systems: System[]
-  token: string
+  code: string
 }
 
 interface LoginResponse {
@@ -21,11 +13,12 @@ interface LoginResponse {
   statusCode?: number
 }
 
-export const validateToken = async (token: string): Promise<LoginResponse> => {
+export const validateToken = async (
+  email: string,
+  code: string
+): Promise<LoginResponse> => {
   try {
-    const response = await api.get(
-      `auths/token_verification?token=${token}&include=authenticators`
-    )
+    const response = await api.post('validate-token', { email, code })
 
     return {
       response: response.data,

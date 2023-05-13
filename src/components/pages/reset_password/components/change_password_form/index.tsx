@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import FormPaper from '../form_paper'
 import { useTranslation } from 'react-i18next'
 import { Box } from '@mui/material'
@@ -6,8 +6,6 @@ import type { SelectChangeEvent } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
 import classes from './styles'
 import { changePassword } from '../../services/change_password'
-import { System, validateToken } from '../../services/validate_token'
-import SystemSelect from '../system_select'
 import useValidate from '../../../../../hooks/use_validate'
 import { useDispatch } from '../../../../../store'
 import {
@@ -18,12 +16,18 @@ import FormValidateRules from '../../../../molecules/form_validate_rules'
 import { PasswordInput } from '../../../../molecules'
 
 type StateType = {
-  systems: System[]
   token: string
+  userEmail: string
 }
 
 type ErrorMessageObject = {
   [key: string]: string
+}
+
+type Form = {
+  email: string
+  password: string
+  confirmation?: string
 }
 
 const ChangePasswordForm: React.FC = () => {
@@ -32,50 +36,17 @@ const ChangePasswordForm: React.FC = () => {
   const navigate = useNavigate()
   const { password } = useValidate()
   const location = useLocation()
-  const { systems, token } = (location?.state as StateType) || ''
+  const { userEmail } = (location?.state as StateType) || ''
+
+  console.log(userEmail)
 
   const [isLoading, setIsLoading] = useState(false)
-  const [authSystems, setAuthSystems] = useState<System[]>(systems)
   const [passwordNotEqual, setPasswordNotEqual] = useState(false)
-  const [form, setForm] = useState({
-    token,
+  const [form, setForm] = useState<Form>({
+    email: userEmail,
     password: '',
     confirmation: '',
-    authenticator_id: '',
   })
-
-  const searhSystemsByUrlToken = async () => {
-    const { search } = location
-
-    const urlToken = search.substring(search.indexOf('=') + 1)
-
-    const { response } = await validateToken(urlToken)
-
-    if (response) {
-      const { available, systems } = response
-      if (!available) {
-        dispatch(
-          setErrorMessage(t('pages.reset_password.pages.send_token.expired')!)
-        )
-        navigate('/verify_email')
-        return
-      }
-
-      setAuthSystems(systems)
-      return
-    }
-
-    navigate('/verify_email')
-    dispatch(
-      setErrorMessage(t('pages.reset_password.pages.send_token.invalid_token')!)
-    )
-  }
-
-  useEffect(() => {
-    if (!token) {
-      searhSystemsByUrlToken()
-    }
-  }, [])
 
   const handleChange = (
     event:
@@ -92,25 +63,19 @@ const ChangePasswordForm: React.FC = () => {
   const rules = [
     {
       isValid: password.validateLength(form.password),
-      text: t(
-        'pages.reset_password.components.change_password.pwd_rules.length'
-      ),
+      text: t('organisms.register_paper.characters_number'),
     },
     {
       isValid: !!password.validateCaseLetters(form.password),
-      text: t('pages.reset_password.components.change_password.pwd_rules.case'),
+      text: t('organisms.register_paper.letters_case'),
     },
     {
       isValid: !!password.validateNumber(form.password),
-      text: t(
-        'pages.reset_password.components.change_password.pwd_rules.number'
-      ),
+      text: t('organisms.register_paper.least_one_number'),
     },
     {
       isValid: !!password.validateSpecialChar(form.password),
-      text: `${t(
-        'pages.reset_password.components.change_password.pwd_rules.special'
-      )} (_ @ # &)`,
+      text: t('organisms.register_paper.least_special'),
     },
   ]
 
@@ -168,7 +133,12 @@ const ChangePasswordForm: React.FC = () => {
       return
     }
 
-    const { response, hasError, statusCode, error } = await changePassword(form)
+    const newForm = { ...form }
+    delete newForm?.confirmation
+
+    const { response, hasError, statusCode, error } = await changePassword(
+      newForm
+    )
 
     if (response) {
       dispatchEvent.successReset()
@@ -194,12 +164,6 @@ const ChangePasswordForm: React.FC = () => {
       isLoading={isLoading}
     >
       <Box sx={classes.form}>
-        <SystemSelect
-          value={form.authenticator_id}
-          authSystems={authSystems}
-          handleChange={handleChange}
-        />
-
         <PasswordInput
           handleChangeInput={handleChange}
           label={

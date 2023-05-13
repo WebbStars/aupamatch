@@ -4,7 +4,6 @@ import {
   FormControl,
   IconButton,
   InputAdornment,
-  InputLabel,
   TextField,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
@@ -41,9 +40,6 @@ const PasswordInput: React.FC<Props> = ({
 
   return (
     <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
-      <InputLabel htmlFor="password-input">
-        {t('organisms.login_paper.password')}
-      </InputLabel>
       <TextField
         id={id || 'password-input'}
         type={showPassword ? 'text' : 'password'}

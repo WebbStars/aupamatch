@@ -22,6 +22,8 @@ const SendToken: React.FC = () => {
 
   const userEmail = (location.state?.email as string) || ''
 
+  console.log(userEmail)
+
   const isDataValid = () => {
     return !!userEmail
   }
@@ -30,25 +32,20 @@ const SendToken: React.FC = () => {
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     event.preventDefault()
+    if (!isDataValid) return
 
-    const { response } = await validateToken(code)
+    const { hasError } = await validateToken(userEmail, code)
 
-    if (response) {
-      const { available, token, systems } = response
-      if (!available) {
-        dispatch(
-          setErrorMessage(t('pages.reset_password.pages.send_token.expired')!)
+    if (hasError) {
+      dispatch(
+        setErrorMessage(
+          t('pages.reset_password.pages.send_token.invalid_token')!
         )
-        return
-      }
-
-      navigate(`/change_password?token=${token}`, { state: { token, systems } })
+      )
       return
     }
 
-    dispatch(
-      setErrorMessage(t('pages.reset_password.pages.send_token.invalid_token')!)
-    )
+    navigate(`/change_password?token=${code}`, { state: { userEmail } })
   }
 
   const handleResendToken = async () => {
