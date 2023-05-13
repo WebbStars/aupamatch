@@ -30,7 +30,7 @@ const SystemSelect: React.FC<Props> = ({
         name="authenticator_id"
         value={value}
         label={t(
-          'features.reset_password.components.change_password.form.system_label'
+          'pages.reset_password.components.change_password.form.system_label'
         )}
         defaultValue={authSystems?.length === 1 && authSystems[0]}
         onChange={handleChange}

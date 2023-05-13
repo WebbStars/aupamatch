@@ -92,10 +92,10 @@ const TokenForm: React.FC<Props> = ({
           <CircularProgress size="14px" />
         )}
         {disableResendButton
-          ? t('features.reset_password.components.token_form.resend_disabled', {
+          ? t('pages.reset_password.components.token_form.resend_disabled', {
               counter,
             })
-          : t('features.reset_password.components.token_form.resend_token', {
+          : t('pages.reset_password.components.token_form.resend_token', {
               counter,
             })}
       </Button>
@@ -104,8 +104,8 @@ const TokenForm: React.FC<Props> = ({
 
   return (
     <FormPaper
-      title={t('features.reset_password.components.token_form.title')}
-      subtitle={t('features.reset_password.components.token_form.subtitle')!}
+      title={t('pages.reset_password.components.token_form.title')}
+      subtitle={t('pages.reset_password.components.token_form.subtitle')!}
       handleSubmit={handleButtonSubmit}
       isLoading={isLoadingContinueButton}
       handleClose={handleClose}

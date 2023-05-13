@@ -50,7 +50,7 @@ const FormPaper: React.FC<Props> = ({
             label:
               submitLabel ||
               t(
-                'features.reset_password.components.form_paper.default_submit_label'
+                'pages.reset_password.components.form_paper.default_submit_label'
               )!,
           }}
           buttonCancel={
@@ -59,7 +59,7 @@ const FormPaper: React.FC<Props> = ({
                   id: 'button-cancel-verify-email',
                   name: 'button-cancel-verify-email',
                   label: t(
-                    'features.reset_password.components.form_paper.cancel'
+                    'pages.reset_password.components.form_paper.cancel'
                   )!,
                   handleCancel: handleClose,
                 }

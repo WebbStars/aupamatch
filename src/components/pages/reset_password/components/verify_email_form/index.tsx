@@ -25,15 +25,13 @@ const VerifyEmailForm: React.FC = () => {
 
     if (hasError) {
       if (error == 'MissingAuthenticatorsError') {
-        dispatch(setErrorMessage(t('features.reset_password.error')!))
+        dispatch(setErrorMessage(t('pages.reset_password.error')!))
         navigate('/login')
         return
       }
       dispatch(
         setErrorMessage(
-          t(
-            'features.reset_password.components.verify_email_form.server_error'
-          )!
+          t('pages.reset_password.components.verify_email_form.server_error')!
         )
       )
       return
@@ -50,17 +48,15 @@ const VerifyEmailForm: React.FC = () => {
 
   return (
     <FormPaper
-      title={t('features.reset_password.components.verify_email_form.title')}
+      title={t('pages.reset_password.components.verify_email_form.title')}
       subtitle={
-        t('features.reset_password.components.verify_email_form.subtitle')!
+        t('pages.reset_password.components.verify_email_form.subtitle')!
       }
       isLoading={isLoading}
       handleClose={handleClose}
       handleSubmit={handleSubmit}
       submitLabel={
-        t(
-          'features.reset_password.components.verify_email_form.buttons.submit'
-        )!
+        t('pages.reset_password.components.verify_email_form.buttons.submit')!
       }
     >
       <Grid item xs={12}>
@@ -69,7 +65,7 @@ const VerifyEmailForm: React.FC = () => {
             required
             type="email"
             label={t(
-              'features.reset_password.components.verify_email_form.email_label'
+              'pages.reset_password.components.verify_email_form.email_label'
             )}
             value={userEmail}
             fullWidth

@@ -219,6 +219,55 @@
       "title": "Quer encontrar uma Au Pair?",
       "subtitle": "Você pode publicar uma vaga para au pairs se candidatar e encontrar uma com as características que você busca. É um processo super simples.",
       "post_now": "Publicar agora"
+    },
+    "reset_password": {
+      "error": "Não foi possível redefinir sua senha. Para mais informações, entre em contato com o suporte",
+      "components": {
+        "verify_email_form": {
+          "title": "Redefinir senha",
+          "subtitle": "Digite seu email para receber seu código de validação",
+          "email_label": "Email",
+          "server_error": "Não foi possível concluir sua solicitação por instabilidade no sistema. Tente novamente em instantes",
+          "buttons": {
+            "submit": "Enviar email",
+            "cancel": "Cancelar"
+          }
+        },
+        "token_form": {
+          "title": "Redefinir senha",
+          "subtitle": "Informe o token recebido",
+          "resend_disabled": "Reenviar em {{counter}} segundos",
+          "resend_token": "Reenviar token"
+        },
+        "form_paper": {
+          "default_submit_label": "Continuar",
+          "cancel": "Cancelar"
+        },
+        "change_password": {
+          "form": {
+            "title": "Redefinir senha",
+            "subtitle": "Crie uma nova senha",
+            "system_label": "Sistema que a senha será redefinida",
+            "password_label": "Senha",
+            "confirmation_label": "Repetir senha",
+            "invalid_confirmation": "As senhas não conferem",
+            "rules_title": "A nova senha tem que conter"
+          },
+          "pwd_rules": {
+            "length": "De 8 a 12 caracteres",
+            "case": "Letras maiúsculas e minúsculas",
+            "number": "Ao menos um número",
+            "special": "Ao menos um caractere especial"
+          },
+          "responses": {
+            "sucess_reset": "Solicitação de redefinição de senha realizada! Você receberá um email quando sua solicitação for aprovada",
+            "already_requisition": "Já existe uma requisição de redefinição de senha em andamento",
+            "system_error": "Houve um erro inesperado, tente novamente",
+            "not_found": "Token não está associado a nenhuna identidade",
+            "token_expired": "Token expirado"
+          }
+        }
+      }
     }
   },
   "global": {

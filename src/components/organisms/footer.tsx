@@ -1,13 +1,12 @@
 import { makeStyles } from '@material-ui/styles'
-import { Box, Typography, Link } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link as RouterLink } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: '#f9fafb'
-  }
+    backgroundColor: '#f9fafb',
+  },
 })
 
 interface Props {
@@ -33,7 +32,7 @@ const Footer: React.FC<Props> = ({ family = false }) => {
       flexShrink="0"
       className={classes.root}
     >
-      <Box
+      {/* <Box
         display="flex"
         flexDirection={{ xs: 'column', md: 'row' }}
         gap={4}
@@ -57,7 +56,7 @@ const Footer: React.FC<Props> = ({ family = false }) => {
         <Link to="/" underline="none" component={RouterLink}>
           {t('organisms.footer.partners')}
         </Link>
-      </Box>
+      </Box> */}
 
       <Typography textAlign={{ xs: 'center' }}>
         © 2022 AupaMatch, {t('organisms.footer.copy')}
