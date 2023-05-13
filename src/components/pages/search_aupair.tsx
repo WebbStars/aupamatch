@@ -88,6 +88,8 @@ const SearchAupair: React.FC = () => {
   }, [])
 
   const postJob = () => {
+    if (!currentUser) return
+
     if (currentUser.pagamentoPublicador) {
       navigate('/post_job')
       return
@@ -186,6 +188,7 @@ const SearchAupair: React.FC = () => {
               color="primary"
               variant="contained"
               size="large"
+              disabled={Object.keys(currentUser).length === 0}
               onClick={postJob}
             >
               {t('pages.search_aupair.post_now')}

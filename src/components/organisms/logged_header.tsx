@@ -39,13 +39,13 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
     return isPrimary ? 'primary' : theme.palette.text.primary
   }
 
-  useEffect(() => {
-    const asyncEffect = async () => {
-      dispatch(await fetchUserProfile(accessToken!))
-    }
+  // useEffect(() => {
+  //   const asyncEffect = async () => {
+  //     dispatch(await fetchUserProfile(accessToken!))
+  //   }
 
-    if (!profile) asyncEffect()
-  }, [])
+  //   if (!profile) asyncEffect()
+  // }, [])
 
   return (
     <Box
