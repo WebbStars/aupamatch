@@ -261,10 +261,9 @@
           },
           "responses": {
             "sucess_reset": "Senha alterada com sucesso",
-            "already_requisition": "Já existe uma requisição de redefinição de senha em andamento",
-            "system_error": "Houve um erro inesperado, tente novamente",
-            "not_found": "Token não está associado a nenhuna identidade",
-            "token_expired": "Token expirado"
+            "invalid": "Token expirado",
+            "not_found": "Email não encontrado",
+            "system_error": "Houve um erro inesperado, tente novamente"
           }
         }
       },

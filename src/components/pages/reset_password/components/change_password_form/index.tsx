@@ -20,10 +20,6 @@ type StateType = {
   userEmail: string
 }
 
-type ErrorMessageObject = {
-  [key: string]: string
-}
-
 type Form = {
   email: string
   password: string
@@ -90,8 +86,18 @@ const ChangePasswordForm: React.FC = () => {
         )
       )
     },
+    invalid: () => {
+      navigate('/verify_email')
+      dispatch(
+        setErrorMessage(
+          t(
+            'pages.reset_password.components.change_password.responses.invalid'
+          )!
+        )
+      )
+    },
     notFound: () => {
-      navigate('/login')
+      navigate('/verify_email')
       dispatch(
         setErrorMessage(
           t(
@@ -99,22 +105,6 @@ const ChangePasswordForm: React.FC = () => {
           )!
         )
       )
-    },
-    unauthorized: (errorTitle: string) => {
-      const expiredMessage: ErrorMessageObject = {
-        TokenValidationError: t(
-          'pages.reset_password.components.change_password.responses.token_expired'
-        ),
-        RequisitionError: t(
-          'pages.reset_password.components.change_password.responses.already_requisition'
-        ),
-        AuthenticatorIdError: t(
-          'pages.reset_password.components.change_password.responses.system_error'
-        ),
-      }
-
-      dispatch(setErrorMessage(expiredMessage[errorTitle]))
-      navigate('/login')
     },
     serverFail: () => {
       navigate('/login')
@@ -136,9 +126,7 @@ const ChangePasswordForm: React.FC = () => {
     const newForm = { ...form }
     delete newForm?.confirmation
 
-    const { response, hasError, statusCode, error } = await changePassword(
-      newForm
-    )
+    const { response, hasError, statusCode } = await changePassword(newForm)
 
     if (response) {
       dispatchEvent.successReset()
@@ -146,7 +134,7 @@ const ChangePasswordForm: React.FC = () => {
     }
 
     if (hasError) {
-      if (statusCode === 401 && error) dispatchEvent.unauthorized(error.title)
+      if (statusCode === 400) dispatchEvent.invalid()
       if (statusCode === 404) dispatchEvent.notFound()
       if (statusCode === 500) dispatchEvent.serverFail()
     }

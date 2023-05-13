@@ -263,10 +263,9 @@
           },
           "responses": {
             "sucess_reset": "Password changed successfully",
-            "already_requisition": "There is already a password reset request in progress",
-            "system_error": "There was an unexpected error, please try again",
-            "not_found": "Token is not associated with any identity",
-            "token_expired": "Token has expired"
+            "invalid": "Token expired",
+            "not_found": "Email not found",
+            "system_error": "An unexpected error occurred, please try again"
           }
         }
       },
