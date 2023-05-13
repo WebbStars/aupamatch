@@ -207,7 +207,7 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
               <Box>
                 <Typography fontSize={16} color={theme.palette.grey[600]}>
-                  Usuário Novo
+                {t('organisms.job_details.new_user')}
                 </Typography>
                 <SkeletonHOC
                   animation="wave"

@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import React, { Dispatch, SetStateAction } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from '../../../store'
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 
 const MyAccessForm: React.FC<Props> = ({ setMenu }) => {
   const profile = useSelector((state) => state.userProfile)
+  const { t } = useTranslation()
 
   return (
     <Paper
@@ -30,14 +32,14 @@ const MyAccessForm: React.FC<Props> = ({ setMenu }) => {
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h5" fontWeight="bold">
-          Meu acesso
+          {t('organisms.profile_menu.my_acess')}
         </Typography>
-        <Link underline="none">Excluir minha conta</Link>
+        <Link underline="none">{t('organisms.profile_menu.delete_my_account')}</Link>
       </Box>
 
       <Box mt={2} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Box component="div">
-          <InputLabel>E-mail de cadastro</InputLabel>
+          <InputLabel>{t('organisms.profile_menu.email_account')}</InputLabel>
           <FormControl fullWidth>
             <TextField defaultValue={profile?.email} />
           </FormControl>

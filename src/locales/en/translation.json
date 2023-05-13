@@ -199,7 +199,8 @@
       "apply": "Apply for",
       "modal_title": "Thank you for applying for this job!",
       "modal_subtitle": "Keep an eye on your email box.",
-      "my_profile": "My Profile"
+      "my_profile": "My Profile",
+      "new_user": "New User"
     },
     "post_job_stepper": {
       "next": "Next",
@@ -207,6 +208,11 @@
       "modal_title": "Job registered successfully!",
       "modal_subtitle": "Check all your registered jobs or register a new one",
       "my_jobs": "My jobs"
+    },
+    "profile_menu": {
+      "my_acess": "My acess",
+      "delete_my_account": "Delete my account",
+      "email_account": "Email account"
     }
   },
   "pages": {
