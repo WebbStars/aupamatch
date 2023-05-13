@@ -198,7 +198,8 @@
       "apply": "Candidatar-se",
       "modal_title": "Obrigada por ter se candidatado nessa vaga!",
       "modal_subtitle": "Fique de olho na caixa do seu e-mail.",
-      "my_profile": "Meu Perfil"
+      "my_profile": "Meu Perfil",
+      "new_user": "Usuário Novo"
     },
     "post_job_stepper": {
       "next": "Avançar",
@@ -206,6 +207,11 @@
       "modal_title": "Vaga cadastrada com sucesso!",
       "modal_subtitle": "Verifique todas suas vagas ou cadastre uma nova",
       "my_jobs": "Minhas Vagas"
+    },
+    "profile_menu": {
+      "my_acess": "Meu acesso",
+      "delete_my_account": "Excluir minha conta",
+      "email_account": "E-mail de cadastro"
     }
   },
   "pages": {
