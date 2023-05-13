@@ -215,7 +215,7 @@ const LoginPaper: React.FC = () => {
         </FormControl>
         <Link
           component={RouterLink}
-          to="#"
+          to="/verify_email"
           underline="none"
           className={classes.link}
         >

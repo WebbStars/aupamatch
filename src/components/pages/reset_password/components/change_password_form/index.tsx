@@ -55,9 +55,7 @@ const ChangePasswordForm: React.FC = () => {
       const { available, systems } = response
       if (!available) {
         dispatch(
-          setErrorMessage(
-            t('features.reset_password.pages.send_token.expired')!
-          )
+          setErrorMessage(t('pages.reset_password.pages.send_token.expired')!)
         )
         navigate('/verify_email')
         return
@@ -69,9 +67,7 @@ const ChangePasswordForm: React.FC = () => {
 
     navigate('/verify_email')
     dispatch(
-      setErrorMessage(
-        t('features.reset_password.pages.send_token.invalid_token')!
-      )
+      setErrorMessage(t('pages.reset_password.pages.send_token.invalid_token')!)
     )
   }
 
@@ -97,25 +93,23 @@ const ChangePasswordForm: React.FC = () => {
     {
       isValid: password.validateLength(form.password),
       text: t(
-        'features.reset_password.components.change_password.pwd_rules.length'
+        'pages.reset_password.components.change_password.pwd_rules.length'
       ),
     },
     {
       isValid: !!password.validateCaseLetters(form.password),
-      text: t(
-        'features.reset_password.components.change_password.pwd_rules.case'
-      ),
+      text: t('pages.reset_password.components.change_password.pwd_rules.case'),
     },
     {
       isValid: !!password.validateNumber(form.password),
       text: t(
-        'features.reset_password.components.change_password.pwd_rules.number'
+        'pages.reset_password.components.change_password.pwd_rules.number'
       ),
     },
     {
       isValid: !!password.validateSpecialChar(form.password),
       text: `${t(
-        'features.reset_password.components.change_password.pwd_rules.special'
+        'pages.reset_password.components.change_password.pwd_rules.special'
       )} (_ @ # &)`,
     },
   ]
@@ -126,7 +120,7 @@ const ChangePasswordForm: React.FC = () => {
       dispatch(
         setSuccessMessage(
           t(
-            'features.reset_password.components.change_password.responses.sucess_reset'
+            'pages.reset_password.components.change_password.responses.sucess_reset'
           )!
         )
       )
@@ -136,7 +130,7 @@ const ChangePasswordForm: React.FC = () => {
       dispatch(
         setErrorMessage(
           t(
-            'features.reset_password.components.change_password.responses.not_found'
+            'pages.reset_password.components.change_password.responses.not_found'
           )!
         )
       )
@@ -144,13 +138,13 @@ const ChangePasswordForm: React.FC = () => {
     unauthorized: (errorTitle: string) => {
       const expiredMessage: ErrorMessageObject = {
         TokenValidationError: t(
-          'features.reset_password.components.change_password.responses.token_expired'
+          'pages.reset_password.components.change_password.responses.token_expired'
         ),
         RequisitionError: t(
-          'features.reset_password.components.change_password.responses.already_requisition'
+          'pages.reset_password.components.change_password.responses.already_requisition'
         ),
         AuthenticatorIdError: t(
-          'features.reset_password.components.change_password.responses.system_error'
+          'pages.reset_password.components.change_password.responses.system_error'
         ),
       }
 
@@ -159,7 +153,7 @@ const ChangePasswordForm: React.FC = () => {
     },
     serverFail: () => {
       navigate('/login')
-      dispatch(setErrorMessage(t('features.reset_password.error')!))
+      dispatch(setErrorMessage(t('pages.reset_password.error')!))
     },
   }
 
@@ -192,9 +186,9 @@ const ChangePasswordForm: React.FC = () => {
 
   return (
     <FormPaper
-      title={t('features.reset_password.components.change_password.form.title')}
+      title={t('pages.reset_password.components.change_password.form.title')}
       subtitle={
-        t('features.reset_password.components.change_password.form.subtitle')!
+        t('pages.reset_password.components.change_password.form.subtitle')!
       }
       handleSubmit={handleSubmitForm}
       isLoading={isLoading}
@@ -210,7 +204,7 @@ const ChangePasswordForm: React.FC = () => {
           handleChangeInput={handleChange}
           label={
             t(
-              'features.reset_password.components.change_password.form.password_label'
+              'pages.reset_password.components.change_password.form.password_label'
             )!
           }
         />
@@ -219,7 +213,7 @@ const ChangePasswordForm: React.FC = () => {
           handleChangeInput={handleChange}
           label={
             t(
-              'features.reset_password.components.change_password.form.confirmation_label'
+              'pages.reset_password.components.change_password.form.confirmation_label'
             )!
           }
           name="confirmation"
@@ -227,7 +221,7 @@ const ChangePasswordForm: React.FC = () => {
           helperText={
             !!form.confirmation && passwordNotEqual
               ? t(
-                  'features.reset_password.components.change_password.form.invalid_confirmation'
+                  'pages.reset_password.components.change_password.form.invalid_confirmation'
                 )!
               : ''
           }
@@ -235,7 +229,7 @@ const ChangePasswordForm: React.FC = () => {
 
         <FormValidateRules
           title={t(
-            'features.reset_password.components.change_password.form.rules_title'
+            'pages.reset_password.components.change_password.form.rules_title'
           )}
           rules={rules}
         />

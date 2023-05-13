@@ -220,6 +220,56 @@
       "title": "Want to find an Au Pair?",
       "subtitle": "You can post a vacancy for au pairs to apply and find one with the characteristics you are looking for. It's a super simple process.",
       "post_now": "Publish now"
+    },
+    "reset_password": {
+      "error": "Could not reset your password. For more information, please contact support",
+      "components": {
+        "error": "We were unable to reset your password. For more information, contact the support.",
+        "verify_email_form": {
+          "title": "Reset password",
+          "subtitle": "Enter your email to receive your validation code",
+          "email_label": "Email",
+          "server_error": "We were unable to complete your request due to system instability. Try again in a moment",
+          "buttons": {
+            "submit": "Send email",
+            "cancel": "Cancel"
+          }
+        },
+        "token_form": {
+          "title": "Reset password",
+          "subtitle": "Enter the received token",
+          "resend_disabled": "Resend in {{counter}} seconds",
+          "resend_token": "Resend token"
+        },
+        "form_paper": {
+          "default_submit_label": "Continue",
+          "cancel": "Cancel"
+        },
+        "change_password": {
+          "form": {
+            "title": "Reset password",
+            "subtitle": "Create a new password",
+            "system_label": "System where the password will be reset",
+            "password_label": "Password",
+            "confirmation_label": "Repeat password",
+            "invalid_confirmation": "Passwords do not match",
+            "rules_title": "The new password must contain"
+          },
+          "pwd_rules": {
+            "length": "8 to 12 characters",
+            "case": "Uppercase and lowercase letters",
+            "number": "At least one number",
+            "special": "At least one special character"
+          },
+          "responses": {
+            "sucess_reset": "Password reset request submitted! You will receive an email when your request is approved",
+            "already_requisition": "There is already a password reset request in progress",
+            "system_error": "There was an unexpected error, please try again",
+            "not_found": "Token is not associated with any identity",
+            "token_expired": "Token has expired"
+          }
+        }
+      }
     }
   },
   "global": {

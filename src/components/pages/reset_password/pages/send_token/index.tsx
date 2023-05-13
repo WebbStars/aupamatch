@@ -37,9 +37,7 @@ const SendToken: React.FC = () => {
       const { available, token, systems } = response
       if (!available) {
         dispatch(
-          setErrorMessage(
-            t('features.reset_password.pages.send_token.expired')!
-          )
+          setErrorMessage(t('pages.reset_password.pages.send_token.expired')!)
         )
         return
       }
@@ -49,9 +47,7 @@ const SendToken: React.FC = () => {
     }
 
     dispatch(
-      setErrorMessage(
-        t('features.reset_password.pages.send_token.invalid_token')!
-      )
+      setErrorMessage(t('pages.reset_password.pages.send_token.invalid_token')!)
     )
   }
 
@@ -65,7 +61,7 @@ const SendToken: React.FC = () => {
 
     if (hasError) {
       if (error == 'MissingAuthenticatorsError') {
-        dispatch(setErrorMessage(t('features.reset_password.error')!))
+        dispatch(setErrorMessage(t('pages.reset_password.error')!))
         navigate('/login')
       }
       return false
@@ -73,7 +69,7 @@ const SendToken: React.FC = () => {
 
     dispatch(
       setSuccessMessage(
-        t('features.reset_password.pages.send_token.success_sent')!
+        t('pages.reset_password.pages.send_token.success_sent')!
       )
     )
     return true

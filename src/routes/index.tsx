@@ -17,6 +17,9 @@ import MyJobs from '../components/pages/my_jobs'
 import MyApplies from '../components/pages/my_applies'
 import EditJob from '../components/pages/edit_jobs'
 import MyProfile from '../components/pages/my_profile'
+import VerifyUserEmail from '../components/pages/reset_password/pages/verify_email'
+import SendToken from '../components/pages/reset_password/pages/send_token'
+import ChangePassword from '../components/pages/reset_password/pages/change_password'
 
 const Routes: React.FC = () => {
   return (
@@ -28,13 +31,13 @@ const Routes: React.FC = () => {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route path="/verify_email" element={<UnProtectedRoute />}>
-          <Route path="/verify_email" element={<Login />} />
+          <Route path="/verify_email" element={<VerifyUserEmail />} />
         </Route>
         <Route path="/send_token" element={<UnProtectedRoute />}>
-          <Route path="/send_token" element={<Login />} />
+          <Route path="/send_token" element={<SendToken />} />
         </Route>
         <Route path="/change_password" element={<UnProtectedRoute />}>
-          <Route path="/change_password" element={<Login />} />
+          <Route path="/change_password" element={<ChangePassword />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/my_profile" element={<ProtectedRoute />}>
