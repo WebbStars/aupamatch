@@ -8,7 +8,6 @@ import { theme } from '../../styles'
 import { fetchUser, fetchUserProfile } from '../../store/user'
 import { useDispatch } from '../../store'
 import { FetchApplies, fetchAppliesService } from '../../services'
-import NeedContract from './contract'
 
 const useStyles = makeStyles({
   main: {
@@ -48,7 +47,7 @@ const Jobs: React.FC = () => {
   const [openJobModal, setOpenJobModal] = useState(false)
   const [appliesIds, setAppliesIds] = useState<string[]>([])
 
-  const matchesMd = useMediaQuery(theme.breakpoints.up('md'))
+  const matchesLg = useMediaQuery(theme.breakpoints.up('lg'))
   const dispatch = useDispatch()
 
   sessionStorage.setItem('logged', 'true')
@@ -81,7 +80,7 @@ const Jobs: React.FC = () => {
           setIsFetching={setIsFetching}
           setApplies={setAppliesIds}
         />
-        {matchesMd ? (
+        {matchesLg ? (
           <JobDetails
             selectedJob={selectedJob}
             isFetching={isFetching}
