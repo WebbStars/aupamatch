@@ -212,7 +212,22 @@
     "profile_menu": {
       "my_acess": "Meu acesso",
       "delete_my_account": "Excluir minha conta",
-      "email_account": "E-mail de cadastro"
+      "password": "Senha",
+      "email_account": "E-mail de cadastro",
+      "change": "Alterar",
+      "change_password": "Alterar senha",
+      "current_password": "Senha atual",
+      "new_password": "Senha nova",
+      "enter_your_current_password": "Insira sua senha atual",
+      "enter_your_new_password": "Insira sua senha nova",
+      "login_history": "Histórico de login",
+      "when": "Quando",
+      "ip": "IP",
+      "location": "Location",
+      "purchase_history": "Histórico de compras",
+      "purchase_date": "Data de compra",
+      "product": "Produto",
+      "value": "Valor"
     }
   },
   "pages": {

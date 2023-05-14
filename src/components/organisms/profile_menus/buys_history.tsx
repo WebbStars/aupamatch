@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FetchBuysHistoryState, getBuysHistory } from '../../../services'
 import { formatTableDate } from '../../../utils'
 import useOverflow from '../../../hooks/use_overflow'
@@ -25,6 +26,8 @@ const BuysHistory: React.FC = () => {
 
   const overflowingRef = useRef<HTMLSpanElement | null>(null)
   const activeOverflow = useOverflow(overflowingRef, isFetching)
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     const asyncEffect = async () => {
@@ -50,7 +53,7 @@ const BuysHistory: React.FC = () => {
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h5" fontWeight="bold">
-          Histórico de compras
+          {t('organisms.profile_menu.login_history')}
         </Typography>
       </Box>
       <Box display="flex" justifyContent="center">
@@ -81,13 +84,13 @@ const BuysHistory: React.FC = () => {
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ fontWeight: 'bold' }}>
-                    Data de compra
+                    {t('organisms.profile_menu.purchase_date')}
                   </TableCell>
                   <TableCell align="center" sx={{ fontWeight: 'bold' }}>
-                    Produto
+                    {t('organisms.profile_menu.product')}
                   </TableCell>
                   <TableCell align="right" sx={{ fontWeight: 'bold' }}>
-                    Valor
+                    {t('organisms.profile_menu.value')}
                   </TableCell>
                 </TableRow>
               </TableHead>

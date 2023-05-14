@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FetchLoginHistoryState, getLoginHistory } from '../../../services'
 import { formatTableDate } from '../../../utils'
 
@@ -18,6 +19,7 @@ const LoginHistory: React.FC = () => {
   const [history, setHistory] = useState<FetchLoginHistoryState[]>([])
   const [isFetching, setIsFetching] = useState(true)
   const accessToken = sessionStorage.getItem('accessToken')
+  const { t } = useTranslation()
 
   useEffect(() => {
     const asyncEffect = async () => {
@@ -43,7 +45,7 @@ const LoginHistory: React.FC = () => {
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h5" fontWeight="bold">
-          Histórico de login
+          {t('organisms.profile_menu.login_history')}
         </Typography>
       </Box>
 
@@ -59,12 +61,12 @@ const LoginHistory: React.FC = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Quando</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('organisms.profile_menu.when')}</TableCell>
               <TableCell align="center" sx={{ fontWeight: 'bold' }}>
-                Ip
+                {t('organisms.profile_menu.ip')}
               </TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>
-                Local
+                {t('organisms.profile_menu.location')}
               </TableCell>
             </TableRow>
           </TableHead>
