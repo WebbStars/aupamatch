@@ -1,17 +1,16 @@
 import api from './api'
-import { PostJobPayload } from './post_job'
 
-interface FetchUserResponsePayload {
-  response?: PostJobPayload
+interface Response {
+  response?: { approvalUrl: string }
   hasError?: boolean
 }
 
-export const editJob = async (
-  job: any,
+export const sponsorJob = async (
+  jobId: string,
   accessToken: string
-): Promise<FetchUserResponsePayload> => {
+): Promise<Response> => {
   try {
-    const response = await api.put(`/vaga/${job._id}`, job, {
+    const response = await api.post(`/pagamento/vaga-patrocinada/${jobId}`, {
       headers: {
         'x-access-token': accessToken,
       },

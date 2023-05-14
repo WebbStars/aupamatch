@@ -23,15 +23,16 @@ export interface PostJobPayload {
   habilitacao_pid: string
   passaporte: boolean
   receber_newsletter: boolean
+  _id: string
 }
 
 interface PostJobResponsePayload {
-  response?: { message?: string }
+  response?: PostJobPayload
   hasError?: boolean
 }
 
 export const postJob = async (
-  postJobPayload: PostJobPayload,
+  postJobPayload: Omit<PostJobPayload, '_id'>,
   accessToken: string
 ): Promise<PostJobResponsePayload> => {
   try {

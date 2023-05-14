@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from '../../store'
 import { setErrorMessage } from '../../store/notifications'
 import FormPaper from './job_form/form_paper'
-import { editJob, postJob } from '../../services'
+import { editJob, postJob, sponsorJob } from '../../services'
 import { MessageModal } from '../molecules'
 import { useNavigate } from 'react-router-dom'
 
@@ -76,15 +76,23 @@ const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
   const dispatch = useDispatch()
   const accessToken = sessionStorage.getItem('accessToken')
 
+  const toSponsorJob = async (jobId: string) => {
+    const { response } = await sponsorJob(jobId, accessToken!)
+
+    if (response) window.open(response.approvalUrl, '_blank')!.focus()
+  }
+
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
 
+    const sponsoredJob = isEdit
+      ? form?.vaga_patrocinada
+      : JSON.parse(form.vaga_patrocinada)
+
     const newForm = {
       ...form,
-      vaga_patrocinada: isEdit
-        ? form?.vaga_patrocinada
-        : JSON.parse(form.vaga_patrocinada),
+      vaga_patrocinada: false,
       carro_exclusivo: isEdit
         ? form?.carro_exclusivo
         : JSON.parse(form.carro_exclusivo),
@@ -95,7 +103,7 @@ const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
         : JSON.parse(form.receber_newsletter),
     }
 
-    const { hasError } = isEdit
+    const { hasError, response } = isEdit
       ? await editJob(newForm as any, accessToken!)
       : await postJob(newForm as any, accessToken!)
 
@@ -109,6 +117,10 @@ const PostJobStepper: React.FC<Props> = ({ isEdit, jobToEdit }) => {
       setOpenModal(true)
       setIsLoading(false)
       return
+    }
+
+    if (response && sponsoredJob) {
+      toSponsorJob(response._id)
     }
 
     setForm(INITIAL_VALUES)
