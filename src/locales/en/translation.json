@@ -211,9 +211,24 @@
       "my_jobs": "My jobs"
     },
     "profile_menu": {
-      "my_acess": "My acess",
+      "my_acess": "My access",
       "delete_my_account": "Delete my account",
-      "email_account": "Email account"
+      "password": "Password",
+      "email_account": "Registration email",
+      "change": "Change",
+      "change_password": "Change password",
+      "current_password": "Current password",
+      "new_password": "New password",
+      "enter_your_current_password": "Enter your current password",
+      "enter_your_new_password": "Enter your new password",
+      "login_history": "Login history",
+      "when": "When",
+      "ip": "IP",
+      "location": "Location",
+      "purchase_history": "Purchase history",
+      "purchase_date": "Purchase date",
+      "product": "Product",
+      "value": "Value"
     }
   },
   "pages": {

@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { updateUserProfileService } from '../../../services'
 import { useDispatch } from '../../../store'
 import {
@@ -31,6 +32,7 @@ const initialFormState = {
 const ChangePwd: React.FC = () => {
   const [form, setForm] = useState<State>(initialFormState)
   const [showPassword, setShowPassword] = useState(false)
+  const { t } = useTranslation()
 
   const dispatch = useDispatch()
   const accessToken = sessionStorage.getItem('accessToken')
@@ -77,13 +79,13 @@ const ChangePwd: React.FC = () => {
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h5" fontWeight="bold">
-          Alterar senha
+          {t('organisms.profile_menu.change_password')}
         </Typography>
       </Box>
 
       <Box mt={2} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Box component="div">
-          <InputLabel>Senha atual</InputLabel>
+          <InputLabel>{t('organisms.profile_menu.current_password')}</InputLabel>
           <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
             <OutlinedInput
               autoComplete="new-password"
@@ -91,14 +93,14 @@ const ChangePwd: React.FC = () => {
               type="password"
               value={form.currentPassword}
               onChange={handleChange('currentPassword')}
-              placeholder="Insira sua senha"
+              placeholder={t('organisms.profile_menu.enter_your_current_password')!}
               required
             />
           </FormControl>
         </Box>
 
         <Box component="div">
-          <InputLabel>Senha nova</InputLabel>
+          <InputLabel>{t('organisms.profile_menu.new_password')}</InputLabel>
           <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
             <OutlinedInput
               autoComplete="new-password"
@@ -106,7 +108,7 @@ const ChangePwd: React.FC = () => {
               type={showPassword ? 'text' : 'password'}
               value={form.newPassword}
               onChange={handleChange('newPassword')}
-              placeholder="Insira sua senha"
+              placeholder={t('organisms.profile_menu.enter_your_new_password')!}
               required
               endAdornment={
                 <InputAdornment position="end">
@@ -125,7 +127,7 @@ const ChangePwd: React.FC = () => {
         </Box>
 
         <Button variant="contained" onClick={changePassword}>
-          Alterar
+        {t('organisms.profile_menu.change')}
         </Button>
       </Box>
     </Paper>

@@ -46,7 +46,7 @@ const MyAccessForm: React.FC<Props> = ({ setMenu }) => {
         </Box>
 
         <Box component="div">
-          <InputLabel>Senha</InputLabel>
+          <InputLabel>{t('organisms.profile_menu.password')}</InputLabel>
           <FormControl fullWidth>
             <OutlinedInput
               value="************"
@@ -60,7 +60,7 @@ const MyAccessForm: React.FC<Props> = ({ setMenu }) => {
                     color="primary"
                     onClick={() => setMenu('changePwd')}
                   >
-                    Alterar
+                    {t('organisms.profile_menu.change')}
                   </Typography>
                 </InputAdornment>
               }
