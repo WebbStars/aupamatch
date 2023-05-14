@@ -129,7 +129,7 @@ const FormPaper: React.FC<Props> = ({
           disabled={isLoading}
         >
           {isLoading ? (
-            <CircularProgress size="22px" color="secondary" />
+            <CircularProgress size="22px" sx={{ color: 'secondary.light' }} />
           ) : (
             submitLabel
           )}

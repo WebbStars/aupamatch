@@ -212,7 +212,7 @@ const EditAupairStepper: React.FC = () => {
             variant="contained"
           >
             {isLoading ? (
-              <CircularProgress size="22px" color="secondary" />
+              <CircularProgress size="22px" sx={{ color: 'secondary.light' }} />
             ) : (
               t('organisms.post_job_stepper.my_jobs')
             )}

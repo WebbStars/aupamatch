@@ -338,7 +338,10 @@ const JobDetails: React.FC<Props> = ({
           >
             <CustomButton width="100%" height="48px" onClick={submitJob}>
               {isLoading ? (
-                <CircularProgress size="18px" color="secondary" />
+                <CircularProgress
+                  size="18px"
+                  sx={{ color: 'secondary.light' }}
+                />
               ) : (
                 t('organisms.job_details.compatibility', {
                   value: selectedJob?.job?.score,
@@ -372,7 +375,7 @@ const JobDetails: React.FC<Props> = ({
 
           <CustomButton width="100%" height="48px" onClick={submitJob}>
             {isLoading ? (
-              <CircularProgress size="18px" color="secondary" />
+              <CircularProgress size="18px" sx={{ color: 'secondary.light' }} />
             ) : (
               t('organisms.job_details.apply')
             )}
@@ -395,7 +398,7 @@ const JobDetails: React.FC<Props> = ({
           <Button
             onClick={() => navigate(modalButton.redirectPath)}
             variant="contained"
-            color="secondary"
+            sx={{ color: 'secondary.light' }}
           >
             {modalButton.textButton}
           </Button>

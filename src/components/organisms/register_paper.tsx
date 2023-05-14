@@ -418,7 +418,7 @@ const RegisterPaper: React.FC = () => {
         disabled={isLoading}
       >
         {isLoading ? (
-          <CircularProgress size="22px" color="secondary" />
+          <CircularProgress size="22px" sx={{ color: 'secondary.light' }} />
         ) : (
           t('organisms.register_paper.sign_up')
         )}

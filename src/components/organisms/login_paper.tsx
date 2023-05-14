@@ -230,7 +230,7 @@ const LoginPaper: React.FC = () => {
           disabled={isLoading}
         >
           {isLoading ? (
-            <CircularProgress size="22px" color="secondary" />
+            <CircularProgress size="22px" sx={{ color: 'secondary.light' }} />
           ) : (
             t('organisms.login_paper.btn_sign_in')
           )}

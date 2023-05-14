@@ -79,7 +79,10 @@ const NeedContract: React.FC<Props> = ({
                 disabled={!checked}
               >
                 {isLoading ? (
-                  <CircularProgress size="22px" color="secondary" />
+                  <CircularProgress
+                    size="22px"
+                    sx={{ color: 'secondary.light' }}
+                  />
                 ) : (
                   'Continuar'
                 )}

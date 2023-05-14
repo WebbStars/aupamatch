@@ -6,7 +6,7 @@ const custom = {
   primaryPlus: '#4D5BC9',
   primaryContrast: '#fff',
   secondaryMinus: '#EDF3FB',
-  secondary: '#E5EAF1',
+  secondary: '#4D5E77',
   secondaryPlus: '#BBC0C8',
   secondaryContrast: '#4D5E77',
 }

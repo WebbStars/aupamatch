@@ -119,7 +119,7 @@ const FormPaper: React.FC<Props> = ({
 
       {isEdit && isFetchingEdit ? (
         <Box width="100%">
-          <CircularProgress size="60px" color="secondary" />
+          <CircularProgress size="60px" sx={{ color: 'secondary.light' }} />
         </Box>
       ) : (
         <>
@@ -143,7 +143,10 @@ const FormPaper: React.FC<Props> = ({
               disabled={isLoading}
             >
               {isLoading ? (
-                <CircularProgress size="22px" color="secondary" />
+                <CircularProgress
+                  size="22px"
+                  sx={{ color: 'secondary.light' }}
+                />
               ) : (
                 submitLabel
               )}
