@@ -22,8 +22,6 @@ const SendToken: React.FC = () => {
 
   const userEmail = (location.state?.email as string) || ''
 
-  console.log(userEmail)
-
   const isDataValid = () => {
     return !!userEmail
   }

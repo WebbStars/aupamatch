@@ -34,8 +34,6 @@ const ChangePasswordForm: React.FC = () => {
   const location = useLocation()
   const { userEmail } = (location?.state as StateType) || ''
 
-  console.log(userEmail)
-
   const [isLoading, setIsLoading] = useState(false)
   const [passwordNotEqual, setPasswordNotEqual] = useState(false)
   const [form, setForm] = useState<Form>({
