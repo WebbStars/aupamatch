@@ -194,13 +194,14 @@
       "overview": "Overview",
       "job_details": "Job Details",
       "profile_detail": "Profile Details",
-      "locale": "Locale",
+      "locale": "Location",
       "timeline": "Timeline",
-      "apply": "Apply for",
+      "apply": "Apply",
       "modal_title": "Thank you for applying for this job!",
-      "modal_subtitle": "Keep an eye on your email box.",
+      "modal_subtitle": "Keep an eye on your email inbox.",
       "my_profile": "My Profile",
-      "new_user": "New User"
+      "new_user": "New User",
+      "compatibility": "You have {{value}} compatibility with this job! Apply now!"
     },
     "post_job_stepper": {
       "next": "Next",

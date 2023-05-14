@@ -340,7 +340,9 @@ const JobDetails: React.FC<Props> = ({
               {isLoading ? (
                 <CircularProgress size="18px" color="secondary" />
               ) : (
-                `Você tem ${selectedJob?.job?.score} de compatibilidade com essa vaga! Se candidate!`
+                t('organisms.job_details.compatibility', {
+                  value: selectedJob?.job?.score,
+                })
               )}
 
               {/* {wasApplied

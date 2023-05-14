@@ -207,7 +207,7 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
               <Box>
                 <Typography fontSize={16} color={theme.palette.grey[600]}>
-                {t('organisms.job_details.new_user')}
+                  {t('organisms.job_details.new_user')}
                 </Typography>
                 <SkeletonHOC
                   animation="wave"
@@ -379,7 +379,9 @@ const JobDetailsModal: React.FC<Props> = ({
                   {isLoading ? (
                     <CircularProgress size="18px" color="secondary" />
                   ) : (
-                    `Você tem ${selectedJob?.job?.score} de compatibilidade com essa vaga! Se candidate!`
+                    t('organisms.job_details.compatibility', {
+                      value: selectedJob?.job?.score,
+                    })
                   )}
 
                   {/* {wasApplied
