@@ -10,11 +10,15 @@ export const sponsorJob = async (
   accessToken: string
 ): Promise<Response> => {
   try {
-    const response = await api.post(`/pagamento/vaga-patrocinada/${jobId}`, {
-      headers: {
-        'x-access-token': accessToken,
-      },
-    })
+    const response = await api.post(
+      `/pagamento/vaga-patrocinada/${jobId}`,
+      {},
+      {
+        headers: {
+          'x-access-token': accessToken,
+        },
+      }
+    )
 
     return {
       response: response.data,
