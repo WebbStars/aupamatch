@@ -82,7 +82,6 @@ const JobDetails: React.FC<Props> = ({
   const jobs = useSelector((state) => state.jobs)
 
   const [openModal, setOpenModal] = useState(false)
-  const [newApplies, setNewApplies] = useState<FetchApplies[]>(applies)
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
@@ -138,9 +137,7 @@ const JobDetails: React.FC<Props> = ({
     setOpenModal(true)
     setModalStatus('success')
 
-    const { response } = await fetchAppliesService(accessToken!)
-    console.log(response)
-    if (response) setNewApplies(response)
+    await fetchAppliesService(accessToken!)
     setIsLoading(false)
   }
 
