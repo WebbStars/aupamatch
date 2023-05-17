@@ -198,7 +198,7 @@
       "apply": "Candidatar-se",
       "modal_title": "Obrigada por ter se candidatado nessa vaga!",
       "modal_subtitle": "Fique de olho na caixa do seu e-mail.",
-      "my_profile": "Meu Perfil",
+      "my_applies": "Minhas Candidaturas",
       "new_user": "Usuário Novo",
       "compatibility": "Você tem {{value}} de compatibilidade com essa vaga! Se candidate!"
     },

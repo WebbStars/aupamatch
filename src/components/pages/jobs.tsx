@@ -7,7 +7,14 @@ import LoggedTemplate from '../templates/logged'
 import { theme } from '../../styles'
 import { fetchUser, fetchUserProfile } from '../../store/user'
 import { useDispatch } from '../../store'
-import { FetchApplies, fetchAppliesService } from '../../services'
+import {
+  FetchApplies,
+  FetchUserProfileState,
+  contractMoreApplies,
+  fetchAppliesService,
+} from '../../services'
+import NeedContract from './contract'
+import { setErrorMessage } from '../../store/notifications'
 
 const useStyles = makeStyles({
   main: {
@@ -45,29 +52,80 @@ const Jobs: React.FC = () => {
   const [isFetching, setIsFetching] = useState(true)
   const [applies, setApplies] = useState<FetchApplies[]>([])
   const [openJobModal, setOpenJobModal] = useState(false)
+  const [needPayment, setNeedPayment] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [appliesIds, setAppliesIds] = useState<string[]>([])
+  const [currentUser, setCurrentUser] = useState<FetchUserProfileState>(
+    {} as any
+  )
+  const [isPaying, setIsPaying] = useState(false)
 
   const matchesLg = useMediaQuery(theme.breakpoints.up('lg'))
   const dispatch = useDispatch()
 
+  const accessToken = sessionStorage.getItem('accessToken')
   sessionStorage.setItem('logged', 'true')
 
+  const fetchUserData = async () => {
+    const accessToken = sessionStorage.getItem('accessToken')
+
+    const [_user, userProfile, userApplies] = await Promise.all([
+      dispatch(await fetchUser(accessToken!)),
+      dispatch(await fetchUserProfile(accessToken!)),
+      await fetchAppliesService(accessToken!),
+    ])
+
+    const { payload } = userProfile
+    if (payload) setCurrentUser(payload)
+
+    const { response } = userApplies
+    if (response) setApplies(response)
+  }
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      const accessToken = sessionStorage.getItem('accessToken')
-
-      const [_user, _userProfile, userApplies] = await Promise.all([
-        dispatch(await fetchUser(accessToken!)),
-        dispatch(await fetchUserProfile(accessToken!)),
-        await fetchAppliesService(accessToken!),
-      ])
-
-      const { response } = userApplies
-      if (response) setApplies(response)
-    }
-
     fetchUserData()
   }, [])
+
+  useEffect(() => {
+    if (currentUser.pagamentoPublicador || !isPaying) return
+
+    const refreshIntervalId = setInterval(async () => {
+      await fetchUserData()
+    }, 5000)
+
+    return () => {
+      window.clearInterval(refreshIntervalId)
+    }
+  }, [currentUser.pagamentoPublicador])
+
+  const paymentMoreApplies = async () => {
+    setIsLoading(true)
+    const { response } = await contractMoreApplies(accessToken!)
+
+    setIsLoading(false)
+    if (response) {
+      setIsPaying(true)
+      window.open(response.approvalUrl, '_blank')!.focus()
+      return
+    }
+
+    dispatch(
+      setErrorMessage(
+        'Erro ao tentar realizar o pagamento, tente novamente mais tarde!'
+      )
+    )
+  }
+
+  if (needPayment) {
+    return (
+      <NeedContract
+        handleSubmit={paymentMoreApplies}
+        detail="Candidatura em +5 vagas por mês - $5.00"
+        isLoading={isLoading}
+        isPaying={isPaying}
+      />
+    )
+  }
 
   return (
     <LoggedTemplate>
@@ -82,12 +140,16 @@ const Jobs: React.FC = () => {
         />
         {matchesLg ? (
           <JobDetails
+            setNeedPayment={setNeedPayment}
+            applies={applies}
             selectedJob={selectedJob}
             isFetching={isFetching}
             wasApplied={appliesIds.includes(selectedJob.uuid)}
           />
         ) : (
           <JobDetailsModal
+            setNeedPayment={setNeedPayment}
+            applies={applies}
             open={openJobModal}
             setOpen={setOpenJobModal}
             selectedJob={selectedJob}

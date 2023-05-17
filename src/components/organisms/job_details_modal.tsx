@@ -16,7 +16,13 @@ import {
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
-import { applyJob, favoriteJob, fetchAppliesService, Job } from '../../services'
+import {
+  applyJob,
+  favoriteJob,
+  FetchApplies,
+  fetchAppliesService,
+  Job,
+} from '../../services'
 import { useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
@@ -67,25 +73,33 @@ const useStyles = makeStyles({
 })
 
 interface Props {
+  applies?: FetchApplies[]
+  setNeedPayment?: Dispatch<SetStateAction<boolean>>
   selectedJob: Job
   isFetching: boolean
   open?: boolean
   setOpen?: Dispatch<SetStateAction<boolean>>
   wasApplied?: boolean
+  handleRemoveApply?: (jobId: string) => Promise<void>
 }
 
 const JobDetailsModal: React.FC<Props> = ({
+  applies,
+  setNeedPayment,
   open,
   setOpen,
   selectedJob,
   isFetching,
-  // wasApplied = false
+  wasApplied = false,
+  handleRemoveApply,
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
   const jobs = useSelector((state) => state.jobs)
+  const userProfile = useSelector((state) => state.userProfile)
+
   const [openModal, setOpenModal] = useState(false)
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
@@ -96,8 +110,8 @@ const JobDetailsModal: React.FC<Props> = ({
     subTitle: t('organisms.job_details.modal_subtitle'),
   })
   const [modalButton, setModalButton] = useState({
-    redirectPath: '/my_profile',
-    textButton: t('organisms.job_details.my_profile'),
+    redirectPath: '/my_applies',
+    textButton: t('organisms.job_details.my_applies'),
   })
 
   const accessToken = sessionStorage.getItem('accessToken')
@@ -120,8 +134,19 @@ const JobDetailsModal: React.FC<Props> = ({
     assyncEffect()
   }, [jobs])
 
+  const handleClose = (_event: Record<string, never>) => {
+    setOpen && setOpen(false)
+  }
+
   const submitJob = async () => {
     setIsLoading(true)
+
+    if (!wasApplied) {
+      if (applies!.length > 4 && !userProfile?.pagamentoMaisCandidaturas) {
+        setNeedPayment!(true)
+        return
+      }
+    }
 
     const payload = {
       jobId: selectedJob.uuid,
@@ -129,21 +154,23 @@ const JobDetailsModal: React.FC<Props> = ({
       accessToken: accessToken!,
     }
 
-    const { hasError } = await applyJob(payload)
-    if (hasError) {
-      setModalStatus('error')
+    if (wasApplied) {
+      await handleRemoveApply!(selectedJob.uuid)
+      setIsLoading(false)
+      setOpen && setOpen(false)
+    } else {
+      const { hasError } = await applyJob(payload)
+      if (hasError) {
+        setModalStatus('error')
+        setIsLoading(false)
+        setOpenModal(true)
+        return
+      }
+      setModalStatus('success')
       setOpenModal(true)
-      return
+
+      await fetchAppliesService(accessToken!)
     }
-    setOpenModal(true)
-    setModalStatus('success')
-
-    await fetchAppliesService(accessToken!)
-    setIsLoading(false)
-  }
-
-  const handleClose = (_event: Record<string, never>) => {
-    setOpen && setOpen(false)
   }
 
   const toFavoriteJob = async () => {
@@ -186,6 +213,10 @@ const JobDetailsModal: React.FC<Props> = ({
   }
 
   const isFavorite = favoritesJobs.includes(selectedJob.uuid)
+
+  const submitLabel = wasApplied
+    ? 'Cancelar candidatura'
+    : t('organisms.job_details.apply')
 
   return (
     <Modal
@@ -367,32 +398,30 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             </Box> */}
 
-            <Box width="100%">
-              <SkeletonHOC
-                animation="wave"
-                variant="text"
-                height={40}
-                width="100%"
-                isLoading={isFetching}
-              >
-                <CustomButton width="100%" height="48px" onClick={submitJob}>
-                  {isLoading ? (
-                    <CircularProgress
-                      size="18px"
-                      sx={{ color: 'secondary.light' }}
-                    />
-                  ) : (
-                    t('organisms.job_details.compatibility', {
-                      value: selectedJob?.job?.score,
-                    })
-                  )}
-
-                  {/* {wasApplied
-              ? 'Cancelar candidatura'
-              : t('organisms.job_details.apply')} */}
-                </CustomButton>
-              </SkeletonHOC>
-            </Box>
+            {!wasApplied && (
+              <Box width="100%">
+                <SkeletonHOC
+                  animation="wave"
+                  variant="text"
+                  height={40}
+                  width="100%"
+                  isLoading={isFetching}
+                >
+                  <CustomButton width="100%" height="48px" onClick={submitJob}>
+                    {isLoading ? (
+                      <CircularProgress
+                        size="18px"
+                        sx={{ color: 'secondary.light' }}
+                      />
+                    ) : (
+                      t('organisms.job_details.compatibility', {
+                        value: selectedJob?.job?.score,
+                      })
+                    )}
+                  </CustomButton>
+                </SkeletonHOC>
+              </Box>
+            )}
 
             <Box
               display="grid"
@@ -424,11 +453,8 @@ const JobDetailsModal: React.FC<Props> = ({
                     sx={{ color: 'secondary.light' }}
                   />
                 ) : (
-                  t('organisms.job_details.apply')
+                  submitLabel
                 )}
-                {/* {wasApplied
-                  ? 'Cancelar candidatura'
-                  : t('organisms.job_details.apply')} */}
               </CustomButton>
             </Box>
           </Box>

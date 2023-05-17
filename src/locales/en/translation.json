@@ -199,7 +199,7 @@
       "apply": "Apply",
       "modal_title": "Thank you for applying for this job!",
       "modal_subtitle": "Keep an eye on your email inbox.",
-      "my_profile": "My Profile",
+      "my_applies": "My Applications",
       "new_user": "New User",
       "compatibility": "You have {{value}} compatibility with this job! Apply now!"
     },

@@ -4,7 +4,7 @@ import { Box, Pagination } from '@mui/material'
 import { SkeletonHOC } from '../atoms'
 import { JobDetailsModal } from '../organisms'
 import OpportunityCard from './opportunity_card'
-import { deleteJob } from '../../services'
+import { deleteJob, removeApply } from '../../services'
 import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 import { useDispatch } from '../../store'
 import { AppliesList } from '../pages/my_applies'
@@ -89,14 +89,30 @@ const MyAppliesList: React.FC<Props> = ({
   const handleDelete = async (jobId: string) => {
     if (!accessToken) return
 
-    setIsFetching(true)
-
     const { hasError } = await deleteJob(accessToken, jobId)
 
     if (!hasError) {
       setAppliesList((jobs) => jobs.filter((job) => job.uuid !== jobId))
+      dispatch(setSuccessMessage('Vaga removida com sucesso'))
+
+      return
+    }
+
+    dispatch(setErrorMessage('Erro ao tentar remover vaga'))
+  }
+
+  const handleRemoveApply = async (jobId: string) => {
+    if (!accessToken) return
+
+    setIsFetching(true)
+
+    const { hasError } = await removeApply(jobId, accessToken)
+
+    setIsFetching(false)
+
+    if (!hasError) {
+      setAppliesList((jobs) => jobs.filter((job) => job.uuid !== jobId))
       dispatch(setSuccessMessage('Candidatura cancelada com sucesso'))
-      setIsFetching(false)
 
       return
     }
@@ -142,6 +158,8 @@ const MyAppliesList: React.FC<Props> = ({
       )}
 
       <JobDetailsModal
+        wasApplied={true}
+        handleRemoveApply={handleRemoveApply}
         open={openJobModal}
         setOpen={setOpenJobModal}
         selectedJob={selectedJob}

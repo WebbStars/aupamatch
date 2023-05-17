@@ -10,12 +10,13 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
 import {
   applyJob,
   favoriteJob,
+  FetchApplies,
   fetchAppliesService,
   FetchAupairJobState,
 } from '../../services'
@@ -59,12 +60,16 @@ interface Job {
 }
 
 interface Props {
+  applies: FetchApplies[]
+  setNeedPayment: Dispatch<SetStateAction<boolean>>
   selectedJob: Job
   isFetching: boolean
   wasApplied: boolean
 }
 
 const JobDetails: React.FC<Props> = ({
+  applies,
+  setNeedPayment,
   selectedJob,
   isFetching,
   // wasApplied = false
@@ -73,8 +78,11 @@ const JobDetails: React.FC<Props> = ({
   const { t } = useTranslation()
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
+  const userProfile = useSelector((state) => state.userProfile)
   const jobs = useSelector((state) => state.jobs)
+
   const [openModal, setOpenModal] = useState(false)
+  const [newApplies, setNewApplies] = useState<FetchApplies[]>(applies)
   const [favoritesJobs, setFavoritesJobs] = useState<string[]>([])
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false)
   const [modalStatus, setModalStatus] = useState('')
@@ -84,8 +92,8 @@ const JobDetails: React.FC<Props> = ({
     subTitle: t('organisms.job_details.modal_subtitle'),
   })
   const [modalButton, setModalButton] = useState({
-    redirectPath: '/my_profile',
-    textButton: t('organisms.job_details.my_profile'),
+    redirectPath: '/my_applies',
+    textButton: t('organisms.job_details.my_applies'),
   })
 
   const accessToken = sessionStorage.getItem('accessToken')
@@ -110,6 +118,11 @@ const JobDetails: React.FC<Props> = ({
   const submitJob = async () => {
     setIsLoading(true)
 
+    if (applies?.length > 4 && !userProfile?.pagamentoMaisCandidaturas) {
+      setNeedPayment(true)
+      return
+    }
+
     const payload = {
       jobId: selectedJob.uuid,
       aupairId: user?._id!,
@@ -125,7 +138,9 @@ const JobDetails: React.FC<Props> = ({
     setOpenModal(true)
     setModalStatus('success')
 
-    await fetchAppliesService(accessToken!)
+    const { response } = await fetchAppliesService(accessToken!)
+    console.log(response)
+    if (response) setNewApplies(response)
     setIsLoading(false)
   }
 

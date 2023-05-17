@@ -1,24 +1,16 @@
 import api from './api'
 
-export interface FetchUserProfileState {
-  email: string
-  id: string
-  name: string
-  roles: string
-  pagamentoPublicador?: boolean
-  pagamentoMaisCandidaturas?: boolean
-}
-
 interface FetchUserResponsePayload {
-  response?: FetchUserProfileState
+  response?: { message?: string }
   hasError?: boolean
 }
 
-export const fetchUserProfileService = async (
+export const removeApply = async (
+  jobId: string,
   accessToken: string
 ): Promise<FetchUserResponsePayload> => {
   try {
-    const response = await api.get(`/userprofile`, {
+    const response = await api.delete(`vagas/${jobId}/candidaturas`, {
       headers: {
         'x-access-token': accessToken,
       },
