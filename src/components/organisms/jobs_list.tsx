@@ -13,11 +13,11 @@ import { useDispatch } from '../../store'
 import { fetchAupairJobs } from '../../store/jobs'
 import { theme } from '../../styles'
 import { SkeletonHOC } from '../atoms'
-import { JobsHeader, OpportunityCard } from '../molecules'
+import { OpportunityCard } from '../molecules'
 
 const useStyles = makeStyles({
   jobsList: {
-    marginTop: 16,
+    // marginTop: 16,
     overflow: 'auto',
     position: 'relative',
     height: '716px',
@@ -70,7 +70,7 @@ const JobsList: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
-  const [selectedTab, setSelectedTab] = useState(0)
+  // const [selectedTab, setSelectedTab] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [jobsList, setJobsList] = useState<JobsList[]>([])
 
@@ -177,7 +177,7 @@ const JobsList: React.FC<Props> = ({
 
   return (
     <Grid>
-      <JobsHeader value={selectedTab} setValue={setSelectedTab} />
+      {/* <JobsHeader value={selectedTab} setValue={setSelectedTab} /> */}
       <Box className={classes.jobsList} ref={jobsListRef}>
         <SkeletonHOC
           variant="rectangular"

@@ -220,7 +220,7 @@ const OpportunityCard: React.FC<Props> = ({
         )}
         {applies && (
           <Box display="flex" flexDirection="column" gap="8px">
-            <Stack direction="row" gap={0.4}>
+            {/* <Stack direction="row" gap={0.4}>
               <Typography fontSize="11px" fontWeight="700" color="grey.600">
                 Status:
               </Typography>{' '}
@@ -232,7 +232,7 @@ const OpportunityCard: React.FC<Props> = ({
               >
                 {job.status}
               </Typography>
-            </Stack>
+            </Stack> */}
             <Stack direction="row" gap={0.4}>
               <Typography fontSize="11px" fontWeight="700" color="grey.600">
                 {t('molecules.opportunity_card.date_label')!}
