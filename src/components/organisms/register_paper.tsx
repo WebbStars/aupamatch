@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../styles'
+import IMask from 'imask'
 import {
   Box,
   Paper,
@@ -98,13 +99,20 @@ interface State {
   type: string
   showPassword: boolean
   showConfirmPassword: boolean
+  numeroDeIdentificacao?: string
+}
+
+const initialChecks = {
+  error: false,
+  exists: false,
+  message: '',
 }
 
 const RegisterPaper: React.FC = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { password, email } = useValidate()
+  const { password, email, cnpj, ein } = useValidate()
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
@@ -118,15 +126,16 @@ const RegisterPaper: React.FC = () => {
     type: '',
     showPassword: false,
     showConfirmPassword: false,
+    numeroDeIdentificacao: '',
   })
-  const [emailCheck, setEmailCheck] = useState({
-    error: false,
-    exists: false,
-    message: '',
-  })
+  const [emailCheck, setEmailCheck] = useState(initialChecks)
+  const [idCheck, setIdCheck] = useState(initialChecks)
+  const localLanguage = localStorage.getItem('i18nextLng') || 'pt'
 
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEmailCheck(initialChecks)
+      setIdCheck(initialChecks)
       setForm({ ...form, [prop]: event.target.value })
     }
 
@@ -173,6 +182,29 @@ const RegisterPaper: React.FC = () => {
     return !email.isValid(form.email)
   }
 
+  const handleIdError = () => {
+    if (localLanguage === 'pt') {
+      if (!cnpj.isValid(form.numeroDeIdentificacao!)) {
+        setIdCheck({
+          error: !cnpj.isValid(form.numeroDeIdentificacao!),
+          message: 'Número de identificação inválido',
+          exists: false,
+        })
+        return true
+      }
+    } else {
+      if (!ein.isValid(form.numeroDeIdentificacao!)) {
+        setIdCheck({
+          error: !ein.isValid(form.numeroDeIdentificacao!),
+          message: 'Número de identificação inválido',
+          exists: false,
+        })
+        return true
+      }
+    }
+    return false
+  }
+
   const handlePasswordError = () => {
     const isPasswordConfirmValid = newPasswordConfirm
     setPasswordNotEqual(!isPasswordConfirmValid)
@@ -186,6 +218,7 @@ const RegisterPaper: React.FC = () => {
       !handlePasswordError() ||
       !passwordValidRules ||
       handleEmailError() ||
+      handleIdError() ||
       !form.type
 
     if (invalidFields) return false
@@ -251,6 +284,10 @@ const RegisterPaper: React.FC = () => {
       text: t('organisms.register_paper.least_special'),
     },
   ]
+
+  const masked = IMask.createMask({
+    mask: '00.000.000/0000-00',
+  })
 
   return (
     <Paper
@@ -410,6 +447,41 @@ const RegisterPaper: React.FC = () => {
             />
           </RadioGroup>
         </FormControl>
+
+        {form.type === 'agency' && (
+          <Grid item xs={12}>
+            <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
+              <TextField
+                id="id-input"
+                type="text"
+                placeholder={localLanguage === 'pt' ? 'CNPJ' : 'EIN'}
+                value={
+                  localLanguage === 'pt'
+                    ? masked.resolve(form.numeroDeIdentificacao!)
+                    : form.numeroDeIdentificacao
+                }
+                onChange={handleChange('numeroDeIdentificacao')}
+                label={localLanguage === 'pt' ? 'CNPJ' : 'EIN - use dash'}
+                inputProps={{ maxLength: localLanguage === 'pt' ? 18 : 10 }}
+                required
+                helperText={
+                  <>
+                    {idCheck.error && (
+                      <ErrorMessage
+                        isWarning={idCheck.exists}
+                        message={idCheck.message}
+                        transComponents={[
+                          <span key="trans-error-message-span" />,
+                          <strong key="trans-error-message-strong" />,
+                        ]}
+                      />
+                    )}
+                  </>
+                }
+              />
+            </FormControl>
+          </Grid>
+        )}
       </Box>
       <CustomButton
         width="100%"

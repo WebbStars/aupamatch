@@ -9,6 +9,7 @@ const REGEX_NOT_COMMA = /^([^,]*)$/
 const REGEX_SPECIALCHAR = /[!@#$%^&*,.?|_+-]/g
 const REGEX_CPF =
   '([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})'
+const EIN_REGEX = /^[1-9]\d?-\d{7}$/
 
 const useValidate = () => {
   const validateLength = (password: string) => password.length >= 8
@@ -37,30 +38,35 @@ const useValidate = () => {
 
   const isValidCnpj = (cnpj: string | number) => isCnpjValid(cnpj)
 
+  const isValidEin = (ein: string) => ein.match(EIN_REGEX)
+
   const haveComma = (word: string) => !REGEX_NOT_COMMA.test(word)
 
   return {
     email: {
       isValid: isValidEmail,
-      hasError: (email: string) => (email ? !isValidEmail(email) : false)
+      hasError: (email: string) => (email ? !isValidEmail(email) : false),
     },
     cpf: {
       isValid: isValidCPF,
       hasError: (cpf: string) => (cpf ? !isValidCPF(cpf) : false),
-      regex: REGEX_CPF
+      regex: REGEX_CPF,
     },
     cnpj: {
-      isValid: isValidCnpj
+      isValid: isValidCnpj,
+    },
+    ein: {
+      isValid: isValidEin,
     },
     password: {
       validateLength,
       validateNumber,
       validateCaseLetters,
-      validateSpecialChar
+      validateSpecialChar,
     },
     string: {
-      haveComma
-    }
+      haveComma,
+    },
   }
 }
 
