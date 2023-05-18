@@ -110,7 +110,7 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
         gap={1}
       >
         <IconButton>
-          <Badge sx={{ color: 'info.light' }} variant="dot">
+          <Badge variant="dot">
             <NotificationsNone />
           </Badge>
         </IconButton>
