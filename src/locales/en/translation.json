@@ -154,7 +154,7 @@
       "least_special": "At least one special character",
       "success_created": "User succesfully created",
       "email_already_used": "Email already in use for another account",
-      "invalid_fields": "Verify the password or email"
+      "invalid_fields": "Make sure required fields are valid"
     },
     "account_popover": {
       "name": "Name",

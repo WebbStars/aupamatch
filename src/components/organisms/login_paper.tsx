@@ -137,7 +137,8 @@ const LoginPaper: React.FC = () => {
 
       dispatch(await fetchUserProfile(accessToken))
 
-      const notAupairRole = roles[0] === 'ROLE_FAMILY' || 'ROLE_AGENCY'
+      const notAupairRole =
+        roles[0] === 'ROLE_FAMILY' || roles[0] === 'ROLE_AGENCY'
       if (notAupairRole) navigate('/search_aupair')
       else {
         if (response.firstLogin) navigate('/edit_aupair')

@@ -183,6 +183,8 @@ const RegisterPaper: React.FC = () => {
   }
 
   const handleIdError = () => {
+    if (form.type !== 'agency') return false
+
     if (localLanguage === 'pt') {
       if (!cnpj.isValid(form.numeroDeIdentificacao!)) {
         setIdCheck({
@@ -450,7 +452,11 @@ const RegisterPaper: React.FC = () => {
 
         {form.type === 'agency' && (
           <Grid item xs={12}>
-            <FormControl sx={{ my: 1, width: 1 }} variant="outlined" required>
+            <FormControl
+              sx={{ my: 1, width: 1 }}
+              variant="outlined"
+              required={form.type === 'agency'}
+            >
               <TextField
                 id="id-input"
                 type="text"
@@ -463,7 +469,7 @@ const RegisterPaper: React.FC = () => {
                 onChange={handleChange('numeroDeIdentificacao')}
                 label={localLanguage === 'pt' ? 'CNPJ' : 'EIN - use dash'}
                 inputProps={{ maxLength: localLanguage === 'pt' ? 18 : 10 }}
-                required
+                required={form.type === 'agency'}
                 helperText={
                   <>
                     {idCheck.error && (
