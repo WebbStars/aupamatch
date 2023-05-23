@@ -53,6 +53,16 @@ const EditAupairForm1: React.FC<Props> = ({
   const handleChangePhone = (newValue: string) => {
     setForm((oldForm: Object) => ({ ...oldForm, telefone: newValue }))
   }
+  const handleChangeName = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const newValue = e.target.value.replace(/[^a-z]/gi, '')
+
+    setForm((oldForm: Object) => ({
+      ...oldForm,
+      nome_completo: newValue,
+    }))
+  }
 
   return (
     <Box display="flex" flexDirection="column" gap={3} textAlign="justify">
@@ -60,12 +70,13 @@ const EditAupairForm1: React.FC<Props> = ({
         <FormLabel>Nome completo</FormLabel>
         <TextField
           required
+          type="text"
           defaultValue={user?.name}
           name="nome_completo"
           variant="outlined"
           placeholder="Nome completo"
-          value={form.name}
-          onChange={handleOnChange}
+          value={form.nome_completo}
+          onChange={(e) => handleChangeName(e)}
         />
       </FormControl>
       <FormControl required>
