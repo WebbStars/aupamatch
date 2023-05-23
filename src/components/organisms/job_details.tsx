@@ -96,6 +96,7 @@ const JobDetails: React.FC<Props> = ({
   })
 
   const accessToken = sessionStorage.getItem('accessToken')
+  const role = sessionStorage.getItem('role')
 
   useEffect(() => {
     const assyncEffect = async () => {
@@ -340,32 +341,30 @@ const JobDetails: React.FC<Props> = ({
           </Box>
         </Box> */}
 
-        <Box width="100%">
-          <SkeletonHOC
-            animation="wave"
-            variant="text"
-            height={40}
-            width="100%"
-            isLoading={isFetching}
-          >
-            <CustomButton width="100%" height="48px" onClick={submitJob}>
-              {isLoading ? (
-                <CircularProgress
-                  size="18px"
-                  sx={{ color: 'secondary.light' }}
-                />
-              ) : (
-                t('organisms.job_details.compatibility', {
-                  value: selectedJob?.job?.score,
-                })
-              )}
-
-              {/* {wasApplied
-              ? 'Cancelar candidatura'
-              : t('organisms.job_details.apply')} */}
-            </CustomButton>
-          </SkeletonHOC>
-        </Box>
+        {role !== 'ROLE_AGENCY' && (
+          <Box width="100%">
+            <SkeletonHOC
+              animation="wave"
+              variant="text"
+              height={40}
+              width="100%"
+              isLoading={isFetching}
+            >
+              <CustomButton width="100%" height="48px" onClick={submitJob}>
+                {isLoading ? (
+                  <CircularProgress
+                    size="18px"
+                    sx={{ color: 'secondary.light' }}
+                  />
+                ) : (
+                  t('organisms.job_details.compatibility', {
+                    value: selectedJob?.job?.score,
+                  })
+                )}
+              </CustomButton>
+            </SkeletonHOC>
+          </Box>
+        )}
 
         <Box display="grid" gridTemplateColumns="8fr 2fr" width="100%" mt={4}>
           <Box className={classes.urlButton}>
@@ -388,13 +387,11 @@ const JobDetails: React.FC<Props> = ({
           <CustomButton width="100%" height="48px" onClick={submitJob}>
             {isLoading ? (
               <CircularProgress size="18px" sx={{ color: 'secondary.light' }} />
+            ) : role === 'ROLE_AGENCY' ? (
+              t('organisms.job_details.agency')
             ) : (
               t('organisms.job_details.apply')
             )}
-
-            {/* {wasApplied
-              ? 'Cancelar candidatura'
-              : t('organisms.job_details.apply')} */}
           </CustomButton>
         </Box>
       </Box>

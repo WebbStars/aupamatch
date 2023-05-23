@@ -200,7 +200,8 @@
       "modal_subtitle": "Fique de olho na caixa do seu e-mail.",
       "my_applies": "Minhas Candidaturas",
       "new_user": "Usuário Novo",
-      "compatibility": "Você tem {{value}} de compatibilidade com essa vaga! Se candidate!"
+      "compatibility": "Você tem {{value}} de compatibilidade com essa vaga! Se candidate!",
+      "agency": "Agênciar vaga"
     },
     "post_job_stepper": {
       "next": "Avançar",

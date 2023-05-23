@@ -201,7 +201,8 @@
       "modal_subtitle": "Keep an eye on your email inbox.",
       "my_applies": "My Applications",
       "new_user": "New User",
-      "compatibility": "You have {{value}} compatibility with this job! Apply now!"
+      "compatibility": "You have {{value}} compatibility with this job! Apply now!",
+      "agency": "Agency a job"
     },
     "post_job_stepper": {
       "next": "Next",

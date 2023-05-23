@@ -110,7 +110,7 @@ const JobsList: React.FC<Props> = ({
       const cnh = job['habilitacao'] && t('organisms.jobs_list.car_license')
       const natacao = job['natacao'] && t('organisms.jobs_list.swim')
       const car = job['carro_exclusivo'] && t('organisms.jobs_list.car')
-      const genero = job.genero === 'M' ? 'Masculino' : 'Feminino'
+      const genero = job.genero
 
       const jobsTag = [
         `${job.quantidade_criancas} filhos`,
@@ -134,10 +134,14 @@ const JobsList: React.FC<Props> = ({
       }
     })
 
-    const sortedList = formmatedList.sort(
-      (a, b) =>
-        Number(b.job.score.slice(0, -1)) - Number(a.job.score.slice(0, -1))
-    )
+    const sortedList =
+      role === 'ROLE_AGENCY'
+        ? formmatedList
+        : formmatedList.sort(
+            (a, b) =>
+              Number(b.job.score.slice(0, -1)) -
+              Number(a.job.score.slice(0, -1))
+          )
 
     setJobsList(sortedList)
     setIsFetching(false)

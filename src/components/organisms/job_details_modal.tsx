@@ -398,7 +398,7 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             </Box> */}
 
-            {!wasApplied && (
+            {!wasApplied && role !== 'ROLE_AGENCY' && (
               <Box width="100%">
                 <SkeletonHOC
                   animation="wave"
@@ -452,6 +452,8 @@ const JobDetailsModal: React.FC<Props> = ({
                     size="18px"
                     sx={{ color: 'secondary.light' }}
                   />
+                ) : role === 'ROLE_AGENCY' ? (
+                  t('organisms.job_details.agency')
                 ) : (
                   submitLabel
                 )}
