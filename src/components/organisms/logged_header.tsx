@@ -95,13 +95,15 @@ const LoggedHeader: React.FC<Props> = ({
           </Link>
 
           <Link
-            to={family ? '/my_jobs' : '/my_applies'}
+            to={family || agency ? '/my_jobs' : '/my_applies'}
             underline="none"
-            color={activeMenuLink(family ? '/my_jobs' : '/my_applies')}
+            color={activeMenuLink(
+              family || agency ? '/my_jobs' : '/my_applies'
+            )}
             component={RouterLink}
             fontWeight="bold"
           >
-            {family
+            {family || agency
               ? t('organisms.logged_header.family.my_jobs')
               : t('organisms.logged_header.aupair.my_applies')}
           </Link>
@@ -131,7 +133,7 @@ const LoggedHeader: React.FC<Props> = ({
           </Badge>
         </IconButton>
 
-        {!family && (
+        {!family && !agency && (
           <IconButton onClick={() => navigate('/favorite_jobs')}>
             <BookmarkBorderOutlined />
           </IconButton>

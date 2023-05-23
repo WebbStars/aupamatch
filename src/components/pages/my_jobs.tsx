@@ -17,6 +17,7 @@ const FavoriteJobs: React.FC = () => {
   const [isFetching, setIsFetching] = useState(true)
   const [jobsList, setJobsList] = useState<JobsList[]>([])
   const { t } = useTranslation()
+  const role = sessionStorage.getItem('role')
 
   useEffect(() => {
     const fetchFavoriteJobs = async () => {
@@ -60,7 +61,7 @@ const FavoriteJobs: React.FC = () => {
   }, [])
 
   return (
-    <LoggedTemplate family>
+    <LoggedTemplate family agency={role === 'ROLE_AGENCY'}>
       <MyJobsList
         jobsList={jobsList}
         perPage={10}
