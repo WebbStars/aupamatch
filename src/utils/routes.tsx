@@ -27,7 +27,10 @@ const UnProtectedRoute: React.FC = () => {
   const hasUser = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
 
-  const routeToRedirect = role === 'ROLE_FAMILY' ? '/search_aupair' : '/jobs'
+  const routeToRedirect =
+    role === 'ROLE_FAMILY' || role === 'ROLE_AGENCY'
+      ? '/search_aupair'
+      : '/jobs'
 
   return !hasUser ? <Outlet /> : <Navigate to={routeToRedirect} />
 }

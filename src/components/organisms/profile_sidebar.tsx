@@ -45,7 +45,7 @@ const ProfileSidebar: React.FC<Props> = ({ menu, setMenu, role }) => {
     },
   ]
 
-  if (role === 'ROLE_FAMILY') delete menuList[2]
+  if (role === 'ROLE_FAMILY' || role === 'ROLE_AGENCY') delete menuList[2]
 
   return (
     <Paper

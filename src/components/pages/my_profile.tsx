@@ -23,7 +23,7 @@ const MyProfile: React.FC = () => {
   }
 
   return (
-    <LoggedTemplate family={role === 'ROLE_FAMILY'}>
+    <LoggedTemplate family={role === 'ROLE_FAMILY' || role === 'ROLE_AGENCY'}>
       <Box
         width="100%"
         padding="36px 56px"
