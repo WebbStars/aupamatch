@@ -35,8 +35,6 @@ const NewJobForm2: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
         return
       }
 
-      console.log(postalAddress)
-
       setForm({
         ...form,
         cep,

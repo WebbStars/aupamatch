@@ -250,7 +250,9 @@ const JobDetails: React.FC<Props> = ({
         )}
 
         {!isLoadingFavorite && (
-          <Tooltip title={isFavorite ? 'Desfavoritar' : 'Favoritar'}>
+          <Tooltip
+            title={isFavorite ? t('global.disfavor') : t('global.favorite')}
+          >
             <IconButton
               onClick={() => toFavoriteJob()}
               style={{ width: 56, height: 56 }}

@@ -4,6 +4,7 @@ import { Box, Pagination } from '@mui/material'
 import { SkeletonHOC } from '../atoms'
 import { JobDetailsModal, JobsList } from '../organisms'
 import OpportunityCard from './opportunity_card'
+import { notFound } from '../../images'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles({
 
 interface Props {
   jobsList: JobsList[]
+  setJobsList: React.Dispatch<React.SetStateAction<JobsList[]>>
   perPage: number
   isFetching: boolean
 }
@@ -44,6 +46,7 @@ const initialValueSelectedJob = {
 
 const FavoriteJobsList: React.FC<Props> = ({
   jobsList,
+  setJobsList,
   perPage,
   isFetching,
 }) => {
@@ -100,13 +103,28 @@ const FavoriteJobsList: React.FC<Props> = ({
               ))}
         </>
       </SkeletonHOC>
-      <Pagination
-        count={numberOfPages}
-        color="primary"
-        onChange={handleCurrentPage}
-      />
+      {!isFetching &&
+        (jobsList.length > 0 ? (
+          <Pagination
+            count={numberOfPages}
+            color="primary"
+            onChange={handleCurrentPage}
+          />
+        ) : (
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <img
+              src={notFound}
+              alt={'nada encontrado'}
+              height={600}
+              width={600}
+              style={{ alignSelf: 'center' }}
+            />
+          </Box>
+        ))}
 
       <JobDetailsModal
+        favoritePage
+        setJobsList={setJobsList}
         open={openJobModal}
         setOpen={setOpenJobModal}
         selectedJob={selectedJob}

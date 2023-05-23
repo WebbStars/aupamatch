@@ -8,6 +8,7 @@ import { deleteJob, removeApply } from '../../services'
 import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 import { useDispatch } from '../../store'
 import { AppliesList } from '../pages/my_applies'
+import { notFound } from '../../images'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -149,13 +150,25 @@ const MyAppliesList: React.FC<Props> = ({
               ))}
         </>
       </SkeletonHOC>
-      {appliesList.length > 0 && (
-        <Pagination
-          count={numberOfPages}
-          color="primary"
-          onChange={handleCurrentPage}
-        />
-      )}
+
+      {!isFetching &&
+        (appliesList.length > 0 ? (
+          <Pagination
+            count={numberOfPages}
+            color="primary"
+            onChange={handleCurrentPage}
+          />
+        ) : (
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <img
+              src={notFound}
+              alt={'nada encontrado'}
+              height={600}
+              width={600}
+              style={{ alignSelf: 'center' }}
+            />
+          </Box>
+        ))}
 
       <JobDetailsModal
         wasApplied={true}

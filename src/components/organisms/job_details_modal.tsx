@@ -24,11 +24,13 @@ import {
   fetchAppliesService,
   Job,
 } from '../../services'
-import { useSelector } from '../../store'
+import { useDispatch, useSelector } from '../../store'
 import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
 import { MessageModal } from '../molecules'
 import { useNavigate } from 'react-router-dom'
+import JobsList from './jobs_list'
+import { fetchAupairJobs } from '../../store/jobs'
 
 const useStyles = makeStyles({
   modal: {
@@ -74,6 +76,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
+  favoritePage?: boolean
   applies?: FetchApplies[]
   setNeedPayment?: Dispatch<SetStateAction<boolean>>
   selectedJob: Job
@@ -82,9 +85,11 @@ interface Props {
   setOpen?: Dispatch<SetStateAction<boolean>>
   wasApplied?: boolean
   handleRemoveApply?: (jobId: string) => Promise<void>
+  setJobsList?: React.Dispatch<React.SetStateAction<JobsList[]>>
 }
 
 const JobDetailsModal: React.FC<Props> = ({
+  favoritePage,
   applies,
   setNeedPayment,
   open,
@@ -93,12 +98,14 @@ const JobDetailsModal: React.FC<Props> = ({
   isFetching,
   wasApplied = false,
   handleRemoveApply,
+  setJobsList,
 }) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
-  const jobs = useSelector((state) => state.jobs)
+  // const jobs = useSelector((state) => state.jobs)
   const userProfile = useSelector((state) => state.userProfile)
 
   const [openModal, setOpenModal] = useState(false)
@@ -117,10 +124,14 @@ const JobDetailsModal: React.FC<Props> = ({
 
   const accessToken = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
+  const userID = sessionStorage.getItem('userID')
 
   useEffect(() => {
     const assyncEffect = async () => {
       if (!accessToken) return
+      const { payload: jobs } = dispatch(
+        await fetchAupairJobs(userID!, role!, accessToken!)
+      )
 
       let initialIds: string[] = []
 
@@ -133,9 +144,9 @@ const JobDetailsModal: React.FC<Props> = ({
     }
 
     assyncEffect()
-  }, [jobs])
+  }, [])
 
-  const handleClose = (_event: Record<string, never>) => {
+  const handleClose = (_event?: Record<string, never>) => {
     setOpen && setOpen(false)
   }
 
@@ -227,6 +238,11 @@ const JobDetailsModal: React.FC<Props> = ({
         title: 'Vaga desfavoritada com sucesso!',
         subTitle: 'Você pode verificar suas vagas favoritas',
       })
+      setJobsList &&
+        setJobsList((jobs) =>
+          jobs.filter((job) => job.uuid !== selectedJob.uuid)
+        )
+      favoritePage && handleClose()
       favsIds = favoritesJobs.filter((id) => id !== selectedJob.uuid)
     } else {
       setTitles({
@@ -250,133 +266,142 @@ const JobDetailsModal: React.FC<Props> = ({
     : t('organisms.job_details.apply')
 
   return (
-    <Modal
-      open={!!open}
-      onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-      className={classes.modal}
-    >
-      <Fade in={!!open}>
-        <Paper className={classes.jobPaper} elevation={2}>
-          <Box display="flex" width="100%" justifyContent="space-between">
-            <Box display="flex" gap={3}>
-              <Box>
-                <img src={companyDefaultImage} alt="company image" width={56} />
-              </Box>
-              <Box>
-                <Typography fontSize={16} color={theme.palette.grey[600]}>
-                  {t('organisms.job_details.new_user')}
-                </Typography>
-                <SkeletonHOC
-                  animation="wave"
-                  variant="text"
-                  isLoading={isFetching}
-                  height={28}
-                >
-                  <Typography
-                    fontSize={18}
-                    fontWeight="bold"
-                    color={theme.palette.common.black}
-                  >
-                    {selectedJob?.title}
+    <>
+      <Modal
+        open={!!open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        className={classes.modal}
+      >
+        <Fade in={!!open}>
+          <Paper className={classes.jobPaper} elevation={2}>
+            <Box display="flex" width="100%" justifyContent="space-between">
+              <Box display="flex" gap={3}>
+                <Box>
+                  <img
+                    src={companyDefaultImage}
+                    alt="company image"
+                    width={56}
+                  />
+                </Box>
+                <Box>
+                  <Typography fontSize={16} color={theme.palette.grey[600]}>
+                    {t('organisms.job_details.new_user')}
                   </Typography>
-                </SkeletonHOC>
+                  <SkeletonHOC
+                    animation="wave"
+                    variant="text"
+                    isLoading={isFetching}
+                    height={28}
+                  >
+                    <Typography
+                      fontSize={18}
+                      fontWeight="bold"
+                      color={theme.palette.common.black}
+                    >
+                      {selectedJob?.title}
+                    </Typography>
+                  </SkeletonHOC>
+                </Box>
               </Box>
+
+              {role === 'ROLE_AUPAIR' ? (
+                <Tooltip
+                  title={
+                    isFavorite ? t('global.disfavor') : t('global.favorite')
+                  }
+                >
+                  <IconButton
+                    onClick={() => toFavoriteJob()}
+                    style={{ width: 56, height: 56 }}
+                  >
+                    {isFavorite ? (
+                      <Favorite fontSize="large" color="primary" />
+                    ) : (
+                      <FavoriteBorder fontSize="large" color="disabled" />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              ) : isLoadingFavorite ? (
+                <Box padding="12px">
+                  <CircularProgress size={32} />
+                </Box>
+              ) : (
+                <Tooltip title={t('global.close')}>
+                  <IconButton
+                    onClick={() => setOpen && setOpen(false)}
+                    style={{ width: 56, height: 56 }}
+                  >
+                    <Close fontSize="large" color="primary" />
+                  </IconButton>
+                </Tooltip>
+              )}
             </Box>
 
-            {isLoadingFavorite && (
-              <Box padding="12px">
-                <CircularProgress size={32} />
-              </Box>
-            )}
-
-            {!isLoadingFavorite && role === 'ROLE_AUPAIR' ? (
-              <Tooltip
-                title={isFavorite ? t('global.favorite') : t('global.disfavor')}
+            <Box display="flex" flexDirection="column" gap={1} mt={6}>
+              <Typography
+                fontSize={16}
+                fontWeight="bold"
+                color={theme.palette.common.black}
               >
-                <IconButton
-                  onClick={() => toFavoriteJob()}
-                  style={{ width: 56, height: 56 }}
-                >
-                  {isFavorite ? (
-                    <Favorite fontSize="large" color="primary" />
-                  ) : (
-                    <FavoriteBorder fontSize="large" color="disabled" />
-                  )}
-                </IconButton>
-              </Tooltip>
-            ) : (
-              <Tooltip title={t('global.close')}>
-                <IconButton
-                  onClick={() => setOpen && setOpen(false)}
-                  style={{ width: 56, height: 56 }}
-                >
-                  <Close fontSize="large" color="primary" />
-                </IconButton>
-              </Tooltip>
-            )}
-          </Box>
-
-          <Box display="flex" flexDirection="column" gap={1} mt={6}>
-            <Typography
-              fontSize={16}
-              fontWeight="bold"
-              color={theme.palette.common.black}
-            >
-              {t('organisms.job_details.overview')}
-            </Typography>
-
-            <SkeletonHOC animation="wave" variant="text" isLoading={isFetching}>
-              <Typography fontSize={12} color={theme.palette.grey[700]}>
-                {selectedJob?.description}
+                {t('organisms.job_details.overview')}
               </Typography>
-            </SkeletonHOC>
-          </Box>
 
-          <Box display="flex" flexDirection="column" gap={1} mt={3}>
-            <Typography
-              fontSize={16}
-              fontWeight="bold"
-              color={theme.palette.common.black}
-            >
-              {t('organisms.job_details.job_details')}
-            </Typography>
-          </Box>
-          <Box display="flex" gap={2} mt={1}>
-            <SkeletonHOC
-              animation="wave"
-              variant="rounded"
-              height={32}
-              width={75}
-              isLoading={isFetching}
-            >
-              <>
-                {selectedJob?.tags?.map((tag: string, index) => {
-                  return (
-                    tag && (
-                      <Chip
-                        key={index}
-                        label={tag}
-                        variant="outlined"
-                        sx={{
-                          borderRadius: '3px',
-                          backgroundColor: theme.palette.grey[300],
-                          border: 'none',
-                        }}
-                      />
+              <SkeletonHOC
+                animation="wave"
+                variant="text"
+                isLoading={isFetching}
+              >
+                <Typography fontSize={12} color={theme.palette.grey[700]}>
+                  {selectedJob?.description}
+                </Typography>
+              </SkeletonHOC>
+            </Box>
+
+            <Box display="flex" flexDirection="column" gap={1} mt={3}>
+              <Typography
+                fontSize={16}
+                fontWeight="bold"
+                color={theme.palette.common.black}
+              >
+                {t('organisms.job_details.job_details')}
+              </Typography>
+            </Box>
+            <Box display="flex" gap={2} mt={1}>
+              <SkeletonHOC
+                animation="wave"
+                variant="rounded"
+                height={32}
+                width={75}
+                isLoading={isFetching}
+              >
+                <>
+                  {selectedJob?.tags?.map((tag: string, index) => {
+                    return (
+                      tag && (
+                        <Chip
+                          key={index}
+                          label={tag}
+                          variant="outlined"
+                          sx={{
+                            borderRadius: '3px',
+                            backgroundColor: theme.palette.grey[300],
+                            border: 'none',
+                          }}
+                        />
+                      )
                     )
-                  )
-                })}
-              </>
-            </SkeletonHOC>
-          </Box>
+                  })}
+                </>
+              </SkeletonHOC>
+            </Box>
 
-          <Box display="flex" flexDirection="column" gap={1} mt={7}>
-            {/* <Typography
+            <Box display="flex" flexDirection="column" gap={1} mt={7}>
+              {/* <Typography
               fontSize={16}
               fontWeight="bold"
               color={theme.palette.common.black}
@@ -384,7 +409,7 @@ const JobDetailsModal: React.FC<Props> = ({
               {t('organisms.job_details.profile_detail')}
             </Typography> */}
 
-            {/* <Box display="flex" width="100%" justifyContent="space-between">
+              {/* <Box display="flex" width="100%" justifyContent="space-between">
               <Box textAlign="justify">
                 <Typography
                   fontSize={14}
@@ -429,95 +454,100 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             </Box> */}
 
-            {!wasApplied && role === 'ROLE_AUPAIR' && (
-              <Box width="100%">
-                <SkeletonHOC
-                  animation="wave"
-                  variant="text"
-                  height={40}
-                  width="100%"
-                  isLoading={isFetching}
-                >
-                  <CustomButton width="100%" height="48px" onClick={submitJob}>
+              {!wasApplied && role === 'ROLE_AUPAIR' && (
+                <Box width="100%">
+                  <SkeletonHOC
+                    animation="wave"
+                    variant="text"
+                    height={40}
+                    width="100%"
+                    isLoading={isFetching}
+                  >
+                    <CustomButton
+                      width="100%"
+                      height="48px"
+                      onClick={submitJob}
+                    >
+                      {isLoading ? (
+                        <CircularProgress
+                          size="18px"
+                          sx={{ color: 'secondary.light' }}
+                        />
+                      ) : (
+                        t('organisms.job_details.compatibility', {
+                          value: selectedJob?.job?.score,
+                        })
+                      )}
+                    </CustomButton>
+                  </SkeletonHOC>
+                </Box>
+              )}
+
+              <Box
+                display="grid"
+                gridTemplateColumns={role === 'ROLE_FAMILY' ? '1fr' : '8fr 2fr'}
+                width="100%"
+                mt={4}
+              >
+                <Box className={classes.urlButton}>
+                  <Box className={classes.url}>
+                    <Typography
+                      fontSize={12}
+                      color={theme.palette.grey[700]}
+                      sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    >
+                      https://aupamatch.com.br/vaga/abcdefghijklmopqrstuvwxyz1234567891011121314151617181920212223242526272829303132
+                    </Typography>
+                  </Box>
+                  <CopyButton
+                    value={
+                      'https://aupamatch.com.br/vaga/abcdefghijklmopqrstuvwxyz1234567891011121314151617181920212223242526272829303132'
+                    }
+                  />
+                </Box>
+
+                {role !== 'ROLE_FAMILY' && (
+                  <CustomButton
+                    width="100%"
+                    height="48px"
+                    onClick={role === 'ROLE_AGENCY' ? toAgencyJob : submitJob}
+                  >
                     {isLoading ? (
                       <CircularProgress
                         size="18px"
                         sx={{ color: 'secondary.light' }}
                       />
+                    ) : role === 'ROLE_AGENCY' ? (
+                      t('organisms.job_details.agency')
                     ) : (
-                      t('organisms.job_details.compatibility', {
-                        value: selectedJob?.job?.score,
-                      })
+                      submitLabel
                     )}
                   </CustomButton>
-                </SkeletonHOC>
+                )}
               </Box>
-            )}
-
-            <Box
-              display="grid"
-              gridTemplateColumns={role === 'ROLE_FAMILY' ? '1fr' : '8fr 2fr'}
-              width="100%"
-              mt={4}
-            >
-              <Box className={classes.urlButton}>
-                <Box className={classes.url}>
-                  <Typography
-                    fontSize={12}
-                    color={theme.palette.grey[700]}
-                    sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
-                  >
-                    https://aupamatch.com.br/vaga/abcdefghijklmopqrstuvwxyz1234567891011121314151617181920212223242526272829303132
-                  </Typography>
-                </Box>
-                <CopyButton
-                  value={
-                    'https://aupamatch.com.br/vaga/abcdefghijklmopqrstuvwxyz1234567891011121314151617181920212223242526272829303132'
-                  }
-                />
-              </Box>
-
-              {role !== 'ROLE_FAMILY' && (
-                <CustomButton
-                  width="100%"
-                  height="48px"
-                  onClick={role === 'ROLE_AGENCY' ? toAgencyJob : submitJob}
-                >
-                  {isLoading ? (
-                    <CircularProgress
-                      size="18px"
-                      sx={{ color: 'secondary.light' }}
-                    />
-                  ) : role === 'ROLE_AGENCY' ? (
-                    t('organisms.job_details.agency')
-                  ) : (
-                    submitLabel
-                  )}
-                </CustomButton>
-              )}
             </Box>
-          </Box>
+          </Paper>
+        </Fade>
+      </Modal>
 
-          <MessageModal
-            success={modalStatus === 'success'}
-            error={modalStatus === 'error'}
-            open={openModal}
-            setOpen={setOpenModal}
-            title={titles.title}
-            subtitle={titles.subTitle}
-            secondaryButton={
-              <Button
-                onClick={() => navigate(modalButton.redirectPath)}
-                color="info"
-                variant="contained"
-              >
-                {modalButton.textButton}
-              </Button>
-            }
-          />
-        </Paper>
-      </Fade>
-    </Modal>
+      <MessageModal
+        success={modalStatus === 'success'}
+        error={modalStatus === 'error'}
+        open={openModal}
+        setOpen={setOpenModal}
+        title={titles.title}
+        subtitle={titles.subTitle}
+        secondaryButton={
+          <Button
+            onClick={() => navigate(modalButton.redirectPath)}
+            color="info"
+            variant="contained"
+          >
+            {modalButton.textButton}
+          </Button>
+        }
+      />
+    </>
   )
 }
 
