@@ -51,6 +51,7 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
         <FormLabel>{t('organisms.job_form.form2.children_number')}</FormLabel>
         <TextField
           required
+          InputProps={{ inputProps: { min: 1 } }}
           type="number"
           name="quantidade_criancas"
           value={form.quantidade_criancas}

@@ -34,7 +34,7 @@ const INITIAL_VALUES = {
   pais: '',
   estado_provincia: '',
   nacionalidade: '',
-  quantidade_criancas: 0,
+  quantidade_criancas: 1,
   numero_identificacao_nacional: '',
   religiao: '',
   carro_exclusivo: 'false',
