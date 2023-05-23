@@ -1,14 +1,19 @@
 import {
-  Badge,
+  // Badge,
   Box,
   Button,
   IconButton,
   Link,
+  Stack,
   Tooltip,
   Typography,
 } from '@mui/material'
 import React from 'react'
-import { NotificationsNone, BookmarkBorderOutlined } from '@mui/icons-material'
+import {
+  // NotificationsNone,
+  BookmarkBorderOutlined,
+  Bookmark,
+} from '@mui/icons-material'
 import UserAccounts from './user_account'
 import { Link as RouterLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -127,16 +132,33 @@ const LoggedHeader: React.FC<Props> = ({
         justifyContent="space"
         gap={1}
       >
-        <IconButton>
+        {/* <IconButton>
           <Badge variant="dot">
             <NotificationsNone />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
         {!family && !agency && (
-          <IconButton onClick={() => navigate('/favorite_jobs')}>
-            <BookmarkBorderOutlined />
-          </IconButton>
+          <Stack
+            direction="row"
+            alignItems="center"
+            onClick={() => navigate('/favorite_jobs')}
+          >
+            <Typography
+              fontWeight="bold"
+              fontSize="12px"
+              sx={{ cursor: 'pointer' }}
+            >
+              Favoritas
+            </Typography>
+            <IconButton>
+              {currentPage === '/favorite_jobs' ? (
+                <Bookmark color="primary" />
+              ) : (
+                <BookmarkBorderOutlined />
+              )}
+            </IconButton>
+          </Stack>
         )}
         <UserAccounts />
       </Box>
