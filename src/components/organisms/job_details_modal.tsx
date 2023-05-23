@@ -429,7 +429,7 @@ const JobDetailsModal: React.FC<Props> = ({
               </Box>
             </Box> */}
 
-            {!wasApplied && role !== 'ROLE_AGENCY' && (
+            {!wasApplied && role === 'ROLE_AUPAIR' && (
               <Box width="100%">
                 <SkeletonHOC
                   animation="wave"
@@ -456,7 +456,7 @@ const JobDetailsModal: React.FC<Props> = ({
 
             <Box
               display="grid"
-              gridTemplateColumns="8fr 2fr"
+              gridTemplateColumns={role === 'ROLE_FAMILY' ? '1fr' : '8fr 2fr'}
               width="100%"
               mt={4}
             >
@@ -477,22 +477,24 @@ const JobDetailsModal: React.FC<Props> = ({
                 />
               </Box>
 
-              <CustomButton
-                width="100%"
-                height="48px"
-                onClick={role === 'ROLE_AGENCY' ? toAgencyJob : submitJob}
-              >
-                {isLoading ? (
-                  <CircularProgress
-                    size="18px"
-                    sx={{ color: 'secondary.light' }}
-                  />
-                ) : role === 'ROLE_AGENCY' ? (
-                  t('organisms.job_details.agency')
-                ) : (
-                  submitLabel
-                )}
-              </CustomButton>
+              {role !== 'ROLE_FAMILY' && (
+                <CustomButton
+                  width="100%"
+                  height="48px"
+                  onClick={role === 'ROLE_AGENCY' ? toAgencyJob : submitJob}
+                >
+                  {isLoading ? (
+                    <CircularProgress
+                      size="18px"
+                      sx={{ color: 'secondary.light' }}
+                    />
+                  ) : role === 'ROLE_AGENCY' ? (
+                    t('organisms.job_details.agency')
+                  ) : (
+                    submitLabel
+                  )}
+                </CustomButton>
+              )}
             </Box>
           </Box>
 
