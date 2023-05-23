@@ -233,15 +233,15 @@ const OpportunityCard: React.FC<Props> = ({
                 {job.status}
               </Typography>
             </Stack> */}
-            <Stack direction="row" gap={0.4}>
-              <Typography fontSize="11px" fontWeight="700" color="grey.600">
+            <Box display="flex" gap={1}>
+              <Typography fontSize="14px">
                 {t('molecules.opportunity_card.date_label')!}
-              </Typography>{' '}
-              <Typography fontSize="11px" fontWeight="700" color="grey.900">
+              </Typography>
+              <Typography fontWeight="bold" fontSize="14px">
                 {job.dataCandidatura &&
                   new Date(job.dataCandidatura).toLocaleDateString()}
               </Typography>
-            </Stack>
+            </Box>
           </Box>
         )}
       </Box>
