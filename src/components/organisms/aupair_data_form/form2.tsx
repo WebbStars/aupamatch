@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { Dispatch, SetStateAction, useRef } from 'react'
 import {
   Box,
   FormControl,
@@ -9,11 +9,13 @@ import {
 } from '@mui/material'
 // import { useTranslation } from 'react-i18next'
 import MaskedInput from '../../molecules/masked_inputs'
+import cepPromise from 'cep-promise'
 
 type Object = { [key: string]: any }
 
 interface Props {
   form: Object
+  setForm: Dispatch<SetStateAction<any>>
   handleOnChange: (
     event:
       | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -21,45 +23,44 @@ interface Props {
   ) => void
 }
 
-const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
+const NewJobForm2: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
   // const { t } = useTranslation()
   const numberInputRef = useRef<HTMLDivElement | null>(null)
 
-  // const requestCepPromise = async (cep: string) => {
-  //   if (cep.length === 8) {
-  //     const postalAddress = await cepPromise(cep).catch(() => null)
+  const requestCepPromise = async (cep: string) => {
+    if (cep.length === 8) {
+      const postalAddress = await cepPromise(cep).catch(() => null)
 
-  //     if (postalAddress === null) {
-  //       alert('cep inválido')
-  //       return
-  //     }
+      if (postalAddress === null) {
+        return
+      }
 
-  //     console.log(postalAddress)
+      console.log(postalAddress)
 
-  //     setForm({
-  //       ...form,
-  //       cep,
-  //       cidade: postalAddress.city,
-  //       estado: postalAddress.state,
-  //       logradouro: postalAddress.street,
-  //       country: 'Brasil',
-  //     })
+      setForm({
+        ...form,
+        cep,
+        cidade: postalAddress.city,
+        estado: postalAddress.state,
+        logradouro: postalAddress.street,
+        country: 'Brasil',
+      })
 
-  //     numberInputRef?.current?.focus()
-  //   }
-  // }
+      numberInputRef?.current?.focus()
+    }
+  }
 
-  // const handleChangeCep = async (
-  //   event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  // ) => {
-  //   const validCepLength = form.cep.length < 8
+  const handleChangeCep = async (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const validCepLength = form.cep.length < 8
 
-  //   if (validCepLength) {
-  //     requestCepPromise(event.target.value)
-  //   }
+    if (validCepLength) {
+      requestCepPromise(event.target.value)
+    }
 
-  //   setForm((oldForm: Object) => ({ ...oldForm, cep: event.target.value }))
-  // }
+    setForm((oldForm: Object) => ({ ...oldForm, cep: event.target.value }))
+  }
 
   // const handleChangeNoSpecial = (
   //   name: string,
@@ -104,7 +105,7 @@ const NewJobForm2: React.FC<Props> = ({ form, handleOnChange }) => {
           placeholder="CEP"
           fullWidth
           inputProps={{ pattern: '([0-9]{5}-[0-9]{3})' }}
-          onChange={handleOnChange}
+          onChange={handleChangeCep}
           data-test="textfield-post-code"
           required
         />
