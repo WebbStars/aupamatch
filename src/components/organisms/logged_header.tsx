@@ -17,10 +17,15 @@ import { useTranslation } from 'react-i18next'
 
 interface Props {
   family?: boolean
+  agency?: boolean
   hideLinks?: boolean
 }
 
-const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
+const LoggedHeader: React.FC<Props> = ({
+  family = false,
+  agency = false,
+  hideLinks,
+}) => {
   const currentPage = window.location.pathname
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -64,16 +69,27 @@ const LoggedHeader: React.FC<Props> = ({ family = false, hideLinks }) => {
           gap={6}
           sx={{ display: { xs: 'none', md: 'flex' } }}
         >
+          {agency && (
+            <Link
+              to="/jobs"
+              underline="none"
+              color={activeMenuLink('/jobs')}
+              component={RouterLink}
+              fontWeight="bold"
+            >
+              {t('organisms.logged_header.aupair.search_job')}
+            </Link>
+          )}
           <Link
-            to={family ? '/search_aupair' : '/jobs'}
+            to={family || agency ? '/search_aupair' : '/jobs'}
             underline="none"
             color={activeMenuLink(
-              family ? ['/search_aupair', '/post_job'] : '/jobs'
+              family || agency ? ['/search_aupair', '/post_job'] : '/jobs'
             )}
             component={RouterLink}
             fontWeight="bold"
           >
-            {family
+            {family || agency
               ? t('organisms.logged_header.family.post_job')
               : t('organisms.logged_header.aupair.search_job')}
           </Link>

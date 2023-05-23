@@ -67,6 +67,7 @@ const SearchAupair: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const accessToken = sessionStorage.getItem('accessToken')
+  const role = sessionStorage.getItem('role')
 
   const [needPayment, setNeedPayment] = useState(false)
   const [isPaying, setIsPaying] = useState(false)
@@ -141,7 +142,7 @@ const SearchAupair: React.FC = () => {
   }
 
   return (
-    <LoggedTemplate family footer>
+    <LoggedTemplate family footer agency={role === 'ROLE_AGENCY'}>
       <Box
         width="100%"
         id="about-section"

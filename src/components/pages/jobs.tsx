@@ -64,6 +64,7 @@ const Jobs: React.FC = () => {
   const dispatch = useDispatch()
 
   const accessToken = sessionStorage.getItem('accessToken')
+  const role = sessionStorage.getItem('role')
   sessionStorage.setItem('logged', 'true')
 
   const fetchUserData = async () => {
@@ -128,7 +129,7 @@ const Jobs: React.FC = () => {
   }
 
   return (
-    <LoggedTemplate>
+    <LoggedTemplate agency={role === 'ROLE_AGENCY'}>
       <Box className={classes.main}>
         <JobsList
           setOpenJobModal={setOpenJobModal}
