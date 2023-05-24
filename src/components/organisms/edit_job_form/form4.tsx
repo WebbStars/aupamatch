@@ -96,14 +96,19 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
 
       <FormControl fullWidth>
         <FormLabel>{t('organisms.job_form.form4.newsletter_label')}</FormLabel>
-        <RadioGroup row name="receber_newsletter">
+        <RadioGroup
+          row
+          name="receber_newsletter"
+          value={form.receber_newsletter}
+          onChange={handleOnChange}
+        >
           <FormControlLabel
-            value={form.receber_newsletter}
+            value={'true'}
             control={<Radio />}
             label={t('global.yes')}
           />
           <FormControlLabel
-            value={!form.receber_newsletter}
+            value={'false'}
             control={<Radio />}
             label={t('global.no')}
           />

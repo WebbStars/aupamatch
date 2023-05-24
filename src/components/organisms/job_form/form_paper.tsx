@@ -118,8 +118,14 @@ const FormPaper: React.FC<Props> = ({
       )}
 
       {isEdit && isFetchingEdit ? (
-        <Box width="100%">
-          <CircularProgress size="60px" sx={{ color: 'secondary.light' }} />
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+          height="100%"
+        >
+          <CircularProgress size="60px" sx={{ color: 'primary.light' }} />
         </Box>
       ) : (
         <>

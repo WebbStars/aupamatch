@@ -31,11 +31,13 @@ const LoggedHeader: React.FC<Props> = ({
   agency = false,
   hideLinks,
 }) => {
-  const currentPage = window.location.pathname
+  const currentPage = window.location.pathname.split('/')[1]
   const navigate = useNavigate()
   const { t } = useTranslation()
 
   const activeMenuLink = (path: string | string[]) => {
+    console.log(path, currentPage)
+
     const isPrimary = Array.isArray(path)
       ? path.includes(currentPage)
       : currentPage === path
@@ -78,7 +80,7 @@ const LoggedHeader: React.FC<Props> = ({
             <Link
               to="/jobs"
               underline="none"
-              color={activeMenuLink('/jobs')}
+              color={activeMenuLink('jobs')}
               component={RouterLink}
               fontWeight="bold"
             >
@@ -89,7 +91,9 @@ const LoggedHeader: React.FC<Props> = ({
             to={family || agency ? '/search_aupair' : '/jobs'}
             underline="none"
             color={activeMenuLink(
-              family || agency ? ['/search_aupair', '/post_job'] : '/jobs'
+              family || agency
+                ? ['search_aupair', 'post_job', 'edit_job']
+                : 'jobs'
             )}
             component={RouterLink}
             fontWeight="bold"
@@ -102,9 +106,7 @@ const LoggedHeader: React.FC<Props> = ({
           <Link
             to={family || agency ? '/my_jobs' : '/my_applies'}
             underline="none"
-            color={activeMenuLink(
-              family || agency ? '/my_jobs' : '/my_applies'
-            )}
+            color={activeMenuLink(family || agency ? 'my_jobs' : 'my_applies')}
             component={RouterLink}
             fontWeight="bold"
           >
@@ -116,7 +118,7 @@ const LoggedHeader: React.FC<Props> = ({
           <Link
             to="/my_profile"
             underline="none"
-            color={activeMenuLink('/my_profile')}
+            color={activeMenuLink('my_profile')}
             component={RouterLink}
             fontWeight="bold"
           >

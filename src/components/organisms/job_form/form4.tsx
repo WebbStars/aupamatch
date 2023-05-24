@@ -100,14 +100,15 @@ const NewJobForm4: React.FC<Props> = ({ form, handleOnChange }) => {
           row
           name="receber_newsletter"
           value={form.receber_newsletter}
+          onChange={handleOnChange}
         >
           <FormControlLabel
-            value={true}
+            value={'true'}
             control={<Radio />}
             label={t('global.yes')}
           />
           <FormControlLabel
-            value={false}
+            value={'false'}
             control={<Radio />}
             label={t('global.no')}
           />
