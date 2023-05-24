@@ -171,6 +171,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
+            InputProps={{ required: true }}
             views={['year', 'month', 'day']}
             inputFormat="DD/MM/YYYY"
             value={form.data_disponibilidade}
@@ -180,6 +181,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
             renderInput={(params: any) => (
               <TextField
                 {...params}
+                error={false}
                 placeholder="Qual é a sua data de disponibilidade para iniciar?"
               />
             )}

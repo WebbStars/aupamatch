@@ -83,11 +83,14 @@ const EditAupairForm1: React.FC<Props> = ({
         <FormLabel>Data de Nascimento</FormLabel>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
+            InputProps={{ required: true }}
             views={['year', 'month', 'day']}
             inputFormat="DD/MM/YYYY"
             value={form.data_de_nascimento}
             onChange={(event) => handleChangeData('data_de_nascimento', event)}
-            renderInput={(params: any) => <TextField {...params} />}
+            renderInput={(params: any) => (
+              <TextField {...params} error={false} />
+            )}
           />
         </LocalizationProvider>
       </FormControl>

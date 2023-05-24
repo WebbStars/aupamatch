@@ -68,7 +68,7 @@ const NewJobForm1: React.FC<Props> = ({ form, handleOnChange, setForm }) => {
         </Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
-            InputProps={{ defaultValue: '02/02/2002' }}
+            InputProps={{ defaultValue: '' }}
             views={['year', 'month', 'day']}
             inputFormat="DD/MM/YYYY"
             value={form.data_disponibilidade}
