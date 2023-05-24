@@ -17,7 +17,7 @@ import { Delete, Edit, Lock, LockOpen } from '@mui/icons-material'
 import MessageModal from './message_modal'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from '../../store'
-import { setErrorMessage } from '../../store/notifications'
+import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 
 interface Job {
   job: FetchAupairJobState | FetchApplies
@@ -93,13 +93,21 @@ const OpportunityCard: React.FC<Props> = ({
   applies,
 }) => {
   const classes = useStyles({ selected })
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const [enabled, setEnabled] = useState(job.job.ativo)
   const accessToken = sessionStorage.getItem('accessToken')
 
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const defaultModalValues = {
+    title: t('molecules.opportunity_card.delete_title'),
+    subtitle: t('organisms.job_details.modal_subtitle'),
+    function: 'delete',
+  }
+
+  const [enabled, setEnabled] = useState(job.job.ativo)
+  const [openModal, setOpenModal] = useState(false)
+  const [modalTitles, setModalTitles] = useState(defaultModalValues)
 
   const enableText = enabled
     ? t('molecules.opportunity_card.disable')
@@ -108,12 +116,23 @@ const OpportunityCard: React.FC<Props> = ({
     ? t('molecules.opportunity_card.disabled')
     : t('molecules.opportunity_card.enabled')
 
+  const modalEnable = enabled
+    ? {
+        title: 'Tem certeza que deseja desativar essa vaga?',
+        subtitle: 'Essa vaga ficará congelada e não receberá candidaturas',
+      }
+    : {
+        title: 'Tem certeza que deseja ativar essa vaga?',
+        subtitle: 'Essa vaga ficará ativada',
+      }
+
   const handleOpenDeleteModal = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.stopPropagation()
 
-    setOpenDeleteModal(true)
+    setModalTitles(defaultModalValues)
+    setOpenModal(true)
   }
 
   const handleEditJob = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -122,34 +141,43 @@ const OpportunityCard: React.FC<Props> = ({
     navigate(`/edit_job/${job.job._id}`)
   }
 
-  const handleDisableJob = async (
+  const handleOpenDisableModal = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.stopPropagation()
 
-    const { hasError, response } = await disableJob(accessToken!, job.job._id)
+    setModalTitles({ ...modalEnable, function: 'enable' })
+    setOpenModal(true)
+  }
 
-    if (hasError) {
+  const handleDisableJob = async () =>
+    // event: React.MouseEvent<HTMLButtonElement>
+    {
+      // event.stopPropagation()
+
+      const { hasError, response } = await disableJob(accessToken!, job.job._id)
+
+      if (hasError) {
+        dispatch(
+          setErrorMessage(
+            t('molecules.opportunity_card.disable_error', {
+              enableText,
+            })!
+          )
+        )
+        return
+      }
+
       dispatch(
-        setErrorMessage(
-          t('molecules.opportunity_card.disable_error', {
-            enableText,
+        setSuccessMessage(
+          t('molecules.opportunity_card.disable_success', {
+            enabledText,
           })!
         )
       )
-      return
+
+      setEnabled(response.ativo)
     }
-
-    dispatch(
-      setErrorMessage(
-        t('molecules.opportunity_card.disable_success', {
-          enabledText,
-        })!
-      )
-    )
-
-    setEnabled(response.ativo)
-  }
 
   return (
     <Paper className={classes.paper} onClick={onClick}>
@@ -204,7 +232,7 @@ const OpportunityCard: React.FC<Props> = ({
               >
                 <Edit />
               </IconButton>
-              <IconButton onClick={handleDisableJob} title={enableText}>
+              <IconButton onClick={handleOpenDisableModal} title={enableText}>
                 {enabled ? <Lock /> : <LockOpen />}
               </IconButton>
             </Stack>
@@ -246,13 +274,17 @@ const OpportunityCard: React.FC<Props> = ({
         )}
       </Box>
       <MessageModal
-        title={t('molecules.opportunity_card.delete_title')!}
-        open={openDeleteModal}
-        setOpen={setOpenDeleteModal}
+        title={modalTitles.title}
+        subtitle={modalTitles.subtitle}
+        open={openModal}
+        setOpen={setOpenModal}
         error
-        handleSubmit={() => {
-          onDelete && onDelete()
-          setOpenDeleteModal(false)
+        handleSubmit={async () => {
+          modalTitles.function === 'delete'
+            ? onDelete && onDelete()
+            : await handleDisableJob()
+
+          setOpenModal(false)
         }}
       />
       {/* <Box>

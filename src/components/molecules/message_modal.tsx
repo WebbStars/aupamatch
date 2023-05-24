@@ -75,10 +75,12 @@ const MessageModal: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const handleClose = (
-    _event: Record<string, never>,
-    reason: 'backdropClick' | 'escapeKeyDown'
+    event: React.MouseEvent<HTMLButtonElement>,
+    _reason: 'backdropClick' | 'escapeKeyDown'
   ) => {
-    if (reason === 'backdropClick' || reason === 'escapeKeyDown') return
+    event.stopPropagation()
+
+    // if (reason === 'backdropClick' || reason === 'escapeKeyDown') return
     setOpen(false)
   }
 
@@ -102,10 +104,7 @@ const MessageModal: React.FC<Props> = ({
       open={open}
       onClose={handleClose}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
+      slotProps={{ backdrop: Backdrop }}
       className={classes.modal}
     >
       <Fade in={open}>
