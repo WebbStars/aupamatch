@@ -84,7 +84,6 @@ interface Props {
   setOpen?: Dispatch<SetStateAction<boolean>>
   wasApplied?: boolean
   handleRemoveApply?: (jobId: string) => Promise<void>
-  jobsList: JobsList[]
   setJobsList?: React.Dispatch<React.SetStateAction<JobsList[]>>
 }
 

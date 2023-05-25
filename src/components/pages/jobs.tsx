@@ -184,7 +184,6 @@ const Jobs: React.FC = () => {
             selectedJob={selectedJob}
             isFetching={isFetching}
             wasApplied={appliesIds.includes(selectedJob.uuid)}
-            jobsList={jobsList}
             setJobsList={setJobsList}
           />
         )}
