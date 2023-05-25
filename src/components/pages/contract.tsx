@@ -20,6 +20,7 @@ const classes = {
 
 interface Props {
   family?: boolean
+  agency?: boolean
   handleSubmit: () => void
   detail?: string
   isLoading?: boolean
@@ -28,6 +29,7 @@ interface Props {
 
 const NeedContract: React.FC<Props> = ({
   family = false,
+  agency = false,
   handleSubmit,
   detail,
   isLoading,
@@ -36,7 +38,7 @@ const NeedContract: React.FC<Props> = ({
   const [checked, setChecked] = useState(false)
 
   return (
-    <LoggedTemplate family={family}>
+    <LoggedTemplate family={family} agency={agency}>
       <Box sx={classes.main} padding={{ lg: '36px 40px' }}>
         <Paper
           sx={{

@@ -141,6 +141,7 @@ const Jobs: React.FC = () => {
   if (needPayment) {
     return (
       <NeedContract
+        agency={role === 'ROLE_AGENCY'}
         handleSubmit={role === 'ROLE_AGENCY' ? toAgencyJob : paymentMoreApplies}
         detail={
           role === 'ROLE_AGENCY'
