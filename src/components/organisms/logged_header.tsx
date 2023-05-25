@@ -2,9 +2,7 @@ import {
   // Badge,
   Box,
   Button,
-  IconButton,
   Link,
-  Stack,
   Tooltip,
   Typography,
 } from '@mui/material'
@@ -139,26 +137,21 @@ const LoggedHeader: React.FC<Props> = ({
         </IconButton> */}
 
         {!family && !agency && (
-          <Stack
-            direction="row"
-            alignItems="center"
-            onClick={() => navigate('/favorite_jobs')}
-          >
+          <Button variant="text" onClick={() => navigate('/favorite_jobs')}>
             <Typography
               fontWeight="bold"
               fontSize="12px"
+              color={currentPage === 'favorite_jobs' ? 'primary' : 'grey.600'}
               sx={{ cursor: 'pointer' }}
             >
               Favoritas
             </Typography>
-            <IconButton>
-              {currentPage === '/favorite_jobs' ? (
-                <Bookmark color="primary" />
-              ) : (
-                <BookmarkBorderOutlined />
-              )}
-            </IconButton>
-          </Stack>
+            {currentPage === 'favorite_jobs' ? (
+              <Bookmark color="primary" />
+            ) : (
+              <BookmarkBorderOutlined sx={{ color: 'grey.600' }} />
+            )}
+          </Button>
         )}
         <UserAccounts />
       </Box>
