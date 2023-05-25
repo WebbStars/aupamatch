@@ -7,6 +7,7 @@ import OpportunityCard from './opportunity_card'
 import { deleteJob } from '../../services'
 import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 import { useDispatch } from '../../store'
+import { notFound } from '../../images'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -132,13 +133,24 @@ const MyJobsList: React.FC<Props> = ({
               ))}
         </>
       </SkeletonHOC>
-      {jobsList.length > 0 && (
-        <Pagination
-          count={numberOfPages}
-          color="primary"
-          onChange={handleCurrentPage}
-        />
-      )}
+      {!isFetching &&
+        (jobsList.length > 0 ? (
+          <Pagination
+            count={numberOfPages}
+            color="primary"
+            onChange={handleCurrentPage}
+          />
+        ) : (
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <img
+              src={notFound}
+              alt={'nada encontrado'}
+              height={600}
+              width={600}
+              style={{ alignSelf: 'center' }}
+            />
+          </Box>
+        ))}
       <JobDetailsModal
         open={openJobModal}
         setOpen={setOpenJobModal}
