@@ -154,7 +154,10 @@
       "least_special": "Pelo menos um caracter especial",
       "success_created": "Usuário criado com sucesso",
       "email_already_used": "Email já está sendo utilizado por outra conta",
-      "invalid_fields": "Verifique se os campos obrigatórios estão válidos"
+      "invalid_fields": "Verifique se os campos obrigatórios estão válidos",
+      "family_label": "Família",
+      "aupair_label": "Aupair",
+      "agency_label": "Agência"
     },
     "account_popover": {
       "name": "Nome",

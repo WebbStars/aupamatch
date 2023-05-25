@@ -435,17 +435,17 @@ const RegisterPaper: React.FC = () => {
             <FormControlLabel
               value="family"
               control={<Radio required />}
-              label="Family"
+              label={t('organisms.register_paper.family_label')}
             />
             <FormControlLabel
               value="aupair"
               control={<Radio required />}
-              label="Aupair"
+              label={t('organisms.register_paper.aupair_label')}
             />
             <FormControlLabel
               value="agency"
               control={<Radio required />}
-              label="Agency"
+              label={t('organisms.register_paper.agency_label')}
             />
           </RadioGroup>
         </FormControl>
