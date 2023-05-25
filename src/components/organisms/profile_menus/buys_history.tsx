@@ -53,11 +53,11 @@ const BuysHistory: React.FC = () => {
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h5" fontWeight="bold">
-          {t('organisms.profile_menu.login_history')}
+          {t('organisms.profile_menu.purchase_history')}
         </Typography>
       </Box>
       <Box display="flex" justifyContent="center">
-        {history.length <= 0 ? (
+        {!isFetching && history.length <= 0 ? (
           <Box display="flex" flexDirection="column" justifyContent="center">
             <img
               src={notFound}
