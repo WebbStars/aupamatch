@@ -36,8 +36,6 @@ const LoggedHeader: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const activeMenuLink = (path: string | string[]) => {
-    console.log(path, currentPage)
-
     const isPrimary = Array.isArray(path)
       ? path.includes(currentPage)
       : currentPage === path

@@ -3,6 +3,12 @@ import api from './api'
 export interface FetchAupairJobState {
   ativo: boolean
   carro_exclusivo: boolean
+  candidaturas: {
+    aupairId: string
+    data_candidatura: string
+    status: string
+    _id: string
+  }[]
   data_criacao_vaga: string
   data_disponibilidade: string
   data_finalizacao_vaga: string

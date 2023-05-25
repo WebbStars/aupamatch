@@ -238,6 +238,14 @@ const OpportunityCard: React.FC<Props> = ({
             </Stack>
             <Box display="flex" gap={1}>
               <Typography fontSize="14px">
+                {t('molecules.opportunity_card.applies')}:
+              </Typography>
+              <Typography fontWeight="bold" fontSize="14px">
+                {(job.job as FetchAupairJobState).candidaturas.length}
+              </Typography>
+            </Box>
+            <Box display="flex" gap={1}>
+              <Typography fontSize="14px">
                 {t('molecules.opportunity_card.views')}:
               </Typography>
               <Typography fontWeight="bold" fontSize="14px">
