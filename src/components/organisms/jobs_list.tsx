@@ -49,6 +49,8 @@ interface Props {
   setIsFetching: Dispatch<SetStateAction<boolean>>
   setOpenJobModal?: Dispatch<SetStateAction<boolean>>
   setApplies: Dispatch<SetStateAction<string[]>>
+  jobsList: JobsList[]
+  setJobsList: React.Dispatch<React.SetStateAction<JobsList[]>>
 }
 
 interface JobsList {
@@ -67,12 +69,13 @@ const JobsList: React.FC<Props> = ({
   setIsFetching,
   setOpenJobModal,
   setApplies,
+  jobsList,
+  setJobsList,
 }) => {
   const { t } = useTranslation()
 
   // const [selectedTab, setSelectedTab] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [jobsList, setJobsList] = useState<JobsList[]>([])
 
   const classes = useStyles()
   const dispatch = useDispatch()

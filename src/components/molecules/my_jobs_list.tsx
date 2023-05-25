@@ -139,7 +139,6 @@ const MyJobsList: React.FC<Props> = ({
           onChange={handleCurrentPage}
         />
       )}
-
       <JobDetailsModal
         open={openJobModal}
         setOpen={setOpenJobModal}

@@ -25,6 +25,7 @@ import { theme } from '../../styles'
 import { CopyButton, CustomButton, SkeletonHOC } from '../atoms'
 import { MessageModal } from '../molecules'
 import { useNavigate } from 'react-router-dom'
+import JobsList from './jobs_list'
 
 const useStyles = makeStyles({
   jobPaper: {
@@ -65,6 +66,7 @@ interface Props {
   selectedJob: Job
   isFetching: boolean
   wasApplied: boolean
+  setJobsList?: React.Dispatch<React.SetStateAction<JobsList[]>>
 }
 
 const JobDetails: React.FC<Props> = ({
@@ -72,6 +74,7 @@ const JobDetails: React.FC<Props> = ({
   setNeedPayment,
   selectedJob,
   isFetching,
+  setJobsList,
   // wasApplied = false
 }) => {
   const classes = useStyles()
@@ -138,6 +141,9 @@ const JobDetails: React.FC<Props> = ({
     }
     setOpenModal(true)
     setModalStatus('success')
+
+    setJobsList &&
+      setJobsList((jobs) => jobs.filter((job) => job.uuid !== selectedJob.uuid))
 
     await fetchAppliesService(accessToken!)
     setIsLoading(false)

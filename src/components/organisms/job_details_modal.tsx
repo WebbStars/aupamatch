@@ -84,6 +84,7 @@ interface Props {
   setOpen?: Dispatch<SetStateAction<boolean>>
   wasApplied?: boolean
   handleRemoveApply?: (jobId: string) => Promise<void>
+  jobsList: JobsList[]
   setJobsList?: React.Dispatch<React.SetStateAction<JobsList[]>>
 }
 
@@ -180,6 +181,11 @@ const JobDetailsModal: React.FC<Props> = ({
       }
       setModalStatus('success')
       setOpenModal(true)
+
+      setJobsList &&
+        setJobsList((jobs) =>
+          jobs.filter((job) => job.uuid !== selectedJob.uuid)
+        )
 
       await fetchAppliesService(accessToken!)
     }

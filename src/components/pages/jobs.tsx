@@ -60,6 +60,7 @@ const Jobs: React.FC = () => {
     {} as any
   )
   const [isPaying, setIsPaying] = useState(false)
+  const [jobsList, setJobsList] = useState<JobsList[]>([])
 
   const matchesLg = useMediaQuery(theme.breakpoints.up('lg'))
   const dispatch = useDispatch()
@@ -162,6 +163,8 @@ const Jobs: React.FC = () => {
           isFetching={isFetching}
           setIsFetching={setIsFetching}
           setApplies={setAppliesIds}
+          jobsList={jobsList}
+          setJobsList={setJobsList}
         />
         {matchesLg ? (
           <JobDetails
@@ -170,6 +173,7 @@ const Jobs: React.FC = () => {
             selectedJob={selectedJob}
             isFetching={isFetching}
             wasApplied={appliesIds.includes(selectedJob.uuid)}
+            setJobsList={setJobsList}
           />
         ) : (
           <JobDetailsModal
@@ -180,6 +184,8 @@ const Jobs: React.FC = () => {
             selectedJob={selectedJob}
             isFetching={isFetching}
             wasApplied={appliesIds.includes(selectedJob.uuid)}
+            jobsList={jobsList}
+            setJobsList={setJobsList}
           />
         )}
 
