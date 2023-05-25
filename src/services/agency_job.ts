@@ -1,7 +1,7 @@
 import api from './api'
 
 interface FetchAgencyJobResponsePayload {
-  response?: any
+  response?: { approvalUrl: string }
   hasError?: boolean
 }
 

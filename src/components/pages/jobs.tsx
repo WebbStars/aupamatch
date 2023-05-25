@@ -10,6 +10,7 @@ import { useDispatch } from '../../store'
 import {
   FetchApplies,
   FetchUserProfileState,
+  agencyJob,
   contractMoreApplies,
   fetchAppliesService,
 } from '../../services'
@@ -117,11 +118,34 @@ const Jobs: React.FC = () => {
     )
   }
 
+  const toAgencyJob = async () => {
+    setIsLoading(true)
+
+    const { hasError, response } = await agencyJob(
+      accessToken!,
+      selectedJob.uuid
+    )
+
+    if (hasError) {
+      dispatch(setErrorMessage('Erro ao tentar agenciar vaga'))
+      return
+    }
+    if (response) {
+      setIsPaying(true)
+
+      window.open(response.approvalUrl, '_blank')!.focus()
+    }
+  }
+
   if (needPayment) {
     return (
       <NeedContract
-        handleSubmit={paymentMoreApplies}
-        detail="Candidatura em +5 vagas por mês - $5.00"
+        handleSubmit={role === 'ROLE_AGENCY' ? toAgencyJob : paymentMoreApplies}
+        detail={
+          role === 'ROLE_AGENCY'
+            ? 'Agenciar essa vaga - $50.00'
+            : 'Candidatura em +5 vagas por mês - $5.00'
+        }
         isLoading={isLoading}
         isPaying={isPaying}
       />

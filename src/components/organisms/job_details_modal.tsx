@@ -17,7 +17,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { companyDefaultImage } from '../../images'
 import {
-  agencyJob,
   applyJob,
   favoriteJob,
   FetchApplies,
@@ -148,35 +147,6 @@ const JobDetailsModal: React.FC<Props> = ({
 
   const handleClose = (_event?: Record<string, never>) => {
     setOpen && setOpen(false)
-  }
-
-  const toAgencyJob = async () => {
-    setIsLoading(true)
-
-    const { hasError } = await agencyJob(accessToken!, selectedJob.uuid)
-
-    if (hasError) {
-      setModalStatus('error')
-      setIsLoading(false)
-      setTitles({
-        title: 'Erro ao tentar agenciar vaga',
-        subTitle: '',
-      })
-      setOpenModal(true)
-      return
-    }
-    setTitles({
-      title: 'Vaga agenciada com sucesso',
-      subTitle: '',
-    })
-    setOpenModal(true)
-    setModalStatus('success')
-    setModalButton({
-      textButton: 'Minhas vagas',
-      redirectPath: '/my_jobs',
-    })
-
-    setIsLoading(false)
   }
 
   const submitJob = async () => {
@@ -510,7 +480,11 @@ const JobDetailsModal: React.FC<Props> = ({
                   <CustomButton
                     width="100%"
                     height="48px"
-                    onClick={role === 'ROLE_AGENCY' ? toAgencyJob : submitJob}
+                    onClick={
+                      role === 'ROLE_AGENCY'
+                        ? () => setNeedPayment!(true)
+                        : submitJob
+                    }
                   >
                     {isLoading ? (
                       <CircularProgress

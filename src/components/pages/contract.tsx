@@ -43,7 +43,7 @@ const NeedContract: React.FC<Props> = ({
             padding: '42px 80px',
             maxWidth: '600px',
             width: 'auto',
-            height: '210px',
+            height: 'auto',
             alignSelf: 'center',
             display: 'flex',
             flexDirection: 'column',
@@ -53,10 +53,21 @@ const NeedContract: React.FC<Props> = ({
           }}
         >
           {isPaying ? (
-            <>
+            <Box
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
+              gap={2}
+              textAlign="center"
+            >
               <CircularProgress size="64px" color="primary" />
-              <Typography variant="h4">Registrando Pagamento...</Typography>
-            </>
+              <Typography variant="h4" color="primary">
+                Registrando Pagamento...
+              </Typography>
+              <Typography variant="h6">
+                recarregue a página caso já o tenha realizado
+              </Typography>
+            </Box>
           ) : (
             <>
               <Typography fontSize="22px" fontWeight="bold">
