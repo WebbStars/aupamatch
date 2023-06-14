@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { FetchBuysHistoryState, getBuysHistory } from '../../../services'
 import { formatTableDate } from '../../../utils'
 import useOverflow from '../../../hooks/use_overflow'
-import { notFound } from '../../../images'
+import { NoData } from '../../molecules'
 
 const BuysHistory: React.FC = () => {
   const accessToken = sessionStorage.getItem('accessToken')
@@ -58,18 +58,12 @@ const BuysHistory: React.FC = () => {
       </Box>
       <Box display="flex" justifyContent="center">
         {!isFetching && history.length <= 0 ? (
-          <Box display="flex" flexDirection="column" justifyContent="center">
-            <img
-              src={notFound}
-              alt={'nada encontrado'}
-              height={280}
-              width={280}
-              style={{ alignSelf: 'center' }}
-            />
-            <Typography variant="h5" fontWeight="bold">
-              Nenhuma informação encontrada
-            </Typography>
-          </Box>
+          <NoData
+            size={280}
+            title="Nenhuma informação encontrada"
+            link="/search_aupair"
+            linkText="crie uma"
+          />
         ) : (
           <TableContainer
             component={Paper}

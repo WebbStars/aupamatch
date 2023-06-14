@@ -123,14 +123,11 @@ const JobDetailsModal: React.FC<Props> = ({
 
   const accessToken = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
-  const userID = sessionStorage.getItem('userID')
 
   useEffect(() => {
     const assyncEffect = async () => {
       if (!accessToken) return
-      const { payload: jobs } = dispatch(
-        await fetchAupairJobs(userID!, role!, accessToken!)
-      )
+      const { payload: jobs } = dispatch(await fetchAupairJobs(accessToken!))
 
       let initialIds: string[] = []
 
@@ -284,7 +281,7 @@ const JobDetailsModal: React.FC<Props> = ({
                 </Box>
               </Box>
 
-              {role === 'ROLE_AUPAIR' ? (
+              {role !== 'ROLE_FAMILY' ? (
                 <Tooltip
                   title={
                     isFavorite ? t('global.disfavor') : t('global.favorite')

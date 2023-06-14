@@ -224,7 +224,7 @@ const JobDetails: React.FC<Props> = ({
           </Box>
         )}
 
-        {!isLoadingFavorite && role !== 'ROLE_AGENCY' && (
+        {!isLoadingFavorite && role !== 'ROLE_FAMILY' && (
           <Tooltip
             title={isFavorite ? t('global.disfavor') : t('global.favorite')}
           >

@@ -7,7 +7,7 @@ import OpportunityCard from './opportunity_card'
 import { deleteJob } from '../../services'
 import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 import { useDispatch } from '../../store'
-import { notFound } from '../../images'
+import NoData from './no_data'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -141,15 +141,11 @@ const MyJobsList: React.FC<Props> = ({
             onChange={handleCurrentPage}
           />
         ) : (
-          <Box display="flex" flexDirection="column" justifyContent="center">
-            <img
-              src={notFound}
-              alt={'nada encontrado'}
-              height={600}
-              width={600}
-              style={{ alignSelf: 'center' }}
-            />
-          </Box>
+          <NoData
+            title="Nenhuma vaga encontrada"
+            link="/search_aupair"
+            linkText="crie uma"
+          />
         ))}
       <JobDetailsModal
         open={openJobModal}

@@ -136,7 +136,7 @@ const LoggedHeader: React.FC<Props> = ({
           </Badge>
         </IconButton> */}
 
-        {!family && !agency && (
+        {!family && (
           <Button variant="text" onClick={() => navigate('/favorite_jobs')}>
             <Typography
               fontWeight="bold"

@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { theme } from '../../styles'
 import { useMediaQuery } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   menu: string
@@ -14,33 +15,34 @@ interface Props {
 }
 
 const ProfileSidebar: React.FC<Props> = ({ menu, setMenu, role }) => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'))
 
   const menuList = [
     {
       key: 'accesses',
-      text: 'Meu acesso',
+      text: t('organisms.profile_menu.my_acess'),
       link: () => setMenu('accesses'),
     },
     {
       key: 'changePwd',
-      text: 'Alterar senha',
+      text: t('organisms.profile_menu.change_password'),
       link: () => setMenu('changePwd'),
     },
     {
       key: 'edit_aupair',
-      text: 'Informações pessoais',
+      text: t('organisms.profile_menu.personal_info'),
       link: () => navigate('/edit_aupair'),
     },
     {
       key: 'loginHistory',
-      text: 'Histórico de login',
+      text: t('organisms.profile_menu.login_history'),
       link: () => setMenu('loginHistory'),
     },
     {
       key: 'buysHistory',
-      text: 'Histórico de compras',
+      text: t('organisms.profile_menu.purchase_history'),
       link: () => setMenu('buysHistory'),
     },
   ]

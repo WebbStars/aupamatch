@@ -4,7 +4,8 @@ import { Box, Pagination } from '@mui/material'
 import { SkeletonHOC } from '../atoms'
 import { JobDetailsModal, JobsList } from '../organisms'
 import OpportunityCard from './opportunity_card'
-import { notFound } from '../../images'
+import { noData, notFound } from '../../images'
+import NoData from './no_data'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -111,15 +112,12 @@ const FavoriteJobsList: React.FC<Props> = ({
             onChange={handleCurrentPage}
           />
         ) : (
-          <Box display="flex" flexDirection="column" justifyContent="center">
-            <img
-              src={notFound}
-              alt={'nada encontrado'}
-              height={600}
-              width={600}
-              style={{ alignSelf: 'center' }}
-            />
-          </Box>
+          <NoData
+            size={280}
+            title="Nenhuma vaga favoritada"
+            link="/jobs"
+            linkText="favorite uma"
+          />
         ))}
 
       <JobDetailsModal

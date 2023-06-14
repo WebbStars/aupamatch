@@ -52,19 +52,14 @@ interface FetchAupairJobResponsePayload {
 }
 
 export const fetchAupairJobsService = async (
-  id: string,
-  role: string,
   accessToken: string
 ): Promise<FetchAupairJobResponsePayload> => {
   try {
-    const response = await api.get<FetchAupairJobState[]>(
-      `/vagas?userID=${id}&roles=${role}`,
-      {
-        headers: {
-          'x-access-token': accessToken,
-        },
-      }
-    )
+    const response = await api.get<FetchAupairJobState[]>(`/vagas`, {
+      headers: {
+        'x-access-token': accessToken,
+      },
+    })
 
     return {
       response: response.data,

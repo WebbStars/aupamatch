@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Box, Pagination } from '@mui/material'
+import { Box, Link, Pagination, Typography } from '@mui/material'
 import { SkeletonHOC } from '../atoms'
 import { JobDetailsModal } from '../organisms'
 import OpportunityCard from './opportunity_card'
@@ -8,7 +8,7 @@ import { deleteJob, removeApply } from '../../services'
 import { setErrorMessage, setSuccessMessage } from '../../store/notifications'
 import { useDispatch } from '../../store'
 import { AppliesList } from '../pages/my_applies'
-import { notFound } from '../../images'
+import { noData } from '../../images'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -161,12 +161,18 @@ const MyAppliesList: React.FC<Props> = ({
         ) : (
           <Box display="flex" flexDirection="column" justifyContent="center">
             <img
-              src={notFound}
+              src={noData}
               alt={'nada encontrado'}
-              height={600}
-              width={600}
+              height={400}
+              width={400}
               style={{ alignSelf: 'center' }}
             />
+
+            <Typography variant="h5" fontWeight="bold">
+              Nenhuma vaga encontrada
+            </Typography>
+
+            <Link href="/jobs">crie uma</Link>
           </Box>
         ))}
 

@@ -81,7 +81,6 @@ const JobsList: React.FC<Props> = ({
   const dispatch = useDispatch()
   const jobsListRef = useRef<null | HTMLDivElement>(null)
 
-  const userID = sessionStorage.getItem('userID')
   const accessToken = sessionStorage.getItem('accessToken')
   const role = sessionStorage.getItem('role')
 
@@ -104,9 +103,7 @@ const JobsList: React.FC<Props> = ({
   }
 
   const fetchUserData = async () => {
-    const { payload } = dispatch(
-      await fetchAupairJobs(userID!, role!, accessToken!)
-    )
+    const { payload } = dispatch(await fetchAupairJobs(accessToken!))
     await fetchApplies()
 
     const formmatedList = payload.map((job) => {
