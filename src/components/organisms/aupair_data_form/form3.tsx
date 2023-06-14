@@ -67,7 +67,7 @@ const NewJobForm3: React.FC<Props> = ({ form, setForm, handleOnChange }) => {
       </FormControl>
 
       <FormControl fullWidth required>
-        <FormLabel>Experiências profissionais ssss</FormLabel>
+        <FormLabel>Experiências profissionais</FormLabel>
         <TextField
           required
           multiline
