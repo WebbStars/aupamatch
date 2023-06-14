@@ -58,12 +58,14 @@ const BuysHistory: React.FC = () => {
       </Box>
       <Box display="flex" justifyContent="center">
         {!isFetching && history.length <= 0 ? (
-          <NoData
-            size={280}
-            title="Nenhuma informação encontrada"
-            link="/search_aupair"
-            linkText="crie uma"
-          />
+          <Box marginTop="16px">
+            <NoData
+              size={180}
+              title="Nenhuma informação encontrada"
+              link="/search_aupair"
+              linkText="crie uma"
+            />
+          </Box>
         ) : (
           <TableContainer
             component={Paper}
