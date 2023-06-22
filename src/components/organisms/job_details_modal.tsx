@@ -150,7 +150,7 @@ const JobDetailsModal: React.FC<Props> = ({
     setIsLoading(true)
 
     if (!wasApplied) {
-      if (applies!.length > 4 && !userProfile?.pagamentoMaisCandidaturas) {
+      if (applies?.length > 4 && !userProfile?.pagamentoMaisCandidaturas) {
         setNeedPayment!(true)
         return
       }

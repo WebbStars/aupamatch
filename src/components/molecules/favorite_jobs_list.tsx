@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Box, Pagination } from '@mui/material'
 import { SkeletonHOC } from '../atoms'
@@ -6,6 +6,7 @@ import { JobDetailsModal, JobsList } from '../organisms'
 import OpportunityCard from './opportunity_card'
 import { noData, notFound } from '../../images'
 import NoData from './no_data'
+import { FetchApplies, fetchAppliesService } from '../../services'
 
 const useStyles = makeStyles({
   jobsList: {
@@ -55,6 +56,7 @@ const FavoriteJobsList: React.FC<Props> = ({
   const [currentPage, setCurrentPage] = useState(1)
   const [openJobModal, setOpenJobModal] = useState(false)
   const [selectedJob, setSelectedJob] = useState<any>(initialValueSelectedJob)
+  const [applies, setApplies] = useState<FetchApplies[]>([])
 
   const jobsListRef = useRef<null | HTMLDivElement>(null)
 
@@ -77,6 +79,19 @@ const FavoriteJobsList: React.FC<Props> = ({
 
     setOpenJobModal(true)
   }
+
+  const fetchUserData = async () => {
+    const accessToken = sessionStorage.getItem('accessToken')
+
+    const userApplies = await fetchAppliesService(accessToken!)
+
+    const { response } = userApplies
+    if (response) setApplies(response)
+  }
+
+  useEffect(() => {
+    fetchUserData()
+  }, [])
 
   return (
     <Box
@@ -123,6 +138,7 @@ const FavoriteJobsList: React.FC<Props> = ({
       <JobDetailsModal
         favoritePage
         setJobsList={setJobsList}
+        applies={applies}
         open={openJobModal}
         setOpen={setOpenJobModal}
         selectedJob={selectedJob}
